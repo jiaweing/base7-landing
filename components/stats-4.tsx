@@ -36,16 +36,21 @@ export default function StatsSection() {
             </div>
           </div>
           <div className="relative">
-            <blockquote className="border-l-4 pl-4">
+            <blockquote className="border-l-4 pl-4 space-y-2">
               <p>
-                At Base 7, we don't just follow trends; we set them—creating the
-                infrastructure for a smarter, more connected, and innovative
-                future. Our vision is to be the cornerstone of global
-                innovation, leading the evolution of technology.
+                At Base 7, we don&apos;t just follow trends; we set
+                them—creating the infrastructure for a smarter, more connected,
+                and innovative future.
+              </p>
+              <p>
+                Our vision is to be the cornerstone of global innovation,
+                leading the evolution of technology.
               </p>
 
               <div className="mt-6 space-y-3">
-                <cite className="block font-medium">Base 7 Team</cite>
+                <cite className="block font-medium">
+                  Cheng En Liout, Co-Founder
+                </cite>
               </div>
             </blockquote>
           </div>

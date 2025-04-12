@@ -1,3 +1,4 @@
+import { InView } from "@/components/core/in-view";
 import { Logo } from "@/components/logo";
 import Link from "next/link";
 
@@ -11,101 +12,157 @@ export default function FooterSection() {
   return (
     <footer className="py-16 md:py-32">
       <div className="mx-auto max-w-5xl px-6">
-        <Link href="/" aria-label="go home" className="mx-auto block size-fit">
-          <Logo />
-        </Link>
+        <InView
+          variants={{
+            hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
+            visible: { opacity: 1, y: 0, filter: "blur(0px)" },
+          }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          viewOptions={{ margin: "0px 0px -100px 0px", once: true }}
+        >
+          <Link
+            href="/"
+            aria-label="go home"
+            className="mx-auto block size-fit"
+          >
+            <Logo />
+          </Link>
+        </InView>
 
-        <div className="my-8 flex flex-wrap justify-center gap-6 text-sm">
-          {links.map((link, index) => (
+        <InView
+          variants={{
+            hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
+            visible: { opacity: 1, y: 0, filter: "blur(0px)" },
+          }}
+          transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
+          viewOptions={{ margin: "0px 0px -100px 0px", once: true }}
+        >
+          <div className="my-8 flex flex-wrap justify-center gap-6 text-sm">
+            {links.map((link, index) => (
+              <Link
+                key={index}
+                href={link.href}
+                className="text-muted-foreground hover:text-primary block duration-150"
+              >
+                <span>{link.title}</span>
+              </Link>
+            ))}
+          </div>
+        </InView>
+        <InView
+          variants={{
+            hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
+            visible: { opacity: 1, y: 0, filter: "blur(0px)" },
+          }}
+          transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
+          viewOptions={{ margin: "0px 0px -100px 0px", once: true }}
+        >
+          <div className="my-8 flex flex-wrap justify-center items-center gap-6 text-sm">
             <Link
-              key={index}
-              href={link.href}
-              className="text-muted-foreground hover:text-primary block duration-150"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="X/Twitter"
+              className="text-muted-foreground hover:text-primary block"
             >
-              <span>{link.title}</span>
+              <img
+                className="h-4.5 w-fit dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
+                src="/logos/x.svg"
+                alt="X Logo"
+                height="16"
+                width="auto"
+              />
             </Link>
-          ))}
-        </div>
-        <div className="my-8 flex flex-wrap justify-center gap-6 text-sm">
-          <Link
-            href="#"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="X/Twitter"
-            className="text-muted-foreground hover:text-primary block"
-          >
-            <img
-              className="h-4.5 w-fit dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
-              src="/logos/x.svg"
-              alt="Microsoft Logo"
-              height="16"
-              width="auto"
-            />
-          </Link>
-          <Link
-            href="https://www.linkedin.com/company/base07"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn"
-            className="text-muted-foreground hover:text-primary block"
-          >
-            <img
-              className="h-5 w-fit dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
-              src="/logos/linkedin.svg"
-              alt="Microsoft Logo"
-              height="16"
-              width="auto"
-            />
-          </Link>
-          <Link
-            href="https://www.threads.net/@j14.wei"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Threads"
-            className="text-muted-foreground hover:text-primary block"
-          >
-            <img
-              className="h-5 w-fit dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
-              src="/logos/threads.svg"
-              alt="Microsoft Logo"
-              height="16"
-              width="auto"
-            />
-          </Link>
-          <Link
-            href="https://instagram.com/base7llp"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Instagram"
-            className="text-muted-foreground hover:text-primary block"
-          >
-            <img
-              className="h-5 w-fit dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
-              src="/logos/instagram.svg"
-              alt="Microsoft Logo"
-              height="16"
-              width="auto"
-            />
-          </Link>
-          <Link
-            href="https://www.tiktok.com/@j14.wei"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="TikTok"
-            className="text-muted-foreground hover:text-primary block"
-          >
-            <img
-              className="h-5 w-fit dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
-              src="/logos/tiktok.svg"
-              alt="Microsoft Logo"
-              height="16"
-              width="auto"
-            />
-          </Link>
-        </div>
-        <span className="text-muted-foreground block text-center text-sm">
-          © {new Date().getFullYear()} Base 7 LLP, UEN: T25LL0003D.
-        </span>
+            <Link
+              href="https://www.linkedin.com/company/base07"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="text-muted-foreground hover:text-primary block"
+            >
+              <img
+                className="h-5 w-fit dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
+                src="/logos/linkedin.svg"
+                alt="LinkedIn Logo"
+                height="16"
+                width="auto"
+              />
+            </Link>
+            <Link
+              href="https://www.threads.net/@j14.wei"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Threads"
+              className="text-muted-foreground hover:text-primary block"
+            >
+              <img
+                className="h-5 w-fit dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
+                src="/logos/threads.svg"
+                alt="Threads Logo"
+                height="16"
+                width="auto"
+              />
+            </Link>
+            <Link
+              href="https://instagram.com/base7llp"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="text-muted-foreground hover:text-primary block"
+            >
+              <img
+                className="h-5 w-fit dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
+                src="/logos/instagram.svg"
+                alt="Instagram Logo"
+                height="16"
+                width="auto"
+              />
+            </Link>
+            <Link
+              href="https://www.tiktok.com/@j14.wei"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="TikTok"
+              className="text-muted-foreground hover:text-primary block"
+            >
+              <img
+                className="h-5 w-fit dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
+                src="/logos/tiktok.svg"
+                alt="Tiktok Logo"
+                height="16"
+                width="auto"
+              />
+            </Link>
+            <Link
+              href="https://www.youtube.com/@j14wei"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="YouTube"
+              className="text-muted-foreground hover:text-primary block"
+            >
+              <img
+                className="h-4 w-fit dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
+                src="/logos/youtube.svg"
+                alt="YouTube Logo"
+                height="16"
+                width="auto"
+              />
+            </Link>
+          </div>
+        </InView>
+        <InView
+          variants={{
+            hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
+            visible: { opacity: 1, y: 0, filter: "blur(0px)" },
+          }}
+          transition={{ duration: 0.4, ease: "easeOut", delay: 0.3 }}
+          viewOptions={{ margin: "0px 0px -100px 0px", once: true }}
+        >
+          <span className="text-muted-foreground block text-center text-sm">
+            © {new Date().getFullYear()} Base 7 LLP, Singapore — UEN:
+            T25LL0003D.
+          </span>
+        </InView>
       </div>
     </footer>
   );

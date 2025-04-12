@@ -30,16 +30,9 @@ export default function ContentSection() {
             <div className="relative mb-6 sm:mb-0">
               <div className="bg-linear-to-b aspect-76/59 relative rounded-2xl from-zinc-300 to-transparent p-px dark:from-zinc-700">
                 <Image
-                  src="/payments.png"
-                  className="hidden rounded-[15px] dark:block"
+                  src="https://images.unsplash.com/photo-1542315192-1f61a1792f33?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  className="rounded-[15px]"
                   alt="software development illustration dark"
-                  width={1207}
-                  height={929}
-                />
-                <Image
-                  src="/payments-light.png"
-                  className="rounded-[15px] shadow dark:hidden"
-                  alt="software development illustration light"
                   width={1207}
                   height={929}
                 />
@@ -56,19 +49,21 @@ export default function ContentSection() {
               transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
               viewOptions={{ margin: "0px 0px -100px 0px", once: true }}
             >
-              <p className="text-muted-foreground">
-                We are{" "}
-                <span className="text-accent-foreground font-bold">
-                  innovators, creators, and enablers
-                </span>{" "}
-                of tomorrow&apos;s technology.
-              </p>
-              <p className="text-muted-foreground">
-                Rooted in the heart of Singapore, we specialize in crafting
-                scalable, impactful, and beautifully designed software solutions
-                that transform ideas into reality and integrate seamlessly into
-                the fabric of everyday life.
-              </p>
+              <div className="space-y-4">
+                <p className="text-muted-foreground">
+                  We are{" "}
+                  <span className="text-accent-foreground font-bold">
+                    innovators, creators, and enablers
+                  </span>{" "}
+                  of tomorrow&apos;s technology.
+                </p>
+                <p className="text-muted-foreground">
+                  Rooted in the heart of Singapore, we specialize in crafting
+                  scalable, impactful, and beautifully designed software
+                  solutions that transform ideas into reality and integrate
+                  seamlessly into the fabric of everyday life.
+                </p>
+              </div>
             </InView>
 
             <InView

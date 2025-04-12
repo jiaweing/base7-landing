@@ -52,7 +52,9 @@ export default function Home() {
         <CallToAction />
       </InViewWrapper>
 
-      <FooterSection />
+      <InViewWrapper>
+        <FooterSection />
+      </InViewWrapper>
     </>
   );
 }

@@ -12,43 +12,43 @@ export default function FAQsFour() {
   const faqItems = [
     {
       id: "item-1",
-      question: "What projects do you build?",
+      question: "what projects do you build?",
       answer:
         "We build web applications, mobile apps (iOS and Android), desktop applications, and browser extensions. Our team specializes in creating cross-platform solutions that work seamlessly across different devices and operating systems.",
     },
     {
       id: "item-2",
-      question: "How long does it typically take?",
+      question: "how long does it typically take?",
       answer:
         "We deliver most projects within 30 days. Our streamlined development process and experienced team allow us to work efficiently without compromising on quality. For more complex projects, we'll provide a detailed timeline during our initial consultation.",
     },
     {
       id: "item-3",
-      question: "What is your process like?",
+      question: "what is your process like?",
       answer:
         "Our development process begins with an in-depth consultation to understand your requirements. We then create a detailed project plan, develop the application with regular client feedback, conduct thorough testing, and finally deploy the solution. Throughout the process, we maintain transparent communication and provide regular updates.",
     },
     {
       id: "item-4",
-      question: "How much does it cost?",
+      question: "how much does it cost?",
       answer:
         "The cost varies depending on the complexity, features, and platforms required. We provide transparent pricing with no hidden fees. During our initial consultation, we'll assess your specific needs and provide a detailed quote. We offer flexible payment options to accommodate different budget requirements.",
     },
     {
       id: "item-5",
-      question: "How is the application deployed?",
+      question: "how is the application deployed?",
       answer:
         "We handle all aspects of deployment, including publishing your application to app stores. There are membership fees for publishing to app stores. However, we can deploy under our company's App Store and Play Store accounts free for you if needed, or assist you in setting up your own accounts. For web applications, we provide hosting solutions or can deploy to your existing infrastructure.",
     },
     {
       id: "item-6",
-      question: "Do you offer maintenance and support?",
+      question: "do you offer maintenance and support?",
       answer:
         "We provide ongoing maintenance and support services to ensure your application continues to run smoothly. This includes regular updates, bug fixes, performance optimization, and feature enhancements. We offer different support packages tailored to your specific needs and budget.",
     },
     {
       id: "item-7",
-      question: "How do I get started?",
+      question: "how do I get started?",
       answer:
         "Getting started is simple! Contact us through our website, and we will get back to you within 24 hours. Let us know more about your project requirements, and we'll schedule an initial consultation to discuss your needs in detail and provide you with a tailored solution.",
     },

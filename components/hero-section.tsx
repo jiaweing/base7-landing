@@ -21,7 +21,7 @@ export default function HeroSection() {
           data-state={menuState && "active"}
           className="fixed z-20 w-full bg-white backdrop-blur md:relative dark:bg-zinc-950/50 lg:dark:bg-transparent"
         >
-          <div className="m-auto px-6">
+          <div className="m-auto px-6 py-2">
             <div className="flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
               <div className="flex w-full justify-between lg:w-auto lg:flex-1">
                 <div className="lg:hidden">
@@ -110,7 +110,8 @@ export default function HeroSection() {
                 viewOptions={{ once: true }}
               >
                 <p className="mx-auto my-8 max-w-2xl font-light">
-                  gone were the days where building an app takes months.
+                  consulting, design, development, and hosting — all while your
+                  competitors are still planning
                 </p>
               </InView>
 
@@ -131,7 +132,7 @@ export default function HeroSection() {
             </div>
           </div>
         </section>
-        <section className="bg-background relative z-10 py-16">
+        <section className="bg-background relative z-10 md:py-16">
           <div className="m-auto max-w-5xl px-6">
             <InView
               variants={{

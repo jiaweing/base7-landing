@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Base 7 - Software Development & Consulting",
+  title: "base 7 — let's build the future together",
   description:
     "Base 7 is a Singapore-based software company specializing in consulting, design, development, and deployment of innovative software solutions.",
 };
