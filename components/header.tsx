@@ -1,4 +1,5 @@
 "use client";
+import { InView } from "@/components/core/in-view";
 import { Logo } from "@/components/logo";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
@@ -23,6 +24,52 @@ export default function Header() {
           <div className="flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
             <div className="flex w-full justify-between lg:w-auto lg:flex-1">
               <div className="lg:hidden">
+                <InView
+                  variants={{
+                    hidden: { opacity: 0, scale: 0.9, filter: "blur(2px)" },
+                    visible: { opacity: 1, scale: 1, filter: "blur(0px)" },
+                  }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  viewOptions={{ once: true }}
+                >
+                  <Link
+                    href="/"
+                    aria-label="home"
+                    className="flex items-center space-x-2"
+                  >
+                    <Logo />
+                  </Link>
+                </InView>
+              </div>
+
+              <InView
+                variants={{
+                  hidden: { opacity: 0, scale: 0.9, filter: "blur(2px)" },
+                  visible: { opacity: 1, scale: 1, filter: "blur(0px)" },
+                }}
+                transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
+                viewOptions={{ once: true }}
+              >
+                <button
+                  onClick={() => setMenuState(!menuState)}
+                  aria-label={menuState == true ? "Close Menu" : "Open Menu"}
+                  className="relative z-20 -m-2.5 -mr-4 block cursor-pointer p-2.5 lg:hidden"
+                >
+                  <Menu className="in-data-[state=active]:rotate-180 in-data-[state=active]:scale-0 in-data-[state=active]:opacity-0 m-auto size-6 duration-200" />
+                  <X className="in-data-[state=active]:rotate-0 in-data-[state=active]:scale-100 in-data-[state=active]:opacity-100 absolute inset-0 m-auto size-6 -rotate-180 scale-0 opacity-0 duration-200" />
+                </button>
+              </InView>
+            </div>
+
+            <div className="hidden lg:flex justify-center items-center flex-1">
+              <InView
+                variants={{
+                  hidden: { opacity: 0, scale: 0.9, filter: "blur(2px)" },
+                  visible: { opacity: 1, scale: 1, filter: "blur(0px)" },
+                }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                viewOptions={{ once: true }}
+              >
                 <Link
                   href="/"
                   aria-label="home"
@@ -30,42 +77,46 @@ export default function Header() {
                 >
                   <Logo />
                 </Link>
-              </div>
-
-              <button
-                onClick={() => setMenuState(!menuState)}
-                aria-label={menuState == true ? "Close Menu" : "Open Menu"}
-                className="relative z-20 -m-2.5 -mr-4 block cursor-pointer p-2.5 lg:hidden"
-              >
-                <Menu className="in-data-[state=active]:rotate-180 in-data-[state=active]:scale-0 in-data-[state=active]:opacity-0 m-auto size-6 duration-200" />
-                <X className="in-data-[state=active]:rotate-0 in-data-[state=active]:scale-100 in-data-[state=active]:opacity-100 absolute inset-0 m-auto size-6 -rotate-180 scale-0 opacity-0 duration-200" />
-              </button>
-            </div>
-
-            <div className="hidden lg:flex justify-center items-center flex-1">
-              <Link
-                href="/"
-                aria-label="home"
-                className="flex items-center space-x-2"
-              >
-                <Logo />
-              </Link>
+              </InView>
             </div>
 
             <div className="bg-background in-data-[state=active]:block lg:in-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent lg:flex-1 z-50">
               <div className="lg:pr-4">
-                <ul className="space-y-6 text-base lg:flex lg:gap-8 lg:space-y-0 lg:text-sm">
-                  {menuItems.map((item, index) => (
-                    <li key={index}>
-                      <Link
-                        href={item.href}
-                        className="text-muted-foreground hover:text-accent-foreground block duration-150"
+                <InView
+                  variants={{
+                    hidden: { opacity: 0, y: 10, filter: "blur(2px)" },
+                    visible: { opacity: 1, y: 0, filter: "blur(0px)" },
+                  }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  viewOptions={{ once: true }}
+                >
+                  <ul className="space-y-6 text-base lg:flex lg:gap-8 lg:space-y-0 lg:text-sm">
+                    {menuItems.map((item, index) => (
+                      <InView
+                        key={index}
+                        variants={{
+                          hidden: { opacity: 0, y: 10, filter: "blur(2px)" },
+                          visible: { opacity: 1, y: 0, filter: "blur(0px)" },
+                        }}
+                        transition={{
+                          duration: 0.4,
+                          ease: "easeOut",
+                          delay: 0.1 * index,
+                        }}
+                        viewOptions={{ once: true }}
                       >
-                        <span>{item.name}</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+                        <li>
+                          <Link
+                            href={item.href}
+                            className="text-muted-foreground hover:text-accent-foreground block duration-150"
+                          >
+                            <span>{item.name}</span>
+                          </Link>
+                        </li>
+                      </InView>
+                    ))}
+                  </ul>
+                </InView>
               </div>
             </div>
           </div>
