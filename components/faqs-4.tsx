@@ -12,45 +12,45 @@ export default function FAQsFour() {
   const faqItems = [
     {
       id: "item-1",
-      question: "what projects do you build?",
+      question: "what can you actually build for me?",
       answer:
-        "We build web applications, mobile apps (iOS and Android), desktop applications, and browser extensions. Our team specializes in creating cross-platform solutions that work seamlessly across different devices and operating systems.",
+        "Pretty much anything digital you can imagine. Web apps that work on any browser. Mobile apps for iOS and Android. Desktop software for Mac and PC. Browser extensions that supercharge your online experience. If it's software, we can build it — and make it work across all your devices.",
     },
     {
       id: "item-2",
-      question: "how long does it typically take?",
+      question: "how fast can you get it done?",
       answer:
-        "We deliver most projects within 30 days. Our streamlined development process and experienced team allow us to work efficiently without compromising on quality. For more complex projects, we'll provide a detailed timeline during our initial consultation.",
+        "Most projects go from idea to launch in under 30 days. Seriously. Our team has the experience to move quickly without cutting corners. Got something more complex? We'll map out a clear timeline so you know exactly what to expect.",
     },
     {
       id: "item-3",
-      question: "what is your process like?",
+      question: "what's it like working with you?",
       answer:
-        "Our development process begins with an in-depth consultation to understand your requirements. We then create a detailed project plan, develop the application with regular client feedback, conduct thorough testing, and finally deploy the solution. Throughout the process, we maintain transparent communication and provide regular updates.",
+        "We keep it refreshingly simple. First, we chat about what you need. Then we create a plan that makes sense. We build in small chunks so you can see progress and give feedback along the way. No tech jargon, no surprises — just regular updates in plain English and a finished product you'll love.",
     },
     {
       id: "item-4",
-      question: "how much does it cost?",
+      question: "what's this going to cost me?",
       answer:
-        "The cost varies depending on the complexity, features, and platforms required. We provide transparent pricing with no hidden fees. During our initial consultation, we'll assess your specific needs and provide a detailed quote. We offer flexible payment options to accommodate different budget requirements.",
+        "That depends on what we're building, but we promise no surprise bills or hidden fees. Once we understand your project, we'll give you a clear quote. Need to work within a specific budget? Let's talk — we're flexible and can suggest options that give you the most value for your investment.",
     },
     {
       id: "item-5",
-      question: "how is the application deployed?",
+      question: "how do we get this on the app stores?",
       answer:
-        "We handle all aspects of deployment, including publishing your application to app stores. There are membership fees for publishing to app stores. However, we can deploy under our company's App Store and Play Store accounts free for you if needed, or assist you in setting up your own accounts. For web applications, we provide hosting solutions or can deploy to your existing infrastructure.",
+        "We handle the entire publishing process. Don't want to pay for developer accounts? No problem — we can publish under our company accounts at no extra cost. If you prefer your own accounts, we'll guide you through setup. For web apps, we'll either host it for you or set it up on your existing servers. Either way, we make launch day stress-free.",
     },
     {
       id: "item-6",
-      question: "do you offer maintenance and support?",
+      question: "what happens after you build it?",
       answer:
-        "We provide ongoing maintenance and support services to ensure your application continues to run smoothly. This includes regular updates, bug fixes, performance optimization, and feature enhancements. We offer different support packages tailored to your specific needs and budget.",
+        "We don't just build and bail. Your app is like a living thing that needs care to thrive. We offer ongoing support to keep everything running smoothly, fix any issues that pop up, and add new features as you need them. Think of us as your tech team on standby, ready when you need us.",
     },
     {
       id: "item-7",
-      question: "how do I get started?",
+      question: "how do we kick things off?",
       answer:
-        "Getting started is simple! Contact us through our website, and we will get back to you within 24 hours. Let us know more about your project requirements, and we'll schedule an initial consultation to discuss your needs in detail and provide you with a tailored solution.",
+        "Just reach out! Drop us a message through our website, and we'll get back to you within 24 hours (usually much faster). Tell us a bit about what you're thinking, and we'll schedule a casual chat to explore how we can bring your idea to life. No pressure, no obligations — just a conversation about possibilities.",
     },
   ];
 

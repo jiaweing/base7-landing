@@ -51,17 +51,23 @@ export default function ContentSection() {
             >
               <div className="space-y-4">
                 <p className="text-muted-foreground">
-                  We are{" "}
-                  <span className="text-accent-foreground font-bold">
-                    innovators, creators, and enablers
+                  We&apos;re the team that turns &quot;it can&apos;t be
+                  done&quot; into &quot;it&apos;s already finished.&quot;{" "}
+                  <span className="text-accent-foreground font-semibold">
+                    10+ years of experience
                   </span>{" "}
-                  of tomorrow&apos;s technology.
+                  creating tomorrow&apos;s technology.
                 </p>
                 <p className="text-muted-foreground">
-                  Rooted in the heart of Singapore, we specialize in crafting
-                  scalable, impactful, and beautifully designed software
-                  solutions that transform ideas into reality and integrate
-                  seamlessly into the fabric of everyday life.
+                  From Singapore to the world, we build digital experiences in
+                  days that others take months to create. Our apps don&apos;t
+                  just work—they seamlessly become part of how you live, work,
+                  and play.
+                </p>
+                <p className="text-muted-foreground">
+                  Consider us your tech allies. We speak your language, move at
+                  your pace, and stick around long after the launch confetti
+                  settles.
                 </p>
               </div>
             </InView>
