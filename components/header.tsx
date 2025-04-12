@@ -3,7 +3,7 @@ import { InView } from "@/components/core/in-view";
 import { Logo } from "@/components/logo";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const menuItems = [
   { name: "build with us", href: "https://tally.so/r/wLoJKj" },
@@ -13,12 +13,39 @@ const menuItems = [
 
 export default function Header() {
   const [menuState, setMenuState] = useState(false);
+  const [scrollState, setScrollState] = useState({
+    visible: true,
+    prevScrollPos: 0,
+  });
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.scrollY;
+      const isScrollingDown = currentScrollPos > scrollState.prevScrollPos;
+      const isScrolledPastThreshold = currentScrollPos > 50;
+
+      setScrollState({
+        // Show header when scrolling up or at the top of the page
+        // Always show header when menu is open
+        visible:
+          (!isScrollingDown && isScrolledPastThreshold) ||
+          currentScrollPos < 50 ||
+          menuState,
+        prevScrollPos: currentScrollPos,
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [scrollState.prevScrollPos, menuState]);
 
   return (
     <header>
       <nav
         data-state={menuState && "active"}
-        className="fixed z-50 w-full bg-white/50 backdrop-blur-md dark:bg-zinc-950/50 lg:dark:bg-zinc-950/20"
+        className={`fixed z-50 w-full bg-white/50 backdrop-blur-md dark:bg-zinc-950/50 lg:dark:bg-zinc-950/20 transition-transform duration-300 ${
+          !scrollState.visible ? "-translate-y-full" : "translate-y-0"
+        }`}
       >
         <div className="m-auto px-6 py-2">
           <div className="flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
