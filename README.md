@@ -1,22 +1,24 @@
+<div align="center">
+
 # Base 7
 
-<div align="center">
   <img src="public/logos/base7-submark.svg" alt="Base7 Logo" width="120" />
-  <p><em>Build your next app in 10 days</em></p>
+  <p><em>build your next app in 10 days — consulting, design, development, and hosting — all while your competitors are still planning</em></p>
+
 </div>
 
-## 🚀 About Base7
+## who are we
 
-Base7 is a Singapore-based software company specializing in consulting, design, development, and deployment of innovative software solutions. We are innovators, creators, and enablers of tomorrow's technology, crafting scalable, impactful, and beautifully designed software solutions that transform ideas into reality.
+We're the team that turns "it can't be done" into "it's already finished." With 10+ years of experience creating tomorrow's technology, we build digital experiences in days that others take months to create. Based in Singapore but serving clients worldwide, we craft apps that don't just work—they seamlessly become part of how you live, work, and play.
 
-## 🛠️ Our Services
+## what we do
 
-- **Consulting** - Need professional advice? We're here to help.
-- **Development** - We build software that works for you.
-- **Architecture** - We design software that scales.
-- **Design** - We love software that looks good and we know you do too.
-- **Deployment** - We bring your software to life.
-- **Software as a Service** - We build our own software too.
+- **Expert Consulting** - We turn your ideas into plans that just make sense. Simple, clear, and refreshingly straightforward.
+- **Custom Apps** - Apps that feel made just for you. Because they are. Exactly what you need, with nothing getting in the way.
+- **Smart Architecture** - We build systems that grow with you—from your first user to your millionth.
+- **Beautiful Design** - Interfaces that just work. Thoughtfully designed to feel familiar from the moment you first use them.
+- **Seamless Publishing** - From idea to app store without the headaches. Use our accounts to skip the fees and get to market faster.
+- **Ongoing Support** - We don't just build and bail. Think of us as your tech team on standby, ready when you need us.
 
 ## 🖥️ Tech Stack
 
@@ -105,9 +107,9 @@ The site uses custom InView animation components that create beautiful fade-in e
 </InViewWrapper>
 ```
 
-## 📞 Contact
+## 📞 Let's Chat
 
-Want to build with us? [Get in touch](https://tally.so/r/wLoJKj)
+Ready to bring your idea to life? Have a project that needs some tech magic? [Drop us a message](https://tally.so/r/wLoJKj) and we'll get back to you within 24 hours.
 
 ---
 
