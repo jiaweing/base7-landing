@@ -27,11 +27,11 @@ export default function Home() {
       </InViewWrapper>
 
       <InViewWrapper>
-        <StatsSection />
+        <ContentSection />
       </InViewWrapper>
 
       <InViewWrapper>
-        <ContentSection />
+        <StatsSection />
       </InViewWrapper>
 
       <InViewWrapper>

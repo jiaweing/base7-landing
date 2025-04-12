@@ -87,7 +87,7 @@ export default function FAQsFour() {
             ))}
           </Accordion>
 
-          <p className="text-muted-foreground mt-6 px-8">
+          <p className="text-muted-foreground text-center mt-6 px-8">
             We build web, mobile & desktop apps, and browser extensions within
             30 days. Let us know more about your project &{" "}
             <Link
@@ -97,6 +97,7 @@ export default function FAQsFour() {
             >
               we will get back to you in 24 hours
             </Link>
+            .
           </p>
         </div>
       </div>

@@ -4,7 +4,7 @@ export default function StatsSection() {
       <div className="mx-auto max-w-5xl space-y-8 px-6 md:space-y-12">
         <div className="relative z-10 max-w-xl space-y-6">
           <h2 className="text-4xl font-medium lg:text-5xl">
-            where we came from
+            we shape the future with software.
           </h2>
           <p>
             With a focus on ubiquitous computing, we build technology that is
