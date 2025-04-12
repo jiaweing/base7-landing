@@ -4,7 +4,7 @@ export default function StatsSection() {
       <div className="mx-auto max-w-5xl space-y-8 px-6 md:space-y-12">
         <div className="relative z-10 max-w-xl space-y-6">
           <h2 className="text-4xl font-medium tracking-tighter lg:text-5xl">
-            software that works everywhere, for everyone.
+            works everywhere, for everyone
           </h2>
           <p className="text-muted-foreground">
             We create software that fits perfectly into your life — whether
