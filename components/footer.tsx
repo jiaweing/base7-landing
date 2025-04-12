@@ -37,12 +37,12 @@ export default function FooterSection() {
           transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
           viewOptions={{ margin: "0px 0px -100px 0px", once: true }}
         >
-          <div className="my-8 grid grid-cols-3 md:flex md:flex-wrap justify-center gap-3 md:gap-6 text-sm">
+          <div className="my-8 flex flex-col sm:flex-row flex-wrap justify-center items-center gap-4 md:gap-6 text-sm">
             {links.map((link, index) => (
               <Link
                 key={index}
                 href={link.href}
-                className="text-muted-foreground hover:text-primary block duration-150"
+                className="text-muted-foreground hover:text-primary block text-center px-2 py-1 duration-150"
               >
                 <span>{link.title}</span>
               </Link>
@@ -57,20 +57,20 @@ export default function FooterSection() {
           transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
           viewOptions={{ margin: "0px 0px -100px 0px", once: true }}
         >
-          <div className="my-8 grid grid-cols-4 md:flex md:flex-wrap justify-center items-center gap-3 md:gap-6 text-sm">
+          <div className="my-8 flex flex-row flex-wrap justify-center items-center gap-6 md:gap-10">
             <Link
-              href="#"
+              href="https://x.com/j14wei"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="X/Twitter"
-              className="text-muted-foreground hover:text-primary block"
+              className="text-muted-foreground hover:text-primary text-center w-6 h-6 flex items-center justify-center"
             >
               <img
-                className="h-4.5 w-fit dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
+                className="h-5 w-5 dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
                 src="/logos/x.svg"
                 alt="X Logo"
                 height="16"
-                width="auto"
+                width="16"
               />
             </Link>
             <Link
@@ -78,14 +78,14 @@ export default function FooterSection() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
-              className="text-muted-foreground hover:text-primary block"
+              className="text-muted-foreground hover:text-primary text-center w-6 h-6 flex items-center justify-center"
             >
               <img
-                className="h-5 w-fit dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
+                className="h-5 w-5 dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
                 src="/logos/linkedin.svg"
                 alt="LinkedIn Logo"
                 height="16"
-                width="auto"
+                width="16"
               />
             </Link>
             <Link
@@ -93,14 +93,14 @@ export default function FooterSection() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Threads"
-              className="text-muted-foreground hover:text-primary block"
+              className="text-muted-foreground hover:text-primary text-center w-6 h-6 flex items-center justify-center"
             >
               <img
-                className="h-5 w-fit dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
+                className="h-5 w-5 dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
                 src="/logos/threads.svg"
                 alt="Threads Logo"
                 height="16"
-                width="auto"
+                width="16"
               />
             </Link>
             <Link
@@ -108,14 +108,14 @@ export default function FooterSection() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
-              className="text-muted-foreground hover:text-primary block"
+              className="text-muted-foreground hover:text-primary text-center w-6 h-6 flex items-center justify-center"
             >
               <img
-                className="h-5 w-fit dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
+                className="h-5 w-5 dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
                 src="/logos/instagram.svg"
                 alt="Instagram Logo"
                 height="16"
-                width="auto"
+                width="16"
               />
             </Link>
             <Link
@@ -123,14 +123,14 @@ export default function FooterSection() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="TikTok"
-              className="text-muted-foreground hover:text-primary block"
+              className="text-muted-foreground hover:text-primary text-center w-6 h-6 flex items-center justify-center"
             >
               <img
-                className="h-5 w-fit dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
+                className="h-5 w-5 dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
                 src="/logos/tiktok.svg"
                 alt="Tiktok Logo"
                 height="16"
-                width="auto"
+                width="16"
               />
             </Link>
             <Link
@@ -138,14 +138,14 @@ export default function FooterSection() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="YouTube"
-              className="text-muted-foreground hover:text-primary block"
+              className="text-muted-foreground hover:text-primary text-center w-6 h-6 flex items-center justify-center"
             >
               <img
-                className="h-4 w-fit dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
+                className="h-5 w-5 dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
                 src="/logos/youtube.svg"
                 alt="YouTube Logo"
                 height="16"
-                width="auto"
+                width="16"
               />
             </Link>
           </div>
@@ -158,10 +158,10 @@ export default function FooterSection() {
           transition={{ duration: 0.4, ease: "easeOut", delay: 0.3 }}
           viewOptions={{ margin: "0px 0px -100px 0px", once: true }}
         >
-          <span className="text-muted-foreground block text-center text-sm">
-            © {new Date().getFullYear()} Base 7 LLP, Singapore — UEN:
-            T25LL0003D.
-          </span>
+          <div className="text-muted-foreground text-center text-sm px-4 mt-8 mb-4">
+            © {new Date().getFullYear()} Base 7 LLP, Singapore. <br />
+            (UEN: T25LL0003D)
+          </div>
         </InView>
       </div>
     </footer>

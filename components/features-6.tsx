@@ -64,7 +64,7 @@ export default function FeaturesSection() {
             <h2 className="text-4xl font-medium tracking-tighter md:text-5xl">
               how we deliver value
             </h2>
-            <p className="max-w-sm sm:ml-auto">
+            <p className="max-w-sm sm:ml-auto text-muted-foreground">
               with over 10 years of industry experience, we bring expertise and
               insight to every project. Your vision, our craftsmanship.
             </p>

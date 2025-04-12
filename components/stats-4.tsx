@@ -6,7 +6,7 @@ export default function StatsSection() {
           <h2 className="text-4xl font-medium tracking-tighter lg:text-5xl">
             software that works everywhere, for everyone.
           </h2>
-          <p>
+          <p className="text-muted-foreground">
             We create software that fits perfectly into your life — whether
             you&apos;re on your phone, laptop, or whatever comes next. Our apps
             work even when your internet doesn&apos;t, keep your data private,
@@ -15,7 +15,7 @@ export default function StatsSection() {
         </div>
         <div className="grid gap-6 sm:grid-cols-2 md:gap-12 lg:gap-24">
           <div>
-            <p>
+            <p className="text-muted-foreground">
               We turn complicated problems into simple solutions. No tech
               jargon, no unnecessary features — just smart apps that solve real
               problems and work exactly when and where you need them.
@@ -25,13 +25,15 @@ export default function StatsSection() {
                 <div className="bg-linear-to-r from-zinc-950 to-zinc-600 bg-clip-text text-5xl text-transparent dark:from-white dark:to-zinc-800">
                   50+
                 </div>
-                <p>projects delivered since 2024</p>
+                <p className="text-muted-foreground">
+                  projects delivered since 2024
+                </p>
               </div>
               <div className="space-y-4">
                 <div className="bg-linear-to-r from-zinc-950 to-zinc-600 bg-clip-text text-5xl text-transparent dark:from-white dark:to-zinc-800">
                   400k+
                 </div>
-                <p>users scaled to</p>
+                <p className="text-muted-foreground">users scaled to</p>
               </div>
             </div>
           </div>

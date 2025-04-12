@@ -54,7 +54,7 @@ export default function HeroSection() {
                 </Link>
               </div>
 
-              <div className="bg-background in-data-[state=active]:block lg:in-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent lg:flex-1">
+              <div className="bg-background in-data-[state=active]:block lg:in-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent lg:flex-1 z-50">
                 <div className="lg:pr-4">
                   <ul className="space-y-6 text-base lg:flex lg:gap-8 lg:space-y-0 lg:text-sm">
                     {menuItems.map((item, index) => (
@@ -155,7 +155,7 @@ export default function HeroSection() {
               transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
               viewOptions={{ margin: "0px 0px -100px 0px", once: true }}
             >
-              <div className="mx-auto mt-10 grid grid-cols-3 sm:grid-cols-4 lg:flex lg:flex-wrap max-w-4xl items-center justify-items-center lg:justify-between gap-x-4 gap-y-8 lg:gap-x-10 lg:gap-y-10">
+              <div className="mx-auto mt-10 grid grid-cols-3 sm:grid-cols-4 lg:flex lg:flex-wrap max-w-4xl items-center justify-center lg:justify-between gap-x-4 gap-y-8 lg:gap-x-10 lg:gap-y-10">
                 <img
                   className="h-5 w-fit dark:invert"
                   src="/logos/aws_light.svg"
