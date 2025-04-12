@@ -118,7 +118,7 @@ export default function ProjectsShowcase() {
       <div className="mx-auto max-w-5xl space-y-8 px-6 md:space-y-12">
         <div className="relative z-10 flex flex-row justify-between">
           <h2 className="text-2xl font-medium tracking-tighter">our work</h2>
-          <p className="text-muted-foreground">Since 2024</p>
+          <p className="text-muted-foreground">2024 - present</p>
         </div>
 
         <Carousel
