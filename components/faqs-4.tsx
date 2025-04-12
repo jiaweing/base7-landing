@@ -12,33 +12,45 @@ export default function FAQsFour() {
   const faqItems = [
     {
       id: "item-1",
-      question: "What services does Base 7 offer?",
+      question: "What projects do you build?",
       answer:
-        "Base 7 offers a comprehensive range of software services including consulting, development, architecture, design, deployment, and Software as a Service (SaaS) solutions. We specialize in building scalable, impactful, and beautifully designed software that transforms ideas into reality.",
+        "We build web applications, mobile apps (iOS and Android), desktop applications, and browser extensions. Our team specializes in creating cross-platform solutions that work seamlessly across different devices and operating systems.",
     },
     {
       id: "item-2",
-      question: "What is your approach to software development?",
+      question: "How long does it typically take?",
       answer:
-        "We focus on ubiquitous computing, building technology that is accessible, adaptive, and seamlessly integrated across devices and contexts. Our local-first approach prioritizes data sovereignty, reliability, and user empowerment, while leveraging edge computing to deliver fast, intelligent, and scalable software.",
+        "We deliver most projects within 30 days. Our streamlined development process and experienced team allow us to work efficiently without compromising on quality. For more complex projects, we'll provide a detailed timeline during our initial consultation.",
     },
     {
       id: "item-3",
-      question: "Where is Base 7 located?",
+      question: "What is your process like?",
       answer:
-        "Base 7 is headquartered in Singapore, serving clients locally and globally. Our Singapore roots influence our approach to innovation and technology development.",
+        "Our development process begins with an in-depth consultation to understand your requirements. We then create a detailed project plan, develop the application with regular client feedback, conduct thorough testing, and finally deploy the solution. Throughout the process, we maintain transparent communication and provide regular updates.",
     },
     {
       id: "item-4",
-      question: "How do you ensure the quality of your software solutions?",
+      question: "How much does it cost?",
       answer:
-        "We implement rigorous quality assurance processes throughout the development lifecycle. Our team follows industry best practices, conducts thorough testing, and maintains open communication with clients to ensure that all solutions meet the highest standards of performance, security, and user experience.",
+        "The cost varies depending on the complexity, features, and platforms required. We provide transparent pricing with no hidden fees. During our initial consultation, we'll assess your specific needs and provide a detailed quote. We offer flexible payment options to accommodate different budget requirements.",
     },
     {
       id: "item-5",
-      question: "How can I get started with Base 7?",
+      question: "How is the application deployed?",
       answer:
-        "Getting started is easy! Contact us through our website to schedule an initial consultation. We'll discuss your needs, goals, and vision to determine how our services can best support your objectives. From there, we'll develop a tailored plan to bring your software ideas to life.",
+        "We handle all aspects of deployment, including publishing your application to app stores. There are membership fees for publishing to app stores. However, we can deploy under our company's App Store and Play Store accounts free for you if needed, or assist you in setting up your own accounts. For web applications, we provide hosting solutions or can deploy to your existing infrastructure.",
+    },
+    {
+      id: "item-6",
+      question: "Do you offer maintenance and support?",
+      answer:
+        "We provide ongoing maintenance and support services to ensure your application continues to run smoothly. This includes regular updates, bug fixes, performance optimization, and feature enhancements. We offer different support packages tailored to your specific needs and budget.",
+    },
+    {
+      id: "item-7",
+      question: "How do I get started?",
+      answer:
+        "Getting started is simple! Contact us through our website, and we will get back to you within 24 hours. Let us know more about your project requirements, and we'll schedule an initial consultation to discuss your needs in detail and provide you with a tailored solution.",
     },
   ];
 
@@ -47,7 +59,7 @@ export default function FAQsFour() {
       <div className="mx-auto max-w-5xl px-4 md:px-6">
         <div className="mx-auto max-w-xl text-center">
           <h2 className="text-3xl tracking-tighter">
-            here are your questions, answered
+            frequently asked questions
           </h2>
         </div>
 
@@ -63,7 +75,7 @@ export default function FAQsFour() {
                   value={item.id}
                   className="data-[state=open]:bg-card dark:data-[state=open]:bg-muted peer rounded-xl border-none px-7 py-1 data-[state=open]:border-none data-[state=open]:shadow-sm"
                 >
-                  <AccordionTrigger className="cursor-pointer text-base hover:no-underline">
+                  <AccordionTrigger className="cursor-pointer font-semibold text-lg hover:no-underline">
                     {item.question}
                   </AccordionTrigger>
                   <AccordionContent>
@@ -76,12 +88,14 @@ export default function FAQsFour() {
           </Accordion>
 
           <p className="text-muted-foreground mt-6 px-8">
-            Can&apos;t find what you&apos;re looking for? Contact our{" "}
+            We build web, mobile & desktop apps, and browser extensions within
+            30 days. Let us know more about your project &{" "}
             <Link
-              href="mailto:hello@base07.com"
+              href="https://tally.so/r/wLoJKj"
               className="text-primary font-medium hover:underline"
+              rel="noopener noreferrer"
             >
-              team directly
+              we will get back to you in 24 hours
             </Link>
           </p>
         </div>
