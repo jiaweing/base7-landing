@@ -6,7 +6,7 @@ export default function CallToAction() {
     <section id="contact" className="pt-20">
       <div className="mx-auto max-w-5xl px-6">
         <div className="text-center">
-          <h2 className="tracking-tighter text-4xl font-medium lg:text-5xl">
+          <h2 className="tracking-tighter text-5xl font-medium lg:text-6xl">
             let&apos;s build the future together
           </h2>
           <p className="mt-4">partner with us on your next project today.</p>

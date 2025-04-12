@@ -88,10 +88,10 @@ export default function HeroSection() {
           <div className="relative mx-auto max-w-5xl px-6 py-28 lg:py-24">
             <div className="relative z-10 mx-auto max-w-2xl text-center">
               <h1 className="text-5xl md:text-7xl font-medium tracking-tighter">
-                your app built in 15 days
+                build your next app in 10 days
               </h1>
               <p className="mx-auto my-8 max-w-2xl font-light">
-                singapore-based company architecting tomorrow&apos;s tech.
+                gone were the days where building an app takes months.
               </p>
 
               <Button asChild size="lg">
