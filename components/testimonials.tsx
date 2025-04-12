@@ -11,8 +11,8 @@ export default function Testimonials() {
           </h2>
           <p>
             Our clients consistently praise our ability to deliver high-quality
-            software solutions on time and within budget. Here's what they have
-            to say about working with Base 7.
+            software solutions on time and within budget. Here&apos;s what they
+            have to say about working with Base 7.
           </p>
         </div>
 
@@ -53,7 +53,8 @@ export default function Testimonials() {
                   Working with Base 7 was refreshingly straightforward. They
                   took our complex requirements and delivered an elegant
                   solution that our users love. Their 24/7 support has been
-                  exceptional, and the team's technical knowledge is impressive.
+                  exceptional, and the team&apos;s technical knowledge is
+                  impressive.
                 </p>
 
                 <div className="grid grid-cols-[auto_1fr] items-center gap-3">
@@ -74,7 +75,7 @@ export default function Testimonials() {
             <CardContent className="h-full pt-6">
               <blockquote className="grid h-full grid-rows-[1fr_auto] gap-6">
                 <p>
-                  Base 7's consulting services helped us navigate a complex
+                  Base 7&apos;s consulting services helped us navigate a complex
                   digital transformation. Their strategic insights and technical
                   expertise were invaluable to our success.
                 </p>
