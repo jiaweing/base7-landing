@@ -1,13 +1,20 @@
+import { Globe, LinkedinIcon } from "lucide-react";
+import Link from "next/link";
+
 const members = [
   {
     name: "Jia Wei Ng",
     role: "Business Director, Co-Founder",
     avatar: "/team/jiawei.jpg",
+    linkedin: "https://www.linkedin.com/in/jiawei-ng/",
+    website: "https://jiawei.ng",
   },
   {
     name: "Cheng En Liout",
     role: "Creative Director, Co-Founder",
     avatar: "/team/chengen.jpg",
+    linkedin: "https://www.linkedin.com/in/chengenliout/",
+    website: "https://lioutchengen.com",
   },
 ];
 
@@ -36,6 +43,22 @@ export default function TeamSection() {
                 <span className="text-muted-foreground block text-xs">
                   {member.role}
                 </span>
+                <div className="flex flex-row gap-2 text-muted-foreground">
+                  <Link
+                    href={member.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <LinkedinIcon className="mt-2 size-4" />
+                  </Link>
+                  <Link
+                    href={member.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Globe className="mt-2 size-4" />
+                  </Link>
+                </div>
               </div>
             ))}
           </div>

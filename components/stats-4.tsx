@@ -20,32 +20,18 @@ export default function StatsSection() {
               real-world pain points with intelligent, local-first, and
               edge-optimized technology.
             </p>
-            <div className="mb-12 mt-12 grid grid-cols-2 gap-6 md:mb-0">
-              <div className="space-y-4">
-                <div className="bg-linear-to-r from-zinc-950 to-zinc-600 bg-clip-text text-5xl text-transparent dark:from-white dark:to-zinc-800">
-                  6+
-                </div>
-                <p>Services Offered</p>
-              </div>
-              <div className="space-y-4">
-                <div className="bg-linear-to-r from-zinc-950 to-zinc-600 bg-clip-text text-5xl text-transparent dark:from-white dark:to-zinc-800">
-                  100%
-                </div>
-                <p>Client Satisfaction</p>
-              </div>
-            </div>
             <div className="mt-6 grid grid-cols-2 gap-6">
               <div className="space-y-4">
                 <div className="bg-linear-to-r from-zinc-950 to-zinc-600 bg-clip-text text-5xl text-transparent dark:from-white dark:to-zinc-800">
-                  SG
+                  50+
                 </div>
-                <p>Based in Singapore</p>
+                <p>projects delivered since 2024</p>
               </div>
               <div className="space-y-4">
                 <div className="bg-linear-to-r from-zinc-950 to-zinc-600 bg-clip-text text-5xl text-transparent dark:from-white dark:to-zinc-800">
-                  24/7
+                  400k+
                 </div>
-                <p>Support</p>
+                <p>users scaled to</p>
               </div>
             </div>
           </div>

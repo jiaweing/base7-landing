@@ -7,6 +7,7 @@ import { useState } from "react";
 
 const menuItems = [
   { name: "become a partner", href: "https://tally.so/r/wLoJKj" },
+  { name: "book a call", href: "https://cal.com/jiaweing/base7" },
 ];
 
 export default function HeroSection() {
