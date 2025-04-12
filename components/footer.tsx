@@ -37,7 +37,7 @@ export default function FooterSection() {
           transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
           viewOptions={{ margin: "0px 0px -100px 0px", once: true }}
         >
-          <div className="my-8 flex flex-wrap justify-center gap-6 text-sm">
+          <div className="my-8 grid grid-cols-3 md:flex md:flex-wrap justify-center gap-3 md:gap-6 text-sm">
             {links.map((link, index) => (
               <Link
                 key={index}
@@ -57,7 +57,7 @@ export default function FooterSection() {
           transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
           viewOptions={{ margin: "0px 0px -100px 0px", once: true }}
         >
-          <div className="my-8 flex flex-wrap justify-center items-center gap-6 text-sm">
+          <div className="my-8 grid grid-cols-4 md:flex md:flex-wrap justify-center items-center gap-3 md:gap-6 text-sm">
             <Link
               href="#"
               target="_blank"
