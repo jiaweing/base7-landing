@@ -20,7 +20,22 @@ import { ExternalLink } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-const projects = [
+type Project = {
+  id: number;
+  title: string;
+  year: string;
+  shortDescription: string;
+  fullDescription: string;
+  image: string;
+  bgColor: string;
+  features: { title: string; description: string }[];
+  technologies: string[];
+  link: string;
+  ctaText: string;
+  videoLink?: string;
+};
+
+const projects: Project[] = [
   {
     id: 1,
     title: "Decosmic",
@@ -29,7 +44,7 @@ const projects = [
     fullDescription:
       "The fastest way to launch a customized AI for you, your team, or your customers, tailored to your custom knowledge. Zero code and technical knowledge required - deploy in minutes.",
     image:
-      "https://images.unsplash.com/photo-1619441207978-3d326c46e2c9?q=80&w=2938&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "https://images.unsplash.com/photo-1528459709161-157d86910939?q=80&w=2978&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     bgColor: "bg-blue-500/20",
     features: [
       {
@@ -60,7 +75,7 @@ const projects = [
     fullDescription:
       "A platform designed to help users track the places they want to visit and those they have already been to, all in one central location.",
     image:
-      "https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "https://images.unsplash.com/photo-1597571063304-81f081944ee8?q=80&w=2836&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     bgColor: "bg-purple-500/20",
     features: [
       {
@@ -73,16 +88,10 @@ const projects = [
         description:
           "Been.place is a platform designed to help users track the places they want to visit and those they have already been to, all in one central location.",
       },
-      {
-        title: "Key Features",
-        description:
-          "List Management, Social Integration, Map Integration, Caching for Efficiency, User Profiles",
-      },
     ],
     technologies: ["Next.js", "React", "Apple Maps API", "Tailwind CSS"],
     link: "https://been.place",
     ctaText: "Visit Been.place",
-    videoLink: "https://www.youtube.com/watch?v=GtNW5-4e8qw",
   },
   {
     id: 3,
@@ -107,7 +116,7 @@ const projects = [
     fullDescription:
       "Our next exciting project is in development. Stay tuned for more information.",
     image:
-      "https://images.unsplash.com/photo-1541356665065-22676f35dd40?q=80&w=1941&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "https://images.unsplash.com/photo-1595878715977-2e8f8df18ea8?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     bgColor: "bg-amber-500/20",
     features: [],
     technologies: [],
@@ -152,19 +161,19 @@ export default function ProjectsShowcase() {
   );
 }
 
-function ProjectCard({ project }: { project: (typeof projects)[0] }) {
+function ProjectCard({ project }: { project: Project }) {
   return (
     <MorphingDialog>
       <div className="w-full">
         <MorphingDialogTrigger className="w-full block">
-          <div className="relative overflow-hidden rounded-[1rem] border bg-card shadow-sm transition-all hover:shadow-md cursor-pointer">
+          <div className="relative overflow-hidden rounded-[1rem] border bg-card shadow-sm transition-all hover:shadow-lg cursor-pointer group-hover:border-primary/30">
             {/* Image container with hover effect */}
-            <div className="aspect-video relative overflow-hidden group">
+            <div className="aspect-[3/4] relative overflow-hidden group">
               {project.image ? (
                 <Image
                   src={project.image}
                   alt={project.title}
-                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="h-full w-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:filter group-hover:brightness-90"
                   width={400}
                   height={225}
                 />
@@ -177,11 +186,14 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
               )}
 
               {/* Overlay that appears on hover */}
-              <div className="absolute inset-0 bg-black/70 flex flex-col justify-center items-center p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <h3 className="text-xl font-medium text-white text-center">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/30 to-transparent flex flex-col justify-end items-start p-5 opacity-0 group-hover:opacity-100 transition-all duration-300 backdrop-blur-[2px]">
+                <div className="text-sm font-semibold transform translate-y-1 group-hover:translate-y-0 transition-transform duration-300 drop-shadow-sm text-white">
+                  {project.year}
+                </div>
+                <h3 className="mt-1 text-2xl font-semibold text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300 ease-out">
                   {project.title}
                 </h3>
-                <p className="mt-2 text-sm text-white/80 text-center max-w-xs">
+                <p className="text-sm text-white/90 max-w-xs leading-relaxed transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300 ease-out delay-75">
                   {project.shortDescription}
                 </p>
               </div>
@@ -200,7 +212,7 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
 
       <MorphingDialogContainer>
         <MorphingDialogContent className="max-w-3xl rounded-[1rem] bg-card p-0 shadow-lg">
-          <div className="aspect-video relative overflow-hidden rounded-t-[1rem]">
+          <div className="aspect-[16/9] relative overflow-hidden rounded-t-[1rem]">
             {project.image ? (
               <Image
                 src={project.image}
@@ -216,7 +228,7 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
                 <span className="text-2xl font-bold">{project.title}</span>
               </div>
             )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+            {/* <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" /> */}
             <MorphingDialogTitle className="absolute bottom-4 left-4 right-4 text-2xl font-bold text-white">
               {project.title}
             </MorphingDialogTitle>
