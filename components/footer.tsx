@@ -2,7 +2,8 @@ import { Logo } from "@/components/logo";
 import Link from "next/link";
 
 const links = [
-  { title: "become a partner", href: "https://tally.so/r/wLoJKj" },
+  { title: "build with us", href: "https://tally.so/r/wLoJKj" },
+  { title: "become a partner", href: "https://tally.so/r/3x6PdG" },
   { title: "book a call", href: "https://cal.com/jiaweing/base7" },
 ];
 

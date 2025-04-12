@@ -6,7 +6,8 @@ import Link from "next/link";
 import { useState } from "react";
 
 const menuItems = [
-  { name: "become a partner", href: "https://tally.so/r/wLoJKj" },
+  { name: "build with us", href: "https://tally.so/r/wLoJKj" },
+  { name: "become a partner", href: "https://tally.so/r/3x6PdG" },
   { name: "book a call", href: "https://cal.com/jiaweing/base7" },
 ];
 
@@ -75,7 +76,7 @@ export default function HeroSection() {
           <div className="relative mx-auto max-w-5xl px-6 py-28 lg:py-24">
             <div className="relative z-10 mx-auto max-w-2xl text-center">
               <h1 className="text-5xl md:text-7xl font-medium tracking-tighter">
-                shaping the future through software
+                your app built in 15 days
               </h1>
               <p className="mx-auto my-8 max-w-2xl font-light">
                 singapore-based company architecting tomorrow&apos;s tech.
@@ -83,7 +84,7 @@ export default function HeroSection() {
 
               <Button asChild size="lg">
                 <Link href="https://tally.so/r/wLoJKj">
-                  <span className="btn-label">partner with us</span>
+                  <span className="btn-label">build with us</span>
                 </Link>
               </Button>
             </div>

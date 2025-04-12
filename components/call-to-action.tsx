@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function CallToAction() {
   return (
-    <section id="contact" className="py-16 md:py-32">
+    <section id="contact" className="pt-20">
       <div className="mx-auto max-w-5xl px-6">
         <div className="text-center">
           <h2 className="tracking-tighter text-4xl font-medium lg:text-5xl">
