@@ -155,7 +155,7 @@ export default function HeroSection() {
               transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
               viewOptions={{ margin: "0px 0px -100px 0px", once: true }}
             >
-              <div className="mx-auto mt-10 grid grid-cols-3 sm:grid-cols-4 lg:flex lg:flex-wrap max-w-4xl items-center justify-center lg:justify-between gap-x-4 gap-y-8 lg:gap-x-10 lg:gap-y-10">
+              <div className="mx-auto overflow-x-scroll mt-10 flex flex-row justify-center max-w-4xl items-center gap-8 md:gap-10 lg:gap-12">
                 <img
                   className="h-5 w-fit dark:invert"
                   src="/logos/aws_light.svg"
