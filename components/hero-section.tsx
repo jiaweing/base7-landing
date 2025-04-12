@@ -19,7 +19,7 @@ export default function HeroSection() {
       <header>
         <nav
           data-state={menuState && "active"}
-          className="fixed z-20 w-full bg-white backdrop-blur md:relative dark:bg-zinc-950/50 lg:dark:bg-transparent"
+          className="fixed z-50 w-full bg-white/50 backdrop-blur-md dark:bg-zinc-950/50 lg:dark:bg-zinc-950/20"
         >
           <div className="m-auto px-6 py-2">
             <div className="flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
@@ -75,7 +75,7 @@ export default function HeroSection() {
         </nav>
       </header>
 
-      <main>
+      <main className="pt-16 lg:pt-20">
         <div
           aria-hidden
           className="z-2 absolute inset-0 isolate hidden opacity-50 contain-strict lg:block"
