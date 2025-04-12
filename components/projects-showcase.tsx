@@ -28,7 +28,8 @@ const projects = [
     shortDescription: "Launch your own AI in seconds",
     fullDescription:
       "The fastest way to launch a customized AI for you, your team, or your customers, tailored to your custom knowledge. Zero code and technical knowledge required - deploy in minutes.",
-    image: "/screenshots/decosmic.png",
+    image:
+      "https://images.unsplash.com/photo-1619441207978-3d326c46e2c9?q=80&w=2938&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     bgColor: "bg-blue-500/20",
     features: [
       {
@@ -58,7 +59,8 @@ const projects = [
     shortDescription: "Your places. Your world.",
     fullDescription:
       "A platform designed to help users track the places they want to visit and those they have already been to, all in one central location.",
-    image: "/images/projects/been-desktop.png",
+    image:
+      "https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     bgColor: "bg-purple-500/20",
     features: [
       {
@@ -186,12 +188,12 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
             </div>
 
             {/* Card footer */}
-            <div className="p-4">
+            {/* <div className="p-4">
               <div className="text-sm text-muted-foreground">
                 {project.year}
               </div>
               <h3 className="text-lg font-medium">{project.title}</h3>
-            </div>
+            </div> */}
           </div>
         </MorphingDialogTrigger>
       </div>

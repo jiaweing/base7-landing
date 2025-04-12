@@ -1,4 +1,5 @@
 "use client";
+import { InView } from "@/components/core/in-view";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
@@ -87,84 +88,124 @@ export default function HeroSection() {
         <section className="overflow-hidden bg-white dark:bg-transparent">
           <div className="relative mx-auto max-w-5xl px-6 py-28 lg:py-24">
             <div className="relative z-10 mx-auto max-w-2xl text-center">
-              <h1 className="text-5xl md:text-7xl font-medium tracking-tighter">
-                build your next app in 10 days
-              </h1>
-              <p className="mx-auto my-8 max-w-2xl font-light">
-                gone were the days where building an app takes months.
-              </p>
+              <InView
+                variants={{
+                  hidden: { opacity: 0, y: -30, filter: "blur(4px)" },
+                  visible: { opacity: 1, y: 0, filter: "blur(0px)" },
+                }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                viewOptions={{ once: true }}
+              >
+                <h1 className="text-5xl md:text-7xl font-medium tracking-tighter">
+                  build your next app in 10 days
+                </h1>
+              </InView>
 
-              <Button asChild size="lg">
-                <Link href="https://tally.so/r/wLoJKj">
-                  <span className="btn-label">build with us</span>
-                </Link>
-              </Button>
+              <InView
+                variants={{
+                  hidden: { opacity: 0, scale: 0.95, filter: "blur(4px)" },
+                  visible: { opacity: 1, scale: 1, filter: "blur(0px)" },
+                }}
+                transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
+                viewOptions={{ once: true }}
+              >
+                <p className="mx-auto my-8 max-w-2xl font-light">
+                  gone were the days where building an app takes months.
+                </p>
+              </InView>
+
+              <InView
+                variants={{
+                  hidden: { opacity: 0, y: 30, filter: "blur(4px)" },
+                  visible: { opacity: 1, y: 0, filter: "blur(0px)" },
+                }}
+                transition={{ duration: 0.5, ease: "easeOut", delay: 0.4 }}
+                viewOptions={{ once: true }}
+              >
+                <Button asChild size="lg">
+                  <Link href="https://tally.so/r/wLoJKj">
+                    <span className="btn-label">build with us</span>
+                  </Link>
+                </Button>
+              </InView>
             </div>
           </div>
         </section>
         <section className="bg-background relative z-10 py-16">
           <div className="m-auto max-w-5xl px-6">
-            <h2 className="text-center">
-              we partner with the world&apos;s leading tech companies.
-            </h2>
-            <div className="mx-auto mt-10 flex max-w-4xl flex-wrap items-center justify-center gap-x-12 gap-y-8 sm:gap-x-16 sm:gap-y-12">
-              <img
-                className="h-5 w-fit dark:invert"
-                src="https://html.tailus.io/blocks/customers/nvidia.svg"
-                alt="Nvidia Logo"
-                height="20"
-                width="auto"
-              />
-              <img
-                className="h-4 w-fit dark:invert"
-                src="https://html.tailus.io/blocks/customers/github.svg"
-                alt="GitHub Logo"
-                height="16"
-                width="auto"
-              />
-              <img
-                className="h-4 w-fit dark:invert"
-                src="https://html.tailus.io/blocks/customers/laravel.svg"
-                alt="Laravel Logo"
-                height="16"
-                width="auto"
-              />
-              <img
-                className="h-5 w-fit dark:invert"
-                src="https://html.tailus.io/blocks/customers/lemonsqueezy.svg"
-                alt="Lemon Squeezy Logo"
-                height="20"
-                width="auto"
-              />
-              <img
-                className="h-6 w-fit dark:invert"
-                src="https://html.tailus.io/blocks/customers/openai.svg"
-                alt="OpenAI Logo"
-                height="24"
-                width="auto"
-              />
-              <img
-                className="h-4 w-fit dark:invert"
-                src="https://html.tailus.io/blocks/customers/tailwindcss.svg"
-                alt="Tailwind CSS Logo"
-                height="16"
-                width="auto"
-              />
-              <img
-                className="h-5 w-fit dark:invert"
-                src="https://html.tailus.io/blocks/customers/vercel.svg"
-                alt="Vercel Logo"
-                height="20"
-                width="auto"
-              />
-              <img
-                className="h-5 w-fit dark:invert"
-                src="https://html.tailus.io/blocks/customers/zapier.svg"
-                alt="Zapier Logo"
-                height="20"
-                width="auto"
-              />
-            </div>
+            <InView
+              variants={{
+                hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
+                visible: { opacity: 1, y: 0, filter: "blur(0px)" },
+              }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              viewOptions={{ margin: "0px 0px -100px 0px", once: true }}
+            >
+              <h2 className="text-center">
+                we partner with your favourite world leading tech companies.
+              </h2>
+            </InView>
+
+            <InView
+              variants={{
+                hidden: { opacity: 0, y: 30, filter: "blur(4px)" },
+                visible: { opacity: 1, y: 0, filter: "blur(0px)" },
+              }}
+              transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
+              viewOptions={{ margin: "0px 0px -100px 0px", once: true }}
+            >
+              <div className="mx-auto mt-10 flex max-w-4xl flex-wrap items-center justify-center gap-x-12 gap-y-8 sm:gap-x-16 sm:gap-y-12">
+                <img
+                  className="h-5 w-fit dark:invert"
+                  src="/logos/aws_light.svg"
+                  alt="AWS Logo"
+                  height="20"
+                  width="auto"
+                />
+                <img
+                  className="h-5 w-fit dark:invert"
+                  src="/logos/github_light.svg"
+                  alt="GitHub Logo"
+                  height="16"
+                  width="auto"
+                />
+                <img
+                  className="h-5 w-fit dark:invert"
+                  src="/logos/notion.svg"
+                  alt="Notion Logo"
+                  height="20"
+                  width="auto"
+                />
+                <img
+                  className="h-5 w-fit dark:invert"
+                  src="/logos/anthropic_black_wordmark.svg"
+                  alt="Anthropic Logo"
+                  height="20"
+                  width="auto"
+                />
+                <img
+                  className="h-6 w-fit dark:invert"
+                  src="/logos/openai_wordmark_light.svg"
+                  alt="OpenAI Logo"
+                  height="24"
+                  width="auto"
+                />
+                <img
+                  className="h-5 w-fit dark:invert"
+                  src="/logos/microsoft.svg"
+                  alt="Microsoft Logo"
+                  height="16"
+                  width="auto"
+                />
+                <img
+                  className="h-4 w-fit dark:invert"
+                  src="/logos/vercel_wordmark.svg"
+                  alt="Vercel Logo"
+                  height="20"
+                  width="auto"
+                />
+              </div>
+            </InView>
           </div>
         </section>
       </main>
