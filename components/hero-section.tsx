@@ -1,6 +1,7 @@
 "use client";
 import { InView } from "@/components/core/in-view";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function HeroSection() {
@@ -40,7 +41,10 @@ export default function HeroSection() {
                 transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
                 viewOptions={{ once: true }}
               >
-                <p className="mx-auto my-8 max-w-2xl font-light">
+                <p
+                  className="mx-auto my-8 max-w-2xl font-light"
+                  itemProp="description"
+                >
                   consulting, design, development, and hosting — all while your
                   competitors are still planning
                 </p>
@@ -87,54 +91,61 @@ export default function HeroSection() {
               viewOptions={{ margin: "0px 0px -100px 0px", once: true }}
             >
               <div className="mx-auto overflow-x-scroll mt-10 flex flex-row justify-center max-w-4xl items-center gap-8 md:gap-10 lg:gap-12">
-                <img
-                  className="h-5 w-fit dark:invert"
+                <Image
+                  className="h-5 w-auto dark:invert"
                   src="/logos/aws_light.svg"
-                  alt="AWS Logo"
-                  height="20"
-                  width="auto"
+                  alt="AWS Logo - Cloud Partner"
+                  height={20}
+                  width={60}
+                  priority
                 />
-                <img
-                  className="h-5 w-fit dark:invert"
+                <Image
+                  className="h-5 w-auto dark:invert"
                   src="/logos/github_light.svg"
-                  alt="GitHub Logo"
-                  height="16"
-                  width="auto"
+                  alt="GitHub Logo - Development Partner"
+                  height={16}
+                  width={50}
+                  priority
                 />
-                <img
-                  className="h-5 w-fit dark:invert"
+                <Image
+                  className="h-5 w-auto dark:invert"
                   src="/logos/notion.svg"
-                  alt="Notion Logo"
-                  height="20"
-                  width="auto"
+                  alt="Notion Logo - Productivity Partner"
+                  height={20}
+                  width={55}
+                  priority
                 />
-                <img
-                  className="h-5 w-fit dark:invert"
+                <Image
+                  className="h-5 w-auto dark:invert"
                   src="/logos/anthropic_black_wordmark.svg"
-                  alt="Anthropic Logo"
-                  height="20"
-                  width="auto"
+                  alt="Anthropic Logo - AI Partner"
+                  height={20}
+                  width={70}
+                  priority
                 />
-                <img
-                  className="h-6 w-fit dark:invert"
+                <Image
+                  className="h-6 w-auto dark:invert"
                   src="/logos/openai_wordmark_light.svg"
-                  alt="OpenAI Logo"
-                  height="24"
-                  width="auto"
+                  alt="OpenAI Logo - AI Partner"
+                  height={24}
+                  width={80}
+                  priority
                 />
-                <img
-                  className="h-5 w-fit dark:invert"
+                <Image
+                  className="h-5 w-auto dark:invert"
                   src="/logos/microsoft.svg"
-                  alt="Microsoft Logo"
-                  height="16"
-                  width="auto"
+                  alt="Microsoft Logo - Technology Partner"
+                  height={16}
+                  width={80}
+                  priority
                 />
-                <img
-                  className="h-4 w-fit dark:invert"
+                <Image
+                  className="h-4 w-auto dark:invert"
                   src="/logos/vercel_wordmark.svg"
-                  alt="Vercel Logo"
-                  height="20"
-                  width="auto"
+                  alt="Vercel Logo - Hosting Partner"
+                  height={20}
+                  width={60}
+                  priority
                 />
               </div>
             </InView>

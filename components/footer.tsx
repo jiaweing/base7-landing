@@ -1,5 +1,6 @@
 import { InView } from "@/components/core/in-view";
 import { Logo } from "@/components/logo";
+import Image from "next/image";
 import Link from "next/link";
 
 const links = [
@@ -65,12 +66,12 @@ export default function FooterSection() {
               aria-label="X/Twitter"
               className="text-muted-foreground hover:text-primary text-center w-6 h-6 flex items-center justify-center"
             >
-              <img
+              <Image
                 className="h-5 w-5 dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
                 src="/logos/x.svg"
-                alt="X Logo"
-                height="16"
-                width="16"
+                alt="X/Twitter - Follow Base 7"
+                height={16}
+                width={16}
               />
             </Link>
             <Link
@@ -80,12 +81,12 @@ export default function FooterSection() {
               aria-label="LinkedIn"
               className="text-muted-foreground hover:text-primary text-center w-6 h-6 flex items-center justify-center"
             >
-              <img
+              <Image
                 className="h-5 w-5 dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
                 src="/logos/linkedin.svg"
-                alt="LinkedIn Logo"
-                height="16"
-                width="16"
+                alt="LinkedIn - Connect with Base 7"
+                height={16}
+                width={16}
               />
             </Link>
             <Link
@@ -95,12 +96,12 @@ export default function FooterSection() {
               aria-label="Threads"
               className="text-muted-foreground hover:text-primary text-center w-6 h-6 flex items-center justify-center"
             >
-              <img
+              <Image
                 className="h-5 w-5 dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
                 src="/logos/threads.svg"
-                alt="Threads Logo"
-                height="16"
-                width="16"
+                alt="Threads - Follow Base 7 Updates"
+                height={16}
+                width={16}
               />
             </Link>
             <Link
@@ -110,12 +111,12 @@ export default function FooterSection() {
               aria-label="Instagram"
               className="text-muted-foreground hover:text-primary text-center w-6 h-6 flex items-center justify-center"
             >
-              <img
+              <Image
                 className="h-5 w-5 dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
                 src="/logos/instagram.svg"
-                alt="Instagram Logo"
-                height="16"
-                width="16"
+                alt="Instagram - Follow Base 7 Photos"
+                height={16}
+                width={16}
               />
             </Link>
             <Link
@@ -125,12 +126,12 @@ export default function FooterSection() {
               aria-label="TikTok"
               className="text-muted-foreground hover:text-primary text-center w-6 h-6 flex items-center justify-center"
             >
-              <img
+              <Image
                 className="h-5 w-5 dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
                 src="/logos/tiktok.svg"
-                alt="Tiktok Logo"
-                height="16"
-                width="16"
+                alt="TikTok - Follow Base 7 Videos"
+                height={16}
+                width={16}
               />
             </Link>
             <Link
@@ -140,12 +141,12 @@ export default function FooterSection() {
               aria-label="YouTube"
               className="text-muted-foreground hover:text-primary text-center w-6 h-6 flex items-center justify-center"
             >
-              <img
+              <Image
                 className="h-5 w-5 dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
                 src="/logos/youtube.svg"
-                alt="YouTube Logo"
-                height="16"
-                width="16"
+                alt="YouTube - Watch Base 7 Videos"
+                height={16}
+                width={16}
               />
             </Link>
           </div>
@@ -159,8 +160,18 @@ export default function FooterSection() {
           viewOptions={{ margin: "0px 0px -100px 0px", once: true }}
         >
           <div className="text-muted-foreground text-center text-sm px-4 mt-8 mb-4">
-            © {new Date().getFullYear()} Base 7 LLP, Singapore. <br />
-            (UEN: T25LL0003D)
+            <span itemScope itemType="http://schema.org/Organization">
+              © {new Date().getFullYear()}{" "}
+              <span itemProp="name">Base 7 LLP</span>,{" "}
+              <span itemProp="location">Singapore</span>. <br />
+              (UEN: <span itemProp="taxID">T25LL0003D</span>)
+              <meta itemProp="foundingDate" content="2025-01-01" />
+              <meta itemProp="url" content="https://base7.com" />
+              <meta
+                itemProp="description"
+                content="Base 7 is a Singapore-based software company specializing in rapid app development. We build web, mobile, and desktop apps in just 10 days."
+              />
+            </span>
           </div>
         </InView>
       </div>
