@@ -1,6 +1,8 @@
+import { PlausibleWrapper } from "@/components/analytics/plausible-provider";
 import Header from "@/components/header";
 import SEO from "@/components/seo";
-import { PlausibleWrapper } from "@/components/analytics/plausible-provider";
+import { GoogleAnalytics } from "@next/third-parties/google";
+import { analyticsConfig } from "@/lib/analytics-config";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -112,6 +114,9 @@ export default function RootLayout({
         >
           <Header />
           {children}
+          {analyticsConfig.googleAnalytics.enabled && (
+            <GoogleAnalytics gaId={analyticsConfig.googleAnalytics.gaId} />
+          )}
         </body>
       </html>
     </PlausibleWrapper>
