@@ -207,7 +207,7 @@ function MorphingDialogContent({
     <motion.div
       ref={containerRef}
       layoutId={`dialog-${uniqueId}`}
-      className={cn("overflow-hidden !rounded-[1rem]", className)}
+      className={cn("!rounded-[1rem] max-h-[90vh] flex flex-col", className)}
       style={style}
       role="dialog"
       aria-modal="true"
@@ -247,7 +247,7 @@ function MorphingDialogContainer({ children }: MorphingDialogContainerProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           />
-          <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-hidden">
             {children}
           </div>
         </>

@@ -211,7 +211,7 @@ function ProjectCard({ project }: { project: Project }) {
       </div>
 
       <MorphingDialogContainer>
-        <MorphingDialogContent className="max-w-3xl rounded-[1rem] bg-card p-0 shadow-lg">
+        <MorphingDialogContent className="max-w-3xl rounded-[1rem] bg-card p-0 shadow-lg overflow-hidden">
           <div className="aspect-[16/9] relative overflow-hidden rounded-t-[1rem]">
             {project.image ? (
               <Image
@@ -234,75 +234,77 @@ function ProjectCard({ project }: { project: Project }) {
             </MorphingDialogTitle>
           </div>
 
-          <div className="p-6">
-            <MorphingDialogDescription className="space-y-6">
-              <div className="flex items-center justify-between">
-                <div className="text-sm text-muted-foreground">
-                  {project.year}
-                </div>
-              </div>
-
-              <p className="text-lg">{project.fullDescription}</p>
-
-              {project.features && project.features.length > 0 && (
-                <div className="space-y-4">
-                  {project.features.map((feature, index) => (
-                    <div key={index} className="space-y-2">
-                      <h4 className="text-lg font-medium">{feature.title}</h4>
-                      <p className="text-muted-foreground">
-                        {feature.description}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {project.technologies && project.technologies.length > 0 && (
-                <div>
-                  <h4 className="text-sm font-medium">Technologies</h4>
-                  <div className="mt-2 flex flex-wrap gap-2">
-                    {project.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="inline-flex items-center rounded-full bg-accent/20 px-2.5 py-0.5 text-xs font-medium text-accent-foreground"
-                      >
-                        {tech}
-                      </span>
-                    ))}
+          <div className="overflow-y-auto max-h-[calc(90vh-56.25%)] md:max-h-[calc(90vh-16rem)]">
+            <div className="p-6">
+              <MorphingDialogDescription className="space-y-6">
+                <div className="flex items-center justify-between">
+                  <div className="text-sm text-muted-foreground">
+                    {project.year}
                   </div>
                 </div>
-              )}
 
-              {project.videoLink && (
-                <div className="aspect-video relative overflow-hidden rounded-lg">
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    src={`https://www.youtube.com/embed/${
-                      project.videoLink.split("v=")[1]
-                    }`}
-                    title={`${project.title} video`}
-                    style={{ border: 0 }}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  ></iframe>
-                </div>
-              )}
+                <p className="text-lg">{project.fullDescription}</p>
 
-              <div className="flex items-center gap-4 pt-4">
-                {project.link && (
-                  <Link
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
-                  >
-                    <ExternalLink className="h-4 w-4" />
-                    {project.ctaText || "Visit Project"}
-                  </Link>
+                {project.features && project.features.length > 0 && (
+                  <div className="space-y-4">
+                    {project.features.map((feature, index) => (
+                      <div key={index} className="space-y-2">
+                        <h4 className="text-lg font-medium">{feature.title}</h4>
+                        <p className="text-muted-foreground">
+                          {feature.description}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                 )}
-              </div>
-            </MorphingDialogDescription>
+
+                {project.technologies && project.technologies.length > 0 && (
+                  <div>
+                    <h4 className="text-sm font-medium">Technologies</h4>
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {project.technologies.map((tech) => (
+                        <span
+                          key={tech}
+                          className="inline-flex items-center rounded-full bg-accent/20 px-2.5 py-0.5 text-xs font-medium text-accent-foreground"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {project.videoLink && (
+                  <div className="aspect-video relative overflow-hidden rounded-lg">
+                    <iframe
+                      width="100%"
+                      height="100%"
+                      src={`https://www.youtube.com/embed/${
+                        project.videoLink.split("v=")[1]
+                      }`}
+                      title={`${project.title} video`}
+                      style={{ border: 0 }}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                )}
+
+                <div className="flex items-center gap-4 pt-4">
+                  {project.link && (
+                    <Link
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
+                    >
+                      <ExternalLink className="h-4 w-4" />
+                      {project.ctaText || "Visit Project"}
+                    </Link>
+                  )}
+                </div>
+              </MorphingDialogDescription>
+            </div>
           </div>
 
           <MorphingDialogClose className="absolute right-4 top-4 rounded-full bg-black/20 p-1.5 text-white backdrop-blur-sm transition-colors hover:bg-black/30" />
