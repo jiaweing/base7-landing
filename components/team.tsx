@@ -6,14 +6,14 @@ const members = [
     name: "Jia Wei Ng",
     role: "Business Director, Co-Founder",
     avatar: "/team/jiawei.jpg",
-    linkedin: "https://www.linkedin.com/in/jiawei-ng/",
+    linkedin: "https://www.linkedin.com/in/jiaweing",
     website: "https://jiawei.ng",
   },
   {
     name: "Cheng En Liout",
     role: "Creative Director, Co-Founder",
     avatar: "/team/chengen.jpg",
-    linkedin: "https://www.linkedin.com/in/chengenliout/",
+    linkedin: "https://www.linkedin.com/in/cheng-en-liout",
     website: "https://lioutchengen.com",
   },
 ];
