@@ -35,7 +35,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             back to home
           </Link>
         </InViewWrapper>
-        <InViewWrapper>
+        <InViewWrapper transition={{ duration: 0.5, delay: 0.1 }}>
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h1 className="text-3xl font-medium tracking-tight md:text-4xl">
@@ -73,7 +73,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </InViewWrapper>
 
         {/* Description */}
-        <InViewWrapper>
+        <InViewWrapper transition={{ duration: 0.5, delay: 0.2 }}>
           <div className="text-lg leading-relaxed text-foreground/90">
             {project.description}
           </div>
@@ -81,7 +81,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
         {/* Technologies */}
         {project.techStack && project.techStack.length > 0 && (
-          <InViewWrapper>
+          <InViewWrapper transition={{ duration: 0.5, delay: 0.3 }}>
             <div className="space-y-4 pt-4">
               <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
                 Technologies
@@ -102,7 +102,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
         {/* Header Image */}
         {project.cover && (
-          <InViewWrapper>
+          <InViewWrapper transition={{ duration: 0.5, delay: 0.4 }}>
             <div className="aspect-video relative overflow-hidden rounded-2xl">
               <Image
                 src={project.cover}
@@ -118,7 +118,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
         {/* Markdown Content */}
         {blocks && blocks.length > 0 && (
-          <InViewWrapper>
+          <InViewWrapper transition={{ duration: 0.5, delay: 0.5 }}>
             <div className="mt-12">
               <NotionRenderer blocks={blocks} />
             </div>

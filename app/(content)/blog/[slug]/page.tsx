@@ -60,7 +60,7 @@ export default async function BlogPostPage({
         </Link>
       </InViewWrapper>
 
-      <InViewWrapper>
+      <InViewWrapper transition={{ duration: 0.5, delay: 0.1 }}>
         <header className="mb-12 space-y-6">
           <h1 className="text-3xl md:text-4xl font-medium tracking-tight">
             {post.title}
@@ -105,7 +105,7 @@ export default async function BlogPostPage({
       </InViewWrapper>
 
       {blocks && blocks.length > 0 && (
-        <InViewWrapper>
+        <InViewWrapper transition={{ duration: 0.5, delay: 0.2 }}>
           <div className="mb-16">
             <NotionRenderer blocks={blocks} />
           </div>

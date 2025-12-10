@@ -17,10 +17,11 @@ export default async function BlogIndex() {
       </InViewWrapper>
 
       <div className="grid gap-10">
-        {posts.map((post) => (
+        {posts.map((post, index) => (
           <InViewWrapper
             key={post.id}
             viewOptions={{ once: true, margin: "0px 0px -100px 0px" }}
+            transition={{ duration: 0.5, delay: (index % 5) * 0.1 }}
           >
             <Link href={`/blog/${post.slug}`} className="group block space-y-4">
               <div className="flex items-center gap-4 text-sm text-muted-foreground">

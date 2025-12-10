@@ -55,7 +55,7 @@ export default async function GenericPage({
       </InViewWrapper>
 
       {blocks && blocks.length > 0 && (
-        <InViewWrapper>
+        <InViewWrapper transition={{ duration: 0.5, delay: 0.2 }}>
           <div className="mb-16">
             <NotionRenderer blocks={blocks} />
           </div>
