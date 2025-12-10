@@ -1,3 +1,4 @@
+import { InViewWrapper } from "@/components/core/in-view-wrapper";
 import { NotionRenderer } from "@/components/markdown-renderer";
 import { getPage, getPages } from "@/lib/notion";
 import type { Metadata } from "next";
@@ -45,16 +46,20 @@ export default async function GenericPage({
 
   return (
     <>
-      <header className="mb-12">
-        <h1 className="text-3xl md:text-4xl font-medium tracking-tight">
-          {page.title}
-        </h1>
-      </header>
+      <InViewWrapper>
+        <header className="mb-12">
+          <h1 className="text-3xl md:text-4xl font-medium tracking-tight">
+            {page.title}
+          </h1>
+        </header>
+      </InViewWrapper>
 
       {blocks && blocks.length > 0 && (
-        <div className="mb-16">
-          <NotionRenderer blocks={blocks} />
-        </div>
+        <InViewWrapper>
+          <div className="mb-16">
+            <NotionRenderer blocks={blocks} />
+          </div>
+        </InViewWrapper>
       )}
     </>
   );
