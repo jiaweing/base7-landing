@@ -30,6 +30,12 @@ const nextConfig: NextConfig = {
         pathname: "/**",
       },
     ],
+    localPatterns: [
+      {
+        pathname: "/api/og",
+        search: "?**",
+      },
+    ],
   },
 };
 
