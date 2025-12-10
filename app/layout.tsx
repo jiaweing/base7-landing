@@ -1,8 +1,12 @@
 import { PlausibleWrapper } from "@/components/analytics/plausible-provider";
+import FooterSection from "@/components/footer";
 import Header from "@/components/header";
+import { MobileNav } from "@/components/mobile-nav";
 import SEO from "@/components/seo";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import { TailwindIndicator } from "@/components/tailwind-indicator";
+import { ThemeProvider } from "@/components/theme-provider";
 import { analyticsConfig } from "@/lib/analytics-config";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -18,7 +22,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Base 7 — Build Your Next App in 10 Days",
+  title: "Base 7",
   description:
     "Base 7 is a Singapore-based software company with 10+ years of experience specializing in rapid app development. We build web, mobile, and desktop apps in just 10 days.",
   manifest: "/manifest.json",
@@ -51,7 +55,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://base7.com",
-    title: "Base 7 — Build Your Next App in 10 Days",
+    title: "Base 7",
     description:
       "We build digital experiences in days that others take months to create. 10+ years of experience creating tomorrow's technology.",
     siteName: "Base 7",
@@ -66,7 +70,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Base 7 — Build Your Next App in 10 Days",
+    title: "Base 7",
     description:
       "We build digital experiences in days that others take months to create. 10+ years of experience creating tomorrow's technology.",
     images: ["https://base7.com/api/og"],
@@ -112,11 +116,21 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <Header />
-          {children}
-          {analyticsConfig.googleAnalytics.enabled && (
-            <GoogleAnalytics gaId={analyticsConfig.googleAnalytics.gaId} />
-          )}
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Header />
+            <MobileNav />
+            {children}
+            <FooterSection />
+            <TailwindIndicator />
+            {analyticsConfig.googleAnalytics.enabled && (
+              <GoogleAnalytics gaId={analyticsConfig.googleAnalytics.gaId} />
+            )}
+          </ThemeProvider>
         </body>
       </html>
     </PlausibleWrapper>

@@ -1,4 +1,5 @@
 import { InView } from "@/components/core/in-view";
+import { fadeInVariants } from "@/lib/animations";
 import {
   AppWindow,
   Cloud,
@@ -53,10 +54,7 @@ export default function FeaturesSection() {
     <section className="py-16 md:py-32">
       <div className="mx-auto max-w-5xl space-y-12 px-6">
         <InView
-          variants={{
-            hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
-            visible: { opacity: 1, y: 0, filter: "blur(0px)" },
-          }}
+          variants={fadeInVariants}
           transition={{ duration: 0.4, ease: "easeOut" }}
           viewOptions={{ margin: "0px 0px -100px 0px", once: true }}
         >
@@ -72,10 +70,7 @@ export default function FeaturesSection() {
         </InView>
 
         <InView
-          variants={{
-            hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
-            visible: { opacity: 1, y: 0, filter: "blur(0px)" },
-          }}
+          variants={fadeInVariants}
           transition={{ duration: 0.5, ease: "easeOut" }}
           viewOptions={{ margin: "0px 0px -100px 0px", once: true }}
         >
@@ -97,10 +92,7 @@ export default function FeaturesSection() {
             return (
               <InView
                 key={index}
-                variants={{
-                  hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
-                  visible: { opacity: 1, y: 0, filter: "blur(0px)" },
-                }}
+                variants={fadeInVariants}
                 transition={{
                   duration: 0.4,
                   ease: "easeOut",

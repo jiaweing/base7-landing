@@ -1,32 +1,29 @@
 import CallToAction from "@/components/call-to-action";
-import ContentSection from "@/components/content-1";
 import { InViewWrapper } from "@/components/core/in-view-wrapper";
 import FAQsFour from "@/components/faqs-4";
-import FeaturesSection from "@/components/features-6";
-import FooterSection from "@/components/footer";
 import HeroSection from "@/components/hero-section";
 import ProjectsShowcase from "@/components/projects-showcase";
-import StatsSection from "@/components/stats-4";
 import TeamSection from "@/components/team";
+import { blurVariants } from "@/lib/animations";
+import { getProjects } from "@/lib/notion";
 
-export default function Home() {
+// Revalidate every hour
+export const revalidate = 3600;
+
+export default async function Home() {
+  const projects = await getProjects();
+
   return (
     <>
-      <InViewWrapper
-        variants={{
-          hidden: { opacity: 0, filter: "blur(4px)" },
-          visible: { opacity: 1, filter: "blur(0px)" },
-        }}
-        viewOptions={{ once: true }}
-      >
+      <InViewWrapper variants={blurVariants} viewOptions={{ once: true }}>
         <HeroSection />
       </InViewWrapper>
 
       <InViewWrapper>
-        <ProjectsShowcase />
+        <ProjectsShowcase projects={projects} />
       </InViewWrapper>
 
-      <InViewWrapper>
+      {/* <InViewWrapper>
         <ContentSection />
       </InViewWrapper>
 
@@ -36,7 +33,7 @@ export default function Home() {
 
       <InViewWrapper>
         <FeaturesSection />
-      </InViewWrapper>
+      </InViewWrapper> */}
 
       <InViewWrapper>
         <TeamSection />
@@ -50,10 +47,6 @@ export default function Home() {
 
       <InViewWrapper>
         <CallToAction />
-      </InViewWrapper>
-
-      <InViewWrapper>
-        <FooterSection />
       </InViewWrapper>
     </>
   );

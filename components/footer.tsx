@@ -4,9 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 const links = [
-  { title: "build with us", href: "https://tally.so/r/wLoJKj" },
-  { title: "become a partner", href: "https://tally.so/r/3x6PdG" },
-  { title: "book a call", href: "https://cal.com/jiaweing/base7" },
+  { title: "manifesto", href: "/manifesto" },
+  { title: "about", href: "/about" },
+  { title: "brand story", href: "/story" },
 ];
 
 export default function FooterSection() {
@@ -40,13 +40,27 @@ export default function FooterSection() {
         >
           <div className="my-8 flex flex-col sm:flex-row flex-wrap justify-center items-center gap-4 md:gap-6 text-sm">
             {links.map((link, index) => (
-              <Link
-                key={index}
-                href={link.href}
-                className="text-muted-foreground hover:text-primary block text-center px-2 py-1 duration-150"
-              >
-                <span>{link.title}</span>
-              </Link>
+              <>
+                {link.href.startsWith("/") ? (
+                  <Link
+                    key={index}
+                    href={link.href as any}
+                    className="text-muted-foreground hover:text-primary block text-center px-2 py-1 duration-150"
+                  >
+                    <span>{link.title}</span>
+                  </Link>
+                ) : (
+                  <a
+                    key={index}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-primary block text-center px-2 py-1 duration-150"
+                  >
+                    <span>{link.title}</span>
+                  </a>
+                )}
+              </>
             ))}
           </div>
         </InView>
@@ -59,7 +73,7 @@ export default function FooterSection() {
           viewOptions={{ margin: "0px 0px -100px 0px", once: true }}
         >
           <div className="my-8 flex flex-row flex-wrap justify-center items-center gap-6 md:gap-10">
-            <Link
+            <a
               href="https://x.com/j14wei"
               target="_blank"
               rel="noopener noreferrer"
@@ -73,8 +87,8 @@ export default function FooterSection() {
                 height={16}
                 width={16}
               />
-            </Link>
-            <Link
+            </a>
+            <a
               href="https://www.linkedin.com/company/base07"
               target="_blank"
               rel="noopener noreferrer"
@@ -88,8 +102,8 @@ export default function FooterSection() {
                 height={16}
                 width={16}
               />
-            </Link>
-            <Link
+            </a>
+            <a
               href="https://www.threads.net/@j14.wei"
               target="_blank"
               rel="noopener noreferrer"
@@ -103,8 +117,8 @@ export default function FooterSection() {
                 height={16}
                 width={16}
               />
-            </Link>
-            <Link
+            </a>
+            <a
               href="https://instagram.com/base7llp"
               target="_blank"
               rel="noopener noreferrer"
@@ -118,8 +132,8 @@ export default function FooterSection() {
                 height={16}
                 width={16}
               />
-            </Link>
-            <Link
+            </a>
+            <a
               href="https://www.tiktok.com/@j14.wei"
               target="_blank"
               rel="noopener noreferrer"
@@ -133,8 +147,8 @@ export default function FooterSection() {
                 height={16}
                 width={16}
               />
-            </Link>
-            <Link
+            </a>
+            <a
               href="https://www.youtube.com/@j14wei"
               target="_blank"
               rel="noopener noreferrer"
@@ -148,7 +162,7 @@ export default function FooterSection() {
                 height={16}
                 width={16}
               />
-            </Link>
+            </a>
           </div>
         </InView>
         <InView

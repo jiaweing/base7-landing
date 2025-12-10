@@ -1,5 +1,4 @@
 import { Globe, LinkedinIcon } from "lucide-react";
-import Link from "next/link";
 
 const members = [
   {
@@ -7,7 +6,7 @@ const members = [
     role: "Business Director, Co-Founder",
     avatar: "/team/jiawei.jpg",
     linkedin: "https://www.linkedin.com/in/jiaweing",
-    website: "https://jiawei.ng",
+    website: "https://jiaweing.com",
   },
   {
     name: "Cheng En Liout",
@@ -44,20 +43,20 @@ export default function TeamSection() {
                   {member.role}
                 </span>
                 <div className="flex flex-row gap-2 text-muted-foreground">
-                  <Link
+                  <a
                     href={member.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     <LinkedinIcon className="mt-2 size-4" />
-                  </Link>
-                  <Link
+                  </a>
+                  <a
                     href={member.website}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     <Globe className="mt-2 size-4" />
-                  </Link>
+                  </a>
                 </div>
               </div>
             ))}
