@@ -21,7 +21,7 @@ export default function ProjectsShowcase({ projects }: ProjectsShowcaseProps) {
   }
 
   return (
-    <section id="portfolio" className="py-16 md:py-32">
+    <section id="portfolio" className="py-16">
       <div className="mx-auto max-w-5xl space-y-8 px-6 md:space-y-12">
         <div className="relative z-10 flex flex-row">
           <h2 className="text-2xl font-medium tracking-tighter">our work</h2>

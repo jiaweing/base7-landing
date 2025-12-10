@@ -21,7 +21,7 @@ export default function TeamSection() {
   return (
     <section id="team" className="py-12 md:py-32">
       <div className="mx-auto max-w-3xl px-8 lg:px-0">
-        <h2 className="mb-8 text-4xl md:mb-16 lg:text-5xl">our team</h2>
+        <h2 className="mb-8 text-2xl md:mb-16 lg:text-3xl">our team</h2>
 
         <div>
           <h3 className="mb-6 text-lg font-medium">Core</h3>
