@@ -66,6 +66,9 @@
     "vaul": "^1.1.2",
     "zod": "^3.24.2"
   },
+  "resolutions": {
+    "@types/minimatch": "5.1.2"
+  },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
