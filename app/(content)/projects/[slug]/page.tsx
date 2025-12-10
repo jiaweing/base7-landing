@@ -1,8 +1,8 @@
 import { InViewWrapper } from "@/components/core/in-view-wrapper";
 import { NotionRenderer } from "@/components/markdown-renderer";
+import ProjectGallery from "@/components/project-gallery";
 import { getProject } from "@/lib/notion";
 import { ChevronLeft, ExternalLink } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -35,16 +35,29 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             back to home
           </Link>
         </InViewWrapper>
-        <InViewWrapper transition={{ duration: 0.5, delay: 0.1 }}>
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h1 className="text-3xl font-medium tracking-tight md:text-4xl">
-                {project.title}
-              </h1>
-              <span className="text-muted-foreground">{project.year}</span>
+        <div className="space-y-4">
+          <InViewWrapper transition={{ duration: 0.5, delay: 0.1 }}>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <h1 className="text-3xl font-medium tracking-tight md:text-4xl">
+                  {project.title}
+                </h1>
+                <span className="text-muted-foreground">{project.year}</span>
+              </div>
             </div>
+          </InViewWrapper>
 
-            <div className="flex items-center gap-4">
+          {/* Description */}
+          <InViewWrapper transition={{ duration: 0.5, delay: 0.2 }}>
+            <div className="leading-relaxed text-foreground/90">
+              {project.description}
+            </div>
+          </InViewWrapper>
+        </div>
+        <div className="flex flex-row justify-between items-center">
+          {/* Links */}
+          <InViewWrapper transition={{ duration: 0.5, delay: 0.45 }}>
+            <div className="flex items-center gap-4 pt-2">
               {project.url && (
                 <a
                   href={project.url}
@@ -53,7 +66,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
                 >
                   <ExternalLink className="h-4 w-4" />
-                  Visit Project
+                  Website
                 </a>
               )}
 
@@ -69,53 +82,38 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 </a>
               )}
             </div>
-          </div>
-        </InViewWrapper>
+          </InViewWrapper>
 
-        {/* Description */}
-        <InViewWrapper transition={{ duration: 0.5, delay: 0.2 }}>
-          <div className="text-lg leading-relaxed text-foreground/90">
-            {project.description}
-          </div>
-        </InViewWrapper>
-
-        {/* Technologies */}
-        {project.techStack && project.techStack.length > 0 && (
-          <InViewWrapper transition={{ duration: 0.5, delay: 0.3 }}>
-            <div className="space-y-4 pt-4">
-              <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-                Technologies
-              </h2>
-              <div className="flex flex-wrap gap-2">
-                {project.techStack.map((tech) => (
-                  <span
-                    key={tech}
-                    className="inline-flex items-center rounded-full bg-secondary px-3 py-1 text-sm font-medium text-secondary-foreground"
-                  >
-                    {tech}
-                  </span>
-                ))}
+          {/* Technologies */}
+          {project.techStack && project.techStack.length > 0 && (
+            <InViewWrapper transition={{ duration: 0.5, delay: 0.4 }}>
+              <div className="space-y-4 pt-4">
+                <div className="flex flex-wrap gap-2">
+                  {project.techStack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="inline-flex items-center rounded-full bg-secondary px-3 py-1 text-sm font-medium text-secondary-foreground"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
+            </InViewWrapper>
+          )}
+        </div>
+
+        {/* Header Image & Gallery */}
+        {(project.cover ||
+          (project.screenshots && project.screenshots.length > 0)) && (
+          <InViewWrapper transition={{ duration: 0.5, delay: 0.3 }}>
+            <ProjectGallery
+              images={[project.cover, ...(project.screenshots || [])].filter(
+                (img): img is string => !!img
+              )}
+            />
           </InViewWrapper>
         )}
-
-        {/* Header Image */}
-        {project.cover && (
-          <InViewWrapper transition={{ duration: 0.5, delay: 0.4 }}>
-            <div className="aspect-video relative overflow-hidden rounded-2xl">
-              <Image
-                src={project.cover}
-                alt={project.title}
-                className="h-full w-full object-cover"
-                width={1200}
-                height={675}
-                priority
-              />
-            </div>
-          </InViewWrapper>
-        )}
-
         {/* Markdown Content */}
         {blocks && blocks.length > 0 && (
           <InViewWrapper transition={{ duration: 0.5, delay: 0.5 }}>

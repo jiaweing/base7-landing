@@ -53,6 +53,7 @@ export interface Project {
   techStack: string[];
   cover?: string;
   year: string;
+  screenshots: string[];
 }
 
 // Helper: Block to Plain Text
@@ -423,13 +424,10 @@ export const getProjects = unstable_cache(
           id: page.id,
           slug: getProperty(page, "Slug", "rich_text") || "",
           title: getProperty(page, "Title", "title") || "Untitled",
-          description:
-            getProperty(page, "FullDescription", "rich_text") ||
-            getProperty(page, "ShortDescription", "rich_text") ||
-            "",
+          description: getProperty(page, "Description", "rich_text") || "",
           url: getProperty(page, "Link", "url") || "",
           github: getProperty(page, "GitHub", "url") || "",
-          techStack: getProperty(page, "Technologies", "multi_select") || [],
+          techStack: getProperty(page, "Tech Stack", "multi_select") || [],
           year: getProperty(page, "Year", "rich_text") || "",
           cover:
             page.properties?.Banner?.files?.[0]?.file?.url ||
@@ -439,6 +437,7 @@ export const getProjects = unstable_cache(
             page.cover?.external?.url ||
             page.cover?.file?.url ||
             undefined,
+          screenshots: [], // List view doesn't need screenshots
         }))
         .filter((p: Project) => p.title);
     } catch (e) {
@@ -488,13 +487,10 @@ export const getProject = unstable_cache(
         id: page.id,
         slug: getProperty(page, "Slug", "rich_text") || "",
         title: getProperty(page, "Title", "title") || "Untitled",
-        description:
-          getProperty(page, "FullDescription", "rich_text") ||
-          getProperty(page, "ShortDescription", "rich_text") ||
-          "",
+        description: getProperty(page, "Description", "rich_text") || "",
         url: getProperty(page, "Link", "url") || "",
         github: getProperty(page, "GitHub", "url") || "",
-        techStack: getProperty(page, "Technologies", "multi_select") || [],
+        techStack: getProperty(page, "Tech Stack", "multi_select") || [],
         year: getProperty(page, "Year", "rich_text") || "",
         cover:
           page.properties?.Banner?.files?.[0]?.file?.url ||
@@ -504,6 +500,10 @@ export const getProject = unstable_cache(
           page.cover?.external?.url ||
           page.cover?.file?.url ||
           undefined,
+        screenshots:
+          page.properties?.Screenshots?.files?.map(
+            (file: any) => file.file?.url || file.external?.url
+          ) || [],
       };
 
       const blocks = await notion.blocks.children.list({
