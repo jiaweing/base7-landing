@@ -1,8 +1,8 @@
 "use client";
-import { InView } from "@/components/core/in-view";
 import { Logo } from "@/components/logo";
 import { ProgressiveBlur } from "@/components/progressive-blur";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { FadeIn } from "@/components/ui/fade-in";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -56,14 +56,7 @@ export default function Header() {
             <div className="hidden xl:block flex-1" />
 
             <div className="flex justify-center items-center z-60">
-              <InView
-                variants={{
-                  hidden: { opacity: 0, scale: 0.9, filter: "blur(2px)" },
-                  visible: { opacity: 1, scale: 1, filter: "blur(0px)" },
-                }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
-                viewOptions={{ once: true }}
-              >
+              <FadeIn duration={0.4} viewOptions={{ margin: "0px" }}>
                 <Link
                   href="/"
                   aria-label="home"
@@ -71,60 +64,44 @@ export default function Header() {
                 >
                   <Logo />
                 </Link>
-              </InView>
+              </FadeIn>
             </div>
 
             <div className="bg-background in-data-[state=active]:block lg:in-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 xl:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent lg:flex-1 z-50">
               <div className="lg:pr-4">
-                <InView
-                  variants={{
-                    hidden: { opacity: 0, y: 10, filter: "blur(2px)" },
-                    visible: { opacity: 1, y: 0, filter: "blur(0px)" },
-                  }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
-                  viewOptions={{ once: true }}
-                >
-                  <div className="flex items-center gap-6">
-                    <ul className="space-y-6 text-base lg:flex lg:gap-8 lg:space-y-0 lg:text-sm">
-                      {menuItems.map((item, index) => (
-                        <InView
-                          key={index}
-                          variants={{
-                            hidden: { opacity: 0, y: 10, filter: "blur(2px)" },
-                            visible: { opacity: 1, y: 0, filter: "blur(0px)" },
-                          }}
-                          transition={{
-                            duration: 0.4,
-                            ease: "easeOut",
-                            delay: 0.1 * index,
-                          }}
-                          viewOptions={{ once: true }}
-                        >
-                          <li>
-                            {item.href.startsWith("/") ? (
-                              <Link
-                                href={item.href as any}
-                                className="text-muted-foreground hover:text-accent-foreground block duration-150"
-                              >
-                                <span>{item.name}</span>
-                              </Link>
-                            ) : (
-                              <a
-                                href={item.href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-muted-foreground hover:text-accent-foreground block duration-150"
-                              >
-                                <span>{item.name}</span>
-                              </a>
-                            )}
-                          </li>
-                        </InView>
-                      ))}
-                    </ul>
-                    <ThemeToggle />
-                  </div>
-                </InView>
+                <div className="flex items-center gap-6">
+                  <ul className="space-y-6 text-base lg:flex lg:gap-8 lg:space-y-0 lg:text-sm">
+                    {menuItems.map((item, index) => (
+                      <FadeIn
+                        key={index}
+                        duration={0.4}
+                        delay={0.1 * index}
+                        viewOptions={{ margin: "0px" }}
+                      >
+                        <li>
+                          {item.href.startsWith("/") ? (
+                            <Link
+                              href={item.href as any}
+                              className="text-muted-foreground hover:text-accent-foreground block duration-150"
+                            >
+                              <span>{item.name}</span>
+                            </Link>
+                          ) : (
+                            <a
+                              href={item.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-muted-foreground hover:text-accent-foreground block duration-150"
+                            >
+                              <span>{item.name}</span>
+                            </a>
+                          )}
+                        </li>
+                      </FadeIn>
+                    ))}
+                  </ul>
+                  <ThemeToggle />
+                </div>
               </div>
             </div>
           </div>

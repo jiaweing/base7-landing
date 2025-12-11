@@ -1,32 +1,18 @@
 "use client";
-import { InView } from "@/components/core/in-view";
+import { FadeIn } from "@/components/ui/fade-in";
 import Image from "next/image";
 
 export default function PartnersSection() {
   return (
     <section className="bg-background relative z-10 md:py-16">
       <div className="m-auto max-w-5xl px-6">
-        <InView
-          variants={{
-            hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
-            visible: { opacity: 1, y: 0, filter: "blur(0px)" },
-          }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          viewOptions={{ margin: "0px 0px -100px 0px", once: true }}
-        >
+        <FadeIn duration={0.5}>
           <h2 className="text-center">
             we partner with your favourite world leading tech companies.
           </h2>
-        </InView>
+        </FadeIn>
 
-        <InView
-          variants={{
-            hidden: { opacity: 0, y: 30, filter: "blur(4px)" },
-            visible: { opacity: 1, y: 0, filter: "blur(0px)" },
-          }}
-          transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
-          viewOptions={{ margin: "0px 0px -100px 0px", once: true }}
-        >
+        <FadeIn delay={0.2} duration={0.5}>
           <div className="mx-auto overflow-x-scroll mt-10 flex flex-row justify-center max-w-4xl items-center gap-8 md:gap-10 lg:gap-12">
             <Image
               className="h-5 w-auto"
@@ -85,7 +71,7 @@ export default function PartnersSection() {
               priority
             />
           </div>
-        </InView>
+        </FadeIn>
       </div>
     </section>
   );

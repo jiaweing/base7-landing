@@ -1,4 +1,4 @@
-import { InViewWrapper } from "@/components/core/in-view-wrapper";
+import { FadeIn } from "@/components/ui/fade-in";
 import { getBlogPosts } from "@/lib/notion";
 import { format } from "date-fns";
 import Link from "next/link";
@@ -10,19 +10,15 @@ export default async function BlogIndex() {
 
   return (
     <>
-      <InViewWrapper>
+      <FadeIn>
         <div className="mb-16">
           <h1 className="text-2xl font-medium tracking-tight mb-4">blog</h1>
         </div>
-      </InViewWrapper>
+      </FadeIn>
 
       <div className="grid gap-10">
         {posts.map((post, index) => (
-          <InViewWrapper
-            key={post.id}
-            viewOptions={{ once: true, margin: "0px 0px -100px 0px" }}
-            transition={{ duration: 0.5, delay: (index % 5) * 0.1 }}
-          >
+          <FadeIn key={post.id} duration={0.5} delay={(index % 5) * 0.1}>
             <Link href={`/blog/${post.slug}`} className="group block space-y-4">
               <div className="flex items-center gap-4 text-sm text-muted-foreground">
                 {post.authors && post.authors.length > 0 && (
@@ -67,7 +63,7 @@ export default async function BlogIndex() {
                 </p>
               )}
             </Link>
-          </InViewWrapper>
+          </FadeIn>
         ))}
 
         {posts.length === 0 && (

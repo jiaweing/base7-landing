@@ -1,5 +1,5 @@
-import { InView } from "@/components/core/in-view";
 import { Logo } from "@/components/logo";
+import { FadeIn } from "@/components/ui/fade-in";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -13,14 +13,7 @@ export default function FooterSection() {
   return (
     <footer className="pb-16 md:pb-32">
       <div className="mx-auto max-w-5xl px-6">
-        <InView
-          variants={{
-            hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
-            visible: { opacity: 1, y: 0, filter: "blur(0px)" },
-          }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          viewOptions={{ margin: "0px 0px -100px 0px", once: true }}
-        >
+        <FadeIn duration={0.4}>
           <Link
             href="/"
             aria-label="go home"
@@ -28,16 +21,9 @@ export default function FooterSection() {
           >
             <Logo />
           </Link>
-        </InView>
+        </FadeIn>
 
-        <InView
-          variants={{
-            hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
-            visible: { opacity: 1, y: 0, filter: "blur(0px)" },
-          }}
-          transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
-          viewOptions={{ margin: "0px 0px -100px 0px", once: true }}
-        >
+        <FadeIn duration={0.4} delay={0.1}>
           <div className="my-8 flex flex-col sm:flex-row flex-wrap justify-center items-center gap-4 md:gap-6 text-sm">
             {links.map((link, index) => (
               <>
@@ -63,15 +49,8 @@ export default function FooterSection() {
               </>
             ))}
           </div>
-        </InView>
-        <InView
-          variants={{
-            hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
-            visible: { opacity: 1, y: 0, filter: "blur(0px)" },
-          }}
-          transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
-          viewOptions={{ margin: "0px 0px -100px 0px", once: true }}
-        >
+        </FadeIn>
+        <FadeIn duration={0.4} delay={0.2}>
           <div className="my-8 flex flex-row flex-wrap justify-center items-center gap-6 md:gap-10">
             <a
               href="https://x.com/j14wei"
@@ -164,15 +143,8 @@ export default function FooterSection() {
               />
             </a>
           </div>
-        </InView>
-        <InView
-          variants={{
-            hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
-            visible: { opacity: 1, y: 0, filter: "blur(0px)" },
-          }}
-          transition={{ duration: 0.4, ease: "easeOut", delay: 0.3 }}
-          viewOptions={{ margin: "0px 0px -100px 0px", once: true }}
-        >
+        </FadeIn>
+        <FadeIn duration={0.4} delay={0.3}>
           <div className="text-muted-foreground text-center text-sm px-4 mt-8 mb-4">
             <span itemScope itemType="http://schema.org/Organization">
               © {new Date().getFullYear()}{" "}
@@ -187,7 +159,7 @@ export default function FooterSection() {
               />
             </span>
           </div>
-        </InView>
+        </FadeIn>
       </div>
     </footer>
   );

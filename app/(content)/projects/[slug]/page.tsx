@@ -1,6 +1,6 @@
-import { InViewWrapper } from "@/components/core/in-view-wrapper";
 import { NotionRenderer } from "@/components/markdown-renderer";
 import ProjectGallery from "@/components/project-gallery";
+import { FadeIn } from "@/components/ui/fade-in";
 import { getProject } from "@/lib/notion";
 import { ChevronLeft, ExternalLink } from "lucide-react";
 import Link from "next/link";
@@ -26,7 +26,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     <article>
       <div className="space-y-8">
         {/* Title and Date */}
-        <InViewWrapper>
+        <FadeIn>
           <Link
             href="/"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-4 transition-colors"
@@ -34,9 +34,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <ChevronLeft className="h-4 w-4" />
             back to home
           </Link>
-        </InViewWrapper>
+        </FadeIn>
         <div className="space-y-4">
-          <InViewWrapper transition={{ duration: 0.5, delay: 0.1 }}>
+          <FadeIn delay={0.1}>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <h1 className="text-3xl font-medium tracking-tight md:text-4xl">
@@ -45,18 +45,18 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 <span className="text-muted-foreground">{project.year}</span>
               </div>
             </div>
-          </InViewWrapper>
+          </FadeIn>
 
           {/* Description */}
-          <InViewWrapper transition={{ duration: 0.5, delay: 0.2 }}>
+          <FadeIn delay={0.2}>
             <div className="leading-relaxed text-foreground/90">
               {project.description}
             </div>
-          </InViewWrapper>
+          </FadeIn>
         </div>
         <div className="flex flex-row justify-between items-center">
           {/* Links */}
-          <InViewWrapper transition={{ duration: 0.5, delay: 0.45 }}>
+          <FadeIn delay={0.45}>
             <div className="flex items-center gap-4 pt-2">
               {project.url && (
                 <a
@@ -82,11 +82,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 </a>
               )}
             </div>
-          </InViewWrapper>
+          </FadeIn>
 
           {/* Technologies */}
           {project.techStack && project.techStack.length > 0 && (
-            <InViewWrapper transition={{ duration: 0.5, delay: 0.4 }}>
+            <FadeIn delay={0.4}>
               <div className="space-y-4 pt-4">
                 <div className="flex flex-wrap gap-2">
                   {project.techStack.map((tech) => (
@@ -99,28 +99,28 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   ))}
                 </div>
               </div>
-            </InViewWrapper>
+            </FadeIn>
           )}
         </div>
 
         {/* Header Image & Gallery */}
         {(project.cover ||
           (project.screenshots && project.screenshots.length > 0)) && (
-          <InViewWrapper transition={{ duration: 0.5, delay: 0.3 }}>
+          <FadeIn delay={0.3}>
             <ProjectGallery
               images={[project.cover, ...(project.screenshots || [])].filter(
                 (img): img is string => !!img
               )}
             />
-          </InViewWrapper>
+          </FadeIn>
         )}
         {/* Markdown Content */}
         {blocks && blocks.length > 0 && (
-          <InViewWrapper transition={{ duration: 0.5, delay: 0.5 }}>
+          <FadeIn delay={0.5}>
             <div className="mt-12">
               <NotionRenderer blocks={blocks} />
             </div>
-          </InViewWrapper>
+          </FadeIn>
         )}
       </div>
     </article>

@@ -1,5 +1,5 @@
-import { InViewWrapper } from "@/components/core/in-view-wrapper";
 import { NotionRenderer } from "@/components/markdown-renderer";
+import { FadeIn } from "@/components/ui/fade-in";
 import { getBlogPost, getBlogPosts } from "@/lib/notion";
 import { format } from "date-fns";
 import { ChevronLeft } from "lucide-react";
@@ -50,7 +50,7 @@ export default async function BlogPostPage({
 
   return (
     <>
-      <InViewWrapper>
+      <FadeIn>
         <Link
           href="/blog"
           className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
@@ -58,9 +58,9 @@ export default async function BlogPostPage({
           <ChevronLeft className="h-4 w-4" />
           back to blog
         </Link>
-      </InViewWrapper>
+      </FadeIn>
 
-      <InViewWrapper transition={{ duration: 0.5, delay: 0.1 }}>
+      <FadeIn delay={0.1}>
         <header className="mb-12 space-y-6">
           <h1 className="text-3xl md:text-4xl font-medium tracking-tight">
             {post.title}
@@ -102,14 +102,14 @@ export default async function BlogPostPage({
             )}
           </div>
         </header>
-      </InViewWrapper>
+      </FadeIn>
 
       {blocks && blocks.length > 0 && (
-        <InViewWrapper transition={{ duration: 0.5, delay: 0.2 }}>
+        <FadeIn delay={0.2} duration={0.5}>
           <div className="mb-16">
             <NotionRenderer blocks={blocks} />
           </div>
-        </InViewWrapper>
+        </FadeIn>
       )}
     </>
   );

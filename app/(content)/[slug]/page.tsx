@@ -1,5 +1,5 @@
-import { InViewWrapper } from "@/components/core/in-view-wrapper";
 import { NotionRenderer } from "@/components/markdown-renderer";
+import { FadeIn } from "@/components/ui/fade-in";
 import { getPage, getPages } from "@/lib/notion";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -46,20 +46,20 @@ export default async function GenericPage({
 
   return (
     <>
-      <InViewWrapper>
+      <FadeIn>
         <header className="mb-12">
           <h1 className="text-3xl md:text-4xl font-medium tracking-tight">
             {page.title}
           </h1>
         </header>
-      </InViewWrapper>
+      </FadeIn>
 
       {blocks && blocks.length > 0 && (
-        <InViewWrapper transition={{ duration: 0.5, delay: 0.2 }}>
+        <FadeIn delay={0.2} duration={0.5}>
           <div className="mb-16">
             <NotionRenderer blocks={blocks} />
           </div>
-        </InViewWrapper>
+        </FadeIn>
       )}
     </>
   );

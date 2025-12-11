@@ -1,32 +1,18 @@
-import { InView } from "@/components/core/in-view";
+import { FadeIn } from "@/components/ui/fade-in";
 import Image from "next/image";
 
 export default function ContentSection() {
   return (
     <section id="about" className="py-16 md:py-32">
       <div className="mx-auto max-w-5xl space-y-8 px-6 md:space-y-16">
-        <InView
-          variants={{
-            hidden: { opacity: 0, y: 20, filter: "blur(4px)" },
-            visible: { opacity: 1, y: 0, filter: "blur(0px)" },
-          }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          viewOptions={{ margin: "0px 0px -100px 0px", once: true }}
-        >
+        <FadeIn duration={0.4}>
           <h2 className="relative z-10 max-w-xl text-4xl tracking-tighter lg:text-5xl">
             who are we
           </h2>
-        </InView>
+        </FadeIn>
 
         <div className="grid gap-6 sm:grid-cols-2 md:gap-12 lg:gap-24">
-          <InView
-            variants={{
-              hidden: { opacity: 0, x: -50, filter: "blur(4px)" },
-              visible: { opacity: 1, x: 0, filter: "blur(0px)" },
-            }}
-            transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
-            viewOptions={{ margin: "0px 0px -100px 0px", once: true }}
-          >
+          <FadeIn direction="right" duration={0.5} delay={0.1}>
             <div className="relative mb-6 sm:mb-0">
               <div className="bg-linear-to-b aspect-76/59 relative rounded-2xl from-zinc-300 to-transparent p-px dark:from-zinc-700">
                 <Image
@@ -38,17 +24,10 @@ export default function ContentSection() {
                 />
               </div>
             </div>
-          </InView>
+          </FadeIn>
 
           <div className="relative space-y-4">
-            <InView
-              variants={{
-                hidden: { opacity: 0, x: 50, filter: "blur(4px)" },
-                visible: { opacity: 1, x: 0, filter: "blur(0px)" },
-              }}
-              transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
-              viewOptions={{ margin: "0px 0px -100px 0px", once: true }}
-            >
+            <FadeIn direction="left" duration={0.5} delay={0.2}>
               <div className="space-y-4">
                 <p className="text-muted-foreground">
                   We&apos;re the team that turns &quot;it can&apos;t be
@@ -70,16 +49,9 @@ export default function ContentSection() {
                   settles.
                 </p>
               </div>
-            </InView>
+            </FadeIn>
 
-            <InView
-              variants={{
-                hidden: { opacity: 0, y: 30, filter: "blur(4px)" },
-                visible: { opacity: 1, y: 0, filter: "blur(0px)" },
-              }}
-              transition={{ duration: 0.5, ease: "easeOut", delay: 0.3 }}
-              viewOptions={{ margin: "0px 0px -100px 0px", once: true }}
-            >
+            <FadeIn duration={0.5} delay={0.3}>
               <div className="pt-6">
                 <blockquote className="border-l-4 pl-4">
                   <p>
@@ -94,7 +66,7 @@ export default function ContentSection() {
                   </div>
                 </blockquote>
               </div>
-            </InView>
+            </FadeIn>
           </div>
         </div>
       </div>

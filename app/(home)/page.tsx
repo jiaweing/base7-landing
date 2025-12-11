@@ -1,11 +1,10 @@
 import CallToAction from "@/components/call-to-action";
-import { InViewWrapper } from "@/components/core/in-view-wrapper";
 import FAQsFour from "@/components/faqs-4";
 import HeroSection from "@/components/hero-section";
 import Partners from "@/components/partners";
 import ProjectsShowcase from "@/components/projects-showcase";
 import TeamSection from "@/components/team";
-import { blurVariants } from "@/lib/animations";
+import { FadeIn } from "@/components/ui/fade-in";
 import { getProjects } from "@/lib/notion";
 
 // Revalidate every hour
@@ -16,43 +15,43 @@ export default async function Home() {
 
   return (
     <>
-      <InViewWrapper variants={blurVariants} viewOptions={{ once: true }}>
+      <FadeIn>
         <HeroSection />
-      </InViewWrapper>
+      </FadeIn>
 
-      <InViewWrapper>
+      <FadeIn>
         <ProjectsShowcase projects={projects} />
-      </InViewWrapper>
+      </FadeIn>
 
-      <InViewWrapper>
+      <FadeIn>
         <Partners />
-      </InViewWrapper>
+      </FadeIn>
 
-      {/* <InViewWrapper>
+      {/* <FadeIn>
         <ContentSection />
-      </InViewWrapper>
+      </FadeIn>
 
-      <InViewWrapper>
+      <FadeIn>
         <StatsSection />
-      </InViewWrapper>
+      </FadeIn>
 
-      <InViewWrapper>
+      <FadeIn>
         <FeaturesSection />
-      </InViewWrapper> */}
+      </FadeIn> */}
 
-      <InViewWrapper>
+      <FadeIn>
         <TeamSection />
-      </InViewWrapper>
+      </FadeIn>
 
       {/* <Testimonials /> */}
 
-      <InViewWrapper>
+      <FadeIn>
         <FAQsFour />
-      </InViewWrapper>
+      </FadeIn>
 
-      <InViewWrapper>
+      <FadeIn>
         <CallToAction />
-      </InViewWrapper>
+      </FadeIn>
     </>
   );
 }
