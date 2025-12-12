@@ -9,7 +9,7 @@ export function NotionBlock({ block }: { block: BlockObjectResponse }) {
       const text = block.paragraph.rich_text
         .map((t: any) => t.plain_text)
         .join("");
-      return <p className="mb-4 leading-7">{text}</p>;
+      return <p className="mb-4 leading-7 text-muted-foreground">{text}</p>;
 
     case "heading_1":
       const h1 = block.heading_1.rich_text
@@ -33,13 +33,13 @@ export function NotionBlock({ block }: { block: BlockObjectResponse }) {
       const bullet = block.bulleted_list_item.rich_text
         .map((t: any) => t.plain_text)
         .join("");
-      return <li className="ml-6 mt-2 list-disc">{bullet}</li>;
+      return <li className="ml-6 mt-2 list-disc text-muted-foreground">{bullet}</li>;
 
     case "numbered_list_item":
       const number = block.numbered_list_item.rich_text
         .map((t: any) => t.plain_text)
         .join("");
-      return <li className="ml-4 mt-2 list-decimal">{number}</li>;
+      return <li className="ml-4 mt-2 list-decimal text-muted-foreground">{number}</li>;
 
     case "quote":
       const quote = block.quote.rich_text
