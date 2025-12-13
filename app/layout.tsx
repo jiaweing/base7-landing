@@ -2,6 +2,7 @@ import { PlausibleWrapper } from "@/components/analytics/plausible-provider";
 import FooterSection from "@/components/footer";
 import Header from "@/components/header";
 import { MobileNav } from "@/components/mobile-nav";
+import { SeasonalEffects } from "@/components/SeasonalEffects";
 import SEO from "@/components/seo";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -124,6 +125,7 @@ export default function RootLayout({
           >
             <Header />
             <MobileNav />
+            <SeasonalEffects />
             {children}
             <FooterSection />
             <TailwindIndicator />
