@@ -1,10 +1,12 @@
 import { ChevronLeft, ExternalLink } from "lucide-react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { NotionRenderer } from "@/components/markdown-renderer";
 import ProjectGallery from "@/components/project-gallery";
 import { FadeIn } from "@/components/ui/fade-in";
-import { getProject } from "@/lib/notion";
+import { generateMetadata as generateMeta } from "@/lib/metadata";
+import { getProject, getProjects } from "@/lib/notion";
 
 export const revalidate = 60; // Revalidate every minute
 
@@ -12,6 +14,33 @@ interface ProjectPageProps {
   params: Promise<{
     slug: string;
   }>;
+}
+
+export async function generateStaticParams() {
+  const projects = await getProjects();
+  return projects.map((project) => ({
+    slug: project.slug,
+  }));
+}
+
+export async function generateMetadata({
+  params,
+}: ProjectPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const { project } = await getProject(slug);
+
+  if (!project) {
+    return {
+      title: "Project Not Found",
+    };
+  }
+
+  return generateMeta({
+    title: project.title,
+    description: project.description,
+    image: project.cover,
+    url: `/projects/${project.slug}`,
+  });
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {

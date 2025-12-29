@@ -1,7 +1,14 @@
 import { format } from "date-fns";
 import Link from "next/link";
 import { FadeIn } from "@/components/ui/fade-in";
+import { generateMetadata as generateMeta } from "@/lib/metadata";
 import { getBlogPosts } from "@/lib/notion";
+
+export const metadata = generateMeta({
+  title: "Blog",
+  description: "Read the latest articles and updates from the Base 7 team.",
+  url: "/blog",
+});
 
 export const revalidate = 3600;
 

@@ -60,9 +60,10 @@ export function generateMetadata(options: MetadataOptions = {}): Metadata {
     crawlDelay,
   } = options;
 
-  const pageTitle = title
-    ? `${title} \u00A0·\u00A0 ${siteConfig.name}`
-    : siteConfig.name;
+  const pageTitle =
+    title && title !== siteConfig.name
+      ? `${title} \u00A0·\u00A0 ${siteConfig.name}`
+      : siteConfig.name;
   const pageDescription = description || siteConfig.description;
   const pageImage = image || siteConfig.ogImage;
   const pageUrl = url ? new URL(url, siteConfig.url) : siteConfig.url;
