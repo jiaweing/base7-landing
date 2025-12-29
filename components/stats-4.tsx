@@ -1,9 +1,9 @@
 export default function StatsSection() {
   return (
-    <section id="services" className="py-16 md:py-32">
+    <section className="py-16 md:py-32" id="services">
       <div className="mx-auto max-w-5xl space-y-8 px-6 md:space-y-12">
         <div className="relative z-10 max-w-xl space-y-6">
-          <h2 className="text-4xl font-medium tracking-tighter lg:text-5xl">
+          <h2 className="font-medium text-4xl tracking-tighter lg:text-5xl">
             works everywhere, for everyone
           </h2>
           <p className="text-muted-foreground">
@@ -38,7 +38,7 @@ export default function StatsSection() {
             </div>
           </div>
           <div className="relative">
-            <blockquote className="border-l-4 pl-4 space-y-2">
+            <blockquote className="space-y-2 border-l-4 pl-4">
               <p>
                 At Base 7, we don&apos;t chase tech trends — we build what
                 actually matters. The kind of software that makes you go

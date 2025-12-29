@@ -10,11 +10,11 @@ export default function SEO() {
   return (
     <>
       {/* Font preconnect for performance */}
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link href="https://fonts.googleapis.com" rel="preconnect" />
       <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
         crossOrigin="anonymous"
+        href="https://fonts.gstatic.com"
+        rel="preconnect"
       />
       {/* JSON-LD Structured Data */}
       <StructuredData />

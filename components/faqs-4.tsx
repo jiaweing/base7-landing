@@ -1,12 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import Link from "next/link";
 
 export default function FAQsFour() {
   const faqItems = [
@@ -55,7 +55,7 @@ export default function FAQsFour() {
   ];
 
   return (
-    <section id="faq" className="py-16 md:py-24">
+    <section className="py-16 md:py-24" id="faq">
       <div className="mx-auto max-w-5xl px-4 md:px-6">
         <div className="mx-auto max-w-xl text-center">
           <h2 className="text-3xl tracking-tighter">
@@ -65,15 +65,15 @@ export default function FAQsFour() {
 
         <div className="mx-auto mt-12 max-w-xl">
           <Accordion
-            type="single"
+            className="w-full rounded-2xl bg-muted p-1 dark:bg-muted/50"
             collapsible
-            className="bg-muted dark:bg-muted/50 w-full rounded-2xl p-1"
+            type="single"
           >
             {faqItems.map((item) => (
               <div className="group" key={item.id}>
                 <AccordionItem
+                  className="peer rounded-xl border-none px-7 py-1 data-[state=open]:border-none data-[state=open]:bg-card data-[state=open]:shadow-sm dark:data-[state=open]:bg-muted"
                   value={item.id}
-                  className="data-[state=open]:bg-card dark:data-[state=open]:bg-muted peer rounded-xl border-none px-7 py-1 data-[state=open]:border-none data-[state=open]:shadow-sm"
                 >
                   <AccordionTrigger className="cursor-pointer font-semibold text-lg hover:no-underline">
                     {item.question}
@@ -87,12 +87,12 @@ export default function FAQsFour() {
             ))}
           </Accordion>
 
-          <p className="text-muted-foreground text-center mt-6 px-8">
+          <p className="mt-6 px-8 text-center text-muted-foreground">
             We build web, mobile & desktop apps, and browser extensions within
             30 days. Let us know more about your project &{" "}
             <Link
+              className="font-medium text-primary hover:underline"
               href="https://tally.so/r/wLoJKj"
-              className="text-primary font-medium hover:underline"
               rel="noopener noreferrer"
             >
               we will get back to you in 24 hours

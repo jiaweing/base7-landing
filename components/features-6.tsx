@@ -1,4 +1,3 @@
-import { FadeIn } from "@/components/ui/fade-in";
 import {
   AppWindow,
   Cloud,
@@ -8,6 +7,7 @@ import {
   Timer,
 } from "lucide-react";
 import Image from "next/image";
+import { FadeIn } from "@/components/ui/fade-in";
 
 const features = [
   {
@@ -54,10 +54,10 @@ export default function FeaturesSection() {
       <div className="mx-auto max-w-5xl space-y-12 px-6">
         <FadeIn duration={0.4}>
           <div className="relative grid items-center gap-4 md:grid-cols-2 md:gap-12">
-            <h2 className="text-4xl font-medium tracking-tighter md:text-5xl">
+            <h2 className="font-medium text-4xl tracking-tighter md:text-5xl">
               how we deliver value
             </h2>
-            <p className="max-w-sm sm:ml-auto text-muted-foreground">
+            <p className="max-w-sm text-muted-foreground sm:ml-auto">
               with over 10 years of industry experience, we bring expertise and
               insight to every project. Your vision, our craftsmanship.
             </p>
@@ -67,12 +67,12 @@ export default function FeaturesSection() {
         <FadeIn duration={0.5}>
           <div className="relative mb-8">
             <Image
-              src="https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              className="rounded-[1rem] w-full h-auto"
               alt="feature illustration"
-              width={2797}
+              className="h-auto w-full rounded-[1rem]"
               height={1137}
               priority
+              src="https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              width={2797}
             />
           </div>
         </FadeIn>
@@ -81,11 +81,11 @@ export default function FeaturesSection() {
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
-              <FadeIn key={index} duration={0.4} delay={0.1 * index}>
+              <FadeIn delay={0.1 * index} duration={0.4} key={index}>
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
                     <Icon className="size-4" />
-                    <h3 className="text-sm font-medium">{feature.title}</h3>
+                    <h3 className="font-medium text-sm">{feature.title}</h3>
                   </div>
                   <p className="text-muted-foreground text-sm">
                     {feature.description}

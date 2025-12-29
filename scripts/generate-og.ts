@@ -1,4 +1,4 @@
-import { spawn, type ChildProcess } from "child_process";
+import { type ChildProcess, spawn } from "child_process";
 import fs from "fs";
 import path from "path";
 import puppeteer from "puppeteer";
@@ -40,9 +40,9 @@ async function buildProject() {
 async function startServer(): Promise<ChildProcess> {
   console.log("Starting local production server...");
   const server = spawn("bun", ["start"], {
-      stdio: "inherit",
-      shell: true,
-      env: { ...process.env, NODE_ENV: "production" },
+    stdio: "inherit",
+    shell: true,
+    env: { ...process.env, NODE_ENV: "production" },
   });
 
   // Wait for server to be ready
@@ -67,15 +67,20 @@ async function getRoutes(): Promise<string[]> {
     const response = await fetch(url);
     if (!response.ok) {
       const text = await response.text();
-      console.error(`Fetch failed: ${response.status} ${response.statusText}`, text);
-      throw new Error(`Failed to fetch routes: ${response.status} ${response.statusText}`);
+      console.error(
+        `Fetch failed: ${response.status} ${response.statusText}`,
+        text
+      );
+      throw new Error(
+        `Failed to fetch routes: ${response.status} ${response.statusText}`
+      );
     }
     return response.json();
   } catch (e) {
     console.error(`Error fetching routes from ${url}:`, e);
-    
+
     // Fallback if API fails (e.g. strict cache issues), though API is preferred
-    return ["/"]; 
+    return ["/"];
   }
 }
 
@@ -90,10 +95,10 @@ async function generateImages() {
       fs.mkdirSync(OG_DIR, { recursive: true });
     }
 
-    if (!(await isServerRunning(BASE_URL))) {
-      serverProcess = await startServer();
-    } else {
+    if (await isServerRunning(BASE_URL)) {
       console.log("Using existing server instance.");
+    } else {
+      serverProcess = await startServer();
     }
 
     console.log("Fetching routes...");
@@ -112,10 +117,11 @@ async function generateImages() {
       // Clean filename: remove leading slash, replace others with dash
       // e.g. "/" -> "index.png"
       // e.g. "/projects/foo" -> "projects-foo.png"
-      const fileName = route === "/" 
+      const fileName =
+        route === "/"
           ? "index.png"
           : `${route.replace(/^\//, "").replace(/\//g, "-")}.png`;
-          
+
       const filePath = path.join(OG_DIR, fileName);
 
       console.log(`Generating: ${route} -> ${fileName}`);
@@ -123,7 +129,7 @@ async function generateImages() {
       try {
         await page.goto(url, {
           waitUntil: "networkidle0",
-          timeout: 60000,
+          timeout: 60_000,
         });
 
         await page.screenshot({ path: filePath });

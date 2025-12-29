@@ -1,10 +1,10 @@
+import { ChevronLeft, ExternalLink } from "lucide-react";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 import { NotionRenderer } from "@/components/markdown-renderer";
 import ProjectGallery from "@/components/project-gallery";
 import { FadeIn } from "@/components/ui/fade-in";
 import { getProject } from "@/lib/notion";
-import { ChevronLeft, ExternalLink } from "lucide-react";
-import Link from "next/link";
-import { notFound } from "next/navigation";
 
 export const revalidate = 60; // Revalidate every minute
 
@@ -28,8 +28,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         {/* Title and Date */}
         <FadeIn>
           <Link
+            className="mb-4 inline-flex items-center gap-2 text-muted-foreground text-sm transition-colors hover:text-foreground"
             href="/"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-4 transition-colors"
           >
             <ChevronLeft className="h-4 w-4" />
             back to home
@@ -39,7 +39,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <FadeIn delay={0.1}>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <h1 className="text-3xl font-medium tracking-tight md:text-4xl">
+                <h1 className="font-medium text-3xl tracking-tight md:text-4xl">
                   {project.title}
                 </h1>
                 <span className="text-muted-foreground">{project.year}</span>
@@ -49,21 +49,21 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
           {/* Description */}
           <FadeIn delay={0.2}>
-            <div className="leading-relaxed text-foreground/90">
+            <div className="text-foreground/90 leading-relaxed">
               {project.description}
             </div>
           </FadeIn>
         </div>
-        <div className="flex flex-row justify-between items-center">
+        <div className="flex flex-row items-center justify-between">
           {/* Links */}
           <FadeIn delay={0.45}>
             <div className="flex items-center gap-4 pt-2">
               {project.url && (
                 <a
+                  className="inline-flex items-center gap-2 font-medium text-primary text-sm hover:underline"
                   href={project.url}
-                  target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+                  target="_blank"
                 >
                   <ExternalLink className="h-4 w-4" />
                   Website
@@ -72,10 +72,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
               {project.github && (
                 <a
+                  className="inline-flex items-center gap-2 font-medium text-primary text-sm hover:underline"
                   href={project.github}
-                  target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+                  target="_blank"
                 >
                   <ExternalLink className="h-4 w-4" />
                   GitHub
@@ -91,8 +91,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 <div className="flex flex-wrap gap-2">
                   {project.techStack.map((tech) => (
                     <span
+                      className="inline-flex items-center rounded-full bg-secondary px-3 py-1 font-medium text-secondary-foreground text-sm"
                       key={tech}
-                      className="inline-flex items-center rounded-full bg-secondary px-3 py-1 text-sm font-medium text-secondary-foreground"
                     >
                       {tech}
                     </span>

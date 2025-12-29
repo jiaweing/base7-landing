@@ -3,10 +3,10 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 export default function Testimonials() {
   return (
-    <section id="testimonials" className="py-16 md:py-32">
+    <section className="py-16 md:py-32" id="testimonials">
       <div className="mx-auto max-w-6xl space-y-8 px-6 md:space-y-16">
         <div className="relative z-10 mx-auto max-w-xl space-y-6 text-center md:space-y-12">
-          <h2 className="text-4xl font-medium lg:text-5xl">
+          <h2 className="font-medium text-4xl lg:text-5xl">
             trusted by innovative companies
           </h2>
           <p>
@@ -17,11 +17,11 @@ export default function Testimonials() {
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-rows-2">
-          <Card className="grid grid-rows-[auto_1fr] gap-8 sm:col-span-2 sm:p-6 lg:row-span-2 bg-muted border-none shadow-none rounded-[1rem]">
-            <CardHeader></CardHeader>
+          <Card className="grid grid-rows-[auto_1fr] gap-8 rounded-[1rem] border-none bg-muted shadow-none sm:col-span-2 sm:p-6 lg:row-span-2">
+            <CardHeader />
             <CardContent>
               <blockquote className="grid h-full grid-rows-[1fr_auto] gap-6">
-                <p className="text-xl font-medium">
+                <p className="font-medium text-xl">
                   Base 7 transformed our business with their local-first
                   approach to software development. Their team delivered our
                   application in just 18 days, exceeding all expectations. The
@@ -37,8 +37,8 @@ export default function Testimonials() {
                   </Avatar>
 
                   <div>
-                    <cite className="text-sm font-medium">Michael Chen</cite>
-                    <span className="text-muted-foreground block text-sm">
+                    <cite className="font-medium text-sm">Michael Chen</cite>
+                    <span className="block text-muted-foreground text-sm">
                       CTO, TechVision
                     </span>
                   </div>
@@ -46,10 +46,10 @@ export default function Testimonials() {
               </blockquote>
             </CardContent>
           </Card>
-          <Card className="md:col-span-2 bg-muted border-none shadow-none rounded-[1rem]">
+          <Card className="rounded-[1rem] border-none bg-muted shadow-none md:col-span-2">
             <CardContent className="h-full pt-6">
               <blockquote className="grid h-full grid-rows-[1fr_auto] gap-6">
-                <p className="text-xl font-medium">
+                <p className="font-medium text-xl">
                   Working with Base 7 was refreshingly straightforward. They
                   took our complex requirements and delivered an elegant
                   solution that our users love. Their 24/7 support has been
@@ -62,8 +62,8 @@ export default function Testimonials() {
                     <AvatarFallback>SJ</AvatarFallback>
                   </Avatar>
                   <div>
-                    <cite className="text-sm font-medium">Sarah Johnson</cite>
-                    <span className="text-muted-foreground block text-sm">
+                    <cite className="font-medium text-sm">Sarah Johnson</cite>
+                    <span className="block text-muted-foreground text-sm">
                       Product Manager, FinEdge
                     </span>
                   </div>
@@ -71,7 +71,7 @@ export default function Testimonials() {
               </blockquote>
             </CardContent>
           </Card>
-          <Card className="bg-muted border-none shadow-none rounded-[1rem]">
+          <Card className="rounded-[1rem] border-none bg-muted shadow-none">
             <CardContent className="h-full pt-6">
               <blockquote className="grid h-full grid-rows-[1fr_auto] gap-6">
                 <p>
@@ -85,8 +85,8 @@ export default function Testimonials() {
                     <AvatarFallback>DT</AvatarFallback>
                   </Avatar>
                   <div>
-                    <cite className="text-sm font-medium">David Tan</cite>
-                    <span className="text-muted-foreground block text-sm">
+                    <cite className="font-medium text-sm">David Tan</cite>
+                    <span className="block text-muted-foreground text-sm">
                       CEO, SingaTech
                     </span>
                   </div>
@@ -94,7 +94,7 @@ export default function Testimonials() {
               </blockquote>
             </CardContent>
           </Card>
-          <Card className="bg-muted border-none shadow-none rounded-[1rem]">
+          <Card className="rounded-[1rem] border-none bg-muted shadow-none">
             <CardContent className="h-full pt-6">
               <blockquote className="grid h-full grid-rows-[1fr_auto] gap-6">
                 <p>
@@ -108,8 +108,8 @@ export default function Testimonials() {
                     <AvatarFallback>PS</AvatarFallback>
                   </Avatar>
                   <div>
-                    <p className="text-sm font-medium">Priya Sharma</p>
-                    <span className="text-muted-foreground block text-sm">
+                    <p className="font-medium text-sm">Priya Sharma</p>
+                    <span className="block text-muted-foreground text-sm">
                       Director of Innovation, GlobalRetail
                     </span>
                   </div>

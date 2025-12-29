@@ -44,11 +44,11 @@ export function SeasonalEffects() {
         }}
       >
         <Confetti
-          width={width}
-          height={height}
-          style={{ pointerEvents: "none" }}
-          numberOfPieces={50}
           colors={["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"]}
+          height={height}
+          numberOfPieces={50}
+          style={{ pointerEvents: "none" }}
+          width={width}
         />
       </div>
     );

@@ -1,5 +1,5 @@
-import type { BlogPost, Page } from "@/lib/notion";
 import type { Metadata } from "next";
+import type { BlogPost, Page } from "@/lib/notion";
 
 export const siteConfig = {
   name: "Base 7",

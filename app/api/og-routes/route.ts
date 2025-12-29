@@ -1,5 +1,5 @@
-import { getBlogPosts, getPages, getProjects } from "@/lib/notion";
 import { NextResponse } from "next/server";
+import { getBlogPosts, getPages, getProjects } from "@/lib/notion";
 
 export async function GET() {
   const [posts, pages, projects] = await Promise.all([

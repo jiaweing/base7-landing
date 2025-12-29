@@ -1,14 +1,12 @@
 "use client";
 
-import useClickOutside from "@/hooks/useClickOutside";
-import { cn } from "@/lib/utils";
 import { XIcon } from "lucide-react";
 import {
   AnimatePresence,
-  motion,
   MotionConfig,
-  Transition,
-  Variant,
+  motion,
+  type Transition,
+  type Variant,
 } from "motion/react";
 import React, {
   useCallback,
@@ -20,6 +18,8 @@ import React, {
   useState,
 } from "react";
 import { createPortal } from "react-dom";
+import useClickOutside from "@/hooks/useClickOutside";
+import { cn } from "@/lib/utils";
 
 export type MorphingDialogContextType = {
   isOpen: boolean;
@@ -115,16 +115,16 @@ function MorphingDialogTrigger({
 
   return (
     <motion.button
-      ref={triggerRef}
+      aria-controls={`motion-ui-morphing-dialog-content-${uniqueId}`}
+      aria-expanded={isOpen}
+      aria-haspopup="dialog"
+      aria-label={`Open dialog ${uniqueId}`}
+      className={cn("!rounded-[1rem] relative cursor-pointer", className)}
       layoutId={`dialog-${uniqueId}`}
-      className={cn("relative cursor-pointer !rounded-[1rem]", className)}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
+      ref={triggerRef}
       style={style}
-      aria-haspopup="dialog"
-      aria-expanded={isOpen}
-      aria-controls={`motion-ui-morphing-dialog-content-${uniqueId}`}
-      aria-label={`Open dialog ${uniqueId}`}
     >
       {children}
     </motion.button>
@@ -155,18 +155,16 @@ function MorphingDialogContent({
         setIsOpen(false);
       }
       if (event.key === "Tab") {
-        if (!firstFocusableElement || !lastFocusableElement) return;
+        if (!(firstFocusableElement && lastFocusableElement)) return;
 
         if (event.shiftKey) {
           if (document.activeElement === firstFocusableElement) {
             event.preventDefault();
             lastFocusableElement.focus();
           }
-        } else {
-          if (document.activeElement === lastFocusableElement) {
-            event.preventDefault();
-            firstFocusableElement.focus();
-          }
+        } else if (document.activeElement === lastFocusableElement) {
+          event.preventDefault();
+          firstFocusableElement.focus();
         }
       }
     };
@@ -205,14 +203,14 @@ function MorphingDialogContent({
 
   return (
     <motion.div
-      ref={containerRef}
-      layoutId={`dialog-${uniqueId}`}
-      className={cn("!rounded-[1rem] max-h-[90vh] flex flex-col", className)}
-      style={style}
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby={`motion-ui-morphing-dialog-title-${uniqueId}`}
       aria-describedby={`motion-ui-morphing-dialog-description-${uniqueId}`}
+      aria-labelledby={`motion-ui-morphing-dialog-title-${uniqueId}`}
+      aria-modal="true"
+      className={cn("!rounded-[1rem] flex max-h-[90vh] flex-col", className)}
+      layoutId={`dialog-${uniqueId}`}
+      ref={containerRef}
+      role="dialog"
+      style={style}
     >
       {children}
     </motion.div>
@@ -241,13 +239,13 @@ function MorphingDialogContainer({ children }: MorphingDialogContainerProps) {
       {isOpen && (
         <>
           <motion.div
-            key={`backdrop-${uniqueId}`}
-            className="fixed inset-0 h-full w-full bg-white/40 backdrop-blur-xs dark:bg-black/40"
-            initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            className="fixed inset-0 h-full w-full bg-white/40 backdrop-blur-xs dark:bg-black/40"
             exit={{ opacity: 0 }}
+            initial={{ opacity: 0 }}
+            key={`backdrop-${uniqueId}`}
           />
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-hidden">
+          <div className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden p-4">
             {children}
           </div>
         </>
@@ -272,10 +270,10 @@ function MorphingDialogTitle({
 
   return (
     <motion.div
-      layoutId={`dialog-title-container-${uniqueId}`}
       className={className}
-      style={style}
       layout
+      layoutId={`dialog-title-container-${uniqueId}`}
+      style={style}
     >
       {children}
     </motion.div>
@@ -297,8 +295,8 @@ function MorphingDialogSubtitle({
 
   return (
     <motion.div
-      layoutId={`dialog-subtitle-container-${uniqueId}`}
       className={className}
+      layoutId={`dialog-subtitle-container-${uniqueId}`}
       style={style}
     >
       {children}
@@ -327,6 +325,11 @@ function MorphingDialogDescription({
 
   return (
     <motion.div
+      animate="animate"
+      className={className}
+      exit="exit"
+      id={`dialog-description-${uniqueId}`}
+      initial="initial"
       key={`dialog-description-${uniqueId}`}
       layoutId={
         disableLayoutAnimation
@@ -334,11 +337,6 @@ function MorphingDialogDescription({
           : `dialog-description-content-${uniqueId}`
       }
       variants={variants}
-      className={className}
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      id={`dialog-description-${uniqueId}`}
     >
       {children}
     </motion.div>
@@ -362,10 +360,10 @@ function MorphingDialogImage({
 
   return (
     <motion.img
-      src={src}
       alt={alt}
       className={cn(className)}
       layoutId={`dialog-img-${uniqueId}`}
+      src={src}
       style={style}
     />
   );
@@ -394,14 +392,14 @@ function MorphingDialogClose({
 
   return (
     <motion.button
+      animate="animate"
+      aria-label="Close dialog"
+      className={cn("absolute top-6 right-6", className)}
+      exit="exit"
+      initial="initial"
+      key={`dialog-close-${uniqueId}`}
       onClick={handleClose}
       type="button"
-      aria-label="Close dialog"
-      key={`dialog-close-${uniqueId}`}
-      className={cn("absolute top-6 right-6", className)}
-      initial="initial"
-      animate="animate"
-      exit="exit"
       variants={variants}
     >
       {children || <XIcon size={24} />}

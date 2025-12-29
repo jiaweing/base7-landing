@@ -1,7 +1,7 @@
-import { Logo } from "@/components/logo";
-import { FadeIn } from "@/components/ui/fade-in";
 import Image from "next/image";
 import Link from "next/link";
+import { Logo } from "@/components/logo";
+import { FadeIn } from "@/components/ui/fade-in";
 
 const links = [
   { title: "manifesto", href: "/manifesto" },
@@ -15,33 +15,33 @@ export default function FooterSection() {
       <div className="mx-auto max-w-5xl px-6">
         <FadeIn duration={0.4}>
           <Link
-            href="/"
             aria-label="go home"
             className="mx-auto block size-fit"
+            href="/"
           >
             <Logo />
           </Link>
         </FadeIn>
 
-        <FadeIn duration={0.4} delay={0.1}>
-          <div className="my-8 flex flex-col sm:flex-row flex-wrap justify-center items-center gap-4 md:gap-6 text-sm">
+        <FadeIn delay={0.1} duration={0.4}>
+          <div className="my-8 flex flex-col flex-wrap items-center justify-center gap-4 text-sm sm:flex-row md:gap-6">
             {links.map((link, index) => (
               <>
                 {link.href.startsWith("/") ? (
                   <Link
-                    key={index}
+                    className="block px-2 py-1 text-center text-muted-foreground duration-150 hover:text-primary"
                     href={link.href as any}
-                    className="text-muted-foreground hover:text-primary block text-center px-2 py-1 duration-150"
+                    key={index}
                   >
                     <span>{link.title}</span>
                   </Link>
                 ) : (
                   <a
-                    key={index}
+                    className="block px-2 py-1 text-center text-muted-foreground duration-150 hover:text-primary"
                     href={link.href}
-                    target="_blank"
+                    key={index}
                     rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-primary block text-center px-2 py-1 duration-150"
+                    target="_blank"
                   >
                     <span>{link.title}</span>
                   </a>
@@ -50,112 +50,112 @@ export default function FooterSection() {
             ))}
           </div>
         </FadeIn>
-        <FadeIn duration={0.4} delay={0.2}>
-          <div className="my-8 flex flex-row flex-wrap justify-center items-center gap-6 md:gap-10">
+        <FadeIn delay={0.2} duration={0.4}>
+          <div className="my-8 flex flex-row flex-wrap items-center justify-center gap-6 md:gap-10">
             <a
-              href="https://x.com/j14wei"
-              target="_blank"
-              rel="noopener noreferrer"
               aria-label="X/Twitter"
-              className="text-muted-foreground hover:text-primary text-center w-6 h-6 flex items-center justify-center"
+              className="flex h-6 w-6 items-center justify-center text-center text-muted-foreground hover:text-primary"
+              href="https://x.com/j14wei"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               <Image
-                className="h-5 w-5 dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
-                src="/logos/x.svg"
                 alt="X/Twitter - Follow Base 7"
+                className="h-5 w-5 opacity-50 grayscale transition-colors duration-300 hover:opacity-100 dark:invert"
                 height={16}
+                src="/logos/x.svg"
                 width={16}
               />
             </a>
             <a
-              href="https://www.linkedin.com/company/base07"
-              target="_blank"
-              rel="noopener noreferrer"
               aria-label="LinkedIn"
-              className="text-muted-foreground hover:text-primary text-center w-6 h-6 flex items-center justify-center"
+              className="flex h-6 w-6 items-center justify-center text-center text-muted-foreground hover:text-primary"
+              href="https://www.linkedin.com/company/base07"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               <Image
-                className="h-5 w-5 dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
-                src="/logos/linkedin.svg"
                 alt="LinkedIn - Connect with Base 7"
+                className="h-5 w-5 opacity-50 grayscale transition-colors duration-300 hover:opacity-100 dark:invert"
                 height={16}
+                src="/logos/linkedin.svg"
                 width={16}
               />
             </a>
             <a
-              href="https://www.threads.net/@j14.wei"
-              target="_blank"
-              rel="noopener noreferrer"
               aria-label="Threads"
-              className="text-muted-foreground hover:text-primary text-center w-6 h-6 flex items-center justify-center"
+              className="flex h-6 w-6 items-center justify-center text-center text-muted-foreground hover:text-primary"
+              href="https://www.threads.net/@j14.wei"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               <Image
-                className="h-5 w-5 dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
-                src="/logos/threads.svg"
                 alt="Threads - Follow Base 7 Updates"
+                className="h-5 w-5 opacity-50 grayscale transition-colors duration-300 hover:opacity-100 dark:invert"
                 height={16}
+                src="/logos/threads.svg"
                 width={16}
               />
             </a>
             <a
-              href="https://instagram.com/base7llp"
-              target="_blank"
-              rel="noopener noreferrer"
               aria-label="Instagram"
-              className="text-muted-foreground hover:text-primary text-center w-6 h-6 flex items-center justify-center"
+              className="flex h-6 w-6 items-center justify-center text-center text-muted-foreground hover:text-primary"
+              href="https://instagram.com/base7llp"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               <Image
-                className="h-5 w-5 dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
-                src="/logos/instagram.svg"
                 alt="Instagram - Follow Base 7 Photos"
+                className="h-5 w-5 opacity-50 grayscale transition-colors duration-300 hover:opacity-100 dark:invert"
                 height={16}
+                src="/logos/instagram.svg"
                 width={16}
               />
             </a>
             <a
-              href="https://www.tiktok.com/@j14.wei"
-              target="_blank"
-              rel="noopener noreferrer"
               aria-label="TikTok"
-              className="text-muted-foreground hover:text-primary text-center w-6 h-6 flex items-center justify-center"
+              className="flex h-6 w-6 items-center justify-center text-center text-muted-foreground hover:text-primary"
+              href="https://www.tiktok.com/@j14.wei"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               <Image
-                className="h-5 w-5 dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
-                src="/logos/tiktok.svg"
                 alt="TikTok - Follow Base 7 Videos"
+                className="h-5 w-5 opacity-50 grayscale transition-colors duration-300 hover:opacity-100 dark:invert"
                 height={16}
+                src="/logos/tiktok.svg"
                 width={16}
               />
             </a>
             <a
-              href="https://www.youtube.com/@j14wei"
-              target="_blank"
-              rel="noopener noreferrer"
               aria-label="YouTube"
-              className="text-muted-foreground hover:text-primary text-center w-6 h-6 flex items-center justify-center"
+              className="flex h-6 w-6 items-center justify-center text-center text-muted-foreground hover:text-primary"
+              href="https://www.youtube.com/@j14wei"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               <Image
-                className="h-5 w-5 dark:invert hover:opacity-100 opacity-50 transition-colors duration-300 grayscale"
-                src="/logos/youtube.svg"
                 alt="YouTube - Watch Base 7 Videos"
+                className="h-5 w-5 opacity-50 grayscale transition-colors duration-300 hover:opacity-100 dark:invert"
                 height={16}
+                src="/logos/youtube.svg"
                 width={16}
               />
             </a>
           </div>
         </FadeIn>
-        <FadeIn duration={0.4} delay={0.3}>
-          <div className="text-muted-foreground text-center text-sm px-4 mt-8 mb-4">
+        <FadeIn delay={0.3} duration={0.4}>
+          <div className="mt-8 mb-4 px-4 text-center text-muted-foreground text-sm">
             <span itemScope itemType="http://schema.org/Organization">
               © {new Date().getFullYear()}{" "}
               <span itemProp="name">Base 7 LLP</span>,{" "}
               <span itemProp="location">Singapore</span>. <br />
               (UEN: <span itemProp="taxID">T25LL0003D</span>)
-              <meta itemProp="foundingDate" content="2025-01-01" />
-              <meta itemProp="url" content="https://base7.com" />
+              <meta content="2025-01-01" itemProp="foundingDate" />
+              <meta content="https://base7.com" itemProp="url" />
               <meta
-                itemProp="description"
                 content="Base 7 is a Singapore-based software company specializing in rapid app development. We build web, mobile, and desktop apps in just 10 days."
+                itemProp="description"
               />
             </span>
           </div>

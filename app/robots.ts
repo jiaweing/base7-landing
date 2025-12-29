@@ -1,4 +1,4 @@
-import { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
 
 // Extended type to include custom properties
 type ExtendedRobots = MetadataRoute.Robots & {
