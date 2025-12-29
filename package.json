@@ -87,6 +87,7 @@
     "typescript": "^5",
     "ultracite": "6.5.0"
   },
+  "packageManager": "bun@1.1.0",
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,jsonc,css,scss,md,mdx}": [
       "bun x ultracite fix"
