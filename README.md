@@ -1,7 +1,7 @@
 <table width="100%">
   <tr>
     <td align="center" width="120">
-      <img src="logos/base7-submark.svg" alt="Logo" width="100" style="border-radius: 20%;"/>
+      <img src="public/logos/base7-submark.svg" alt="Logo" width="100" style="border-radius: 20%;"/>
     </td>
     <td align="right">
       <h1>Base 7</h1>
@@ -9,6 +9,8 @@
     </td>
   </tr>
 </table>
+
+<img src="public/og/index.png" alt="Website Desktop View" width="100%" />
 
 ### Local Development
 
