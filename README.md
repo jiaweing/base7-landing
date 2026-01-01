@@ -5,7 +5,7 @@
     </td>
     <td align="right">
       <h1>Base 7</h1>
-      <h3 style="margin-top: -10px;">We shape the future with software</h3>
+      <h3 style="margin-top: -10px;">we shape the future through software - a company building companies.</h3>
     </td>
   </tr>
 </table>
