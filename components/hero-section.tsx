@@ -12,16 +12,16 @@ export default function HeroSection() {
             <div className="relative z-10 mx-auto px-10 xl:px-0">
               <FadeIn direction="down" duration={0.6}>
                 <h1 className="font-medium text-5xl tracking-tighter md:text-4xl">
-                  we shape the future
+                  we write the future
                 </h1>
                 <h1 className="font-medium text-5xl text-muted-foreground tracking-tighter md:text-4xl">
-                  through software
+                  with agentic apps
                 </h1>
               </FadeIn>
 
               <FadeIn delay={0.2} duration={0.5}>
                 <p className="mx-auto my-8 font-light" itemProp="description">
-                  a company building apps as companies.
+                  a company building agents as apps.
                 </p>
               </FadeIn>
 

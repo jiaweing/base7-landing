@@ -7,7 +7,7 @@ export default function CallToAction() {
       <div className="mx-auto max-w-5xl px-6">
         <div className="text-center">
           <h2 className="font-medium text-5xl tracking-tighter lg:text-6xl">
-            let&apos;s build the future together
+            write the future together
           </h2>
           <p className="mt-4">partner with us on your next project today.</p>
 

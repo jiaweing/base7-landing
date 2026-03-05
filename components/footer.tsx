@@ -147,7 +147,7 @@ export default function FooterSection() {
         <FadeIn delay={0.3} duration={0.4}>
           <div className="mt-8 mb-4 px-4 text-center text-muted-foreground text-sm">
             <span itemScope itemType="http://schema.org/Organization">
-              © {new Date().getFullYear()}{" "}
+              © 2025-{new Date().getFullYear()}{" "}
               <span itemProp="name">Base 7 LLP</span>,{" "}
               <span itemProp="location">Singapore</span>. <br />
               (UEN: <span itemProp="taxID">T25LL0003D</span>)

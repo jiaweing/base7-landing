@@ -88,6 +88,26 @@ export function blockToPlainText(block: any): string {
 
 // --- Fetching Logic ---
 
+async function fetchPageBlocks(pageId: string): Promise<BlockObjectResponse[]> {
+  const notion = getNotionClient();
+  const response = await notion.blocks.children.list({ block_id: pageId });
+  const blocks: any[] = response.results;
+
+  const enriched = await Promise.all(
+    blocks.map(async (block: any) => {
+      if (block.type === "table" && block.has_children) {
+        const children = await notion.blocks.children.list({
+          block_id: block.id,
+        });
+        return { ...block, children: children.results };
+      }
+      return block;
+    })
+  );
+
+  return enriched as BlockObjectResponse[];
+}
+
 // Transform Helper
 const getRichText = (richText: any[]) =>
   richText?.map((t) => t.plain_text).join("") || "";
@@ -274,11 +294,9 @@ export const getBlogPost = unstable_cache(
         cover: banner,
       };
 
-      const blocks = await notion.blocks.children.list({
-        block_id: page.id,
-      });
+      const blocks = await fetchPageBlocks(page.id);
 
-      return { post, blocks: blocks.results as BlockObjectResponse[] };
+      return { post, blocks };
     } catch (error) {
       console.error(`Failed to fetch blog post ${slug}:`, error);
       return { post: null, blocks: [] };
@@ -378,10 +396,8 @@ export const getPage = unstable_cache(
           undefined,
       };
 
-      const blocks = await notion.blocks.children.list({
-        block_id: pageData.id,
-      });
-      return { page, blocks: blocks.results as BlockObjectResponse[] };
+      const blocks = await fetchPageBlocks(pageData.id);
+      return { page, blocks };
     } catch (e) {
       console.error(`Failed to fetch page ${slug}`, e);
       return { page: null, blocks: [] };
@@ -506,11 +522,9 @@ export const getProject = unstable_cache(
           ) || [],
       };
 
-      const blocks = await notion.blocks.children.list({
-        block_id: page.id,
-      });
+      const blocks = await fetchPageBlocks(page.id);
 
-      return { project, blocks: blocks.results as BlockObjectResponse[] };
+      return { project, blocks };
     } catch (e) {
       console.error(`Failed to fetch project ${slug}`, e);
       return { project: null, blocks: [] };

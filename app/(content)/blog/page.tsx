@@ -1,83 +1,81 @@
-import { format } from "date-fns";
+import { formatDate } from "date-fns";
 import Link from "next/link";
+import { PostTags } from "@/components/blog/PostTags";
 import { FadeIn } from "@/components/ui/fade-in";
-import { generateMetadata as generateMeta } from "@/lib/metadata";
+import { generateMetadata } from "@/lib/metadata";
 import { getBlogPosts } from "@/lib/notion";
-
-export const metadata = generateMeta({
-  title: "Blog",
-  description: "Read the latest articles and updates from the Base 7 team.",
-  url: "/blog",
-});
 
 export const revalidate = 3600;
 
-export default async function BlogIndex() {
+export const metadata = generateMetadata({
+  title: "Blog",
+  description: "Thoughts on software engineering, design, and technology.",
+  url: "/blog",
+});
+
+export default async function BlogPage() {
   const posts = await getBlogPosts();
+
+  // Group posts by "MMM yyyy" (e.g. "Mar 2026"), preserving newest-first order
+  const groups: { label: string; posts: typeof posts }[] = [];
+  for (const post of posts) {
+    const label = post.date
+      ? formatDate(new Date(post.date), "MMM yyyy")
+      : "Unknown";
+    const existing = groups.find((g) => g.label === label);
+    if (existing) {
+      existing.posts.push(post);
+    } else {
+      groups.push({ label, posts: [post] });
+    }
+  }
 
   return (
     <>
       <FadeIn>
-        <div className="mb-16">
-          <h1 className="mb-4 font-medium text-2xl tracking-tight">blog</h1>
-        </div>
+        <h3 className="mb-4 font-semibold">blog</h3>
       </FadeIn>
-
-      <div className="grid gap-10">
-        {posts.map((post, index) => (
-          <FadeIn delay={(index % 5) * 0.1} duration={0.5} key={post.id}>
-            <Link className="group block space-y-4" href={`/blog/${post.slug}`}>
-              <div className="flex items-center gap-4 text-muted-foreground text-sm">
-                {post.authors && post.authors.length > 0 && (
-                  <div className="flex items-center gap-2">
-                    {post.authors[0].avatar && (
-                      <img
-                        alt={post.authors[0].name}
-                        className="h-5 w-5 rounded-full object-cover"
-                        src={post.authors[0].avatar}
-                      />
-                    )}
-                    <span className="font-medium text-foreground">
-                      {post.authors.map((a) => a.name).join(", ")}
-                    </span>
-                    {post.tags.length > 0 && <span>•</span>}
-                  </div>
-                )}
-                {post.tags.length > 0 && (
-                  <div className="flex gap-2">
-                    {post.tags.map((tag) => (
-                      <span className="capitalize" key={tag}>
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
+      {posts.length === 0 && (
+        <p className="text-muted-foreground text-sm">No posts found.</p>
+      )}
+      <div className="space-y-6 text-sm leading-relaxed">
+        {groups.map((group, groupIndex) => (
+          <FadeIn delay={groupIndex * 0.05} key={group.label}>
+            <div>
+              <p className="mb-2 font-medium text-muted-foreground">
+                {group.label}
+              </p>
+              <div className="grid gap-1 space-y-1">
+                {group.posts.map((post) => (
+                  <article
+                    className="group relative flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between"
+                    key={post.id}
+                  >
+                    <div className="flex min-w-0 items-center gap-2">
+                      {post.date && (
+                        <time
+                          className="flex h-6 w-6 shrink-0 items-center justify-center rounded border font-medium text-xs tabular-nums"
+                          dateTime={post.date}
+                        >
+                          {formatDate(new Date(post.date), "d")}
+                        </time>
+                      )}
+                      <Link
+                        className="min-w-0 truncate font-medium text-foreground hover:underline"
+                        href={`/blog/${post.slug}`}
+                      >
+                        {post.title}
+                      </Link>
+                    </div>
+                    <div className="flex shrink-0 items-center gap-2 text-muted-foreground text-sm">
+                      <PostTags tags={post.tags} />
+                    </div>
+                  </article>
+                ))}
               </div>
-
-              <div className="flex items-center justify-between gap-4">
-                <h2 className="font-medium text-xl">{post.title}</h2>
-                <time
-                  className="whitespace-nowrap text-muted-foreground text-sm"
-                  dateTime={post.date}
-                >
-                  {format(new Date(post.date), "MMMM d, yyyy")}
-                </time>
-              </div>
-
-              {post.description && (
-                <p className="text-muted-foreground leading-relaxed">
-                  {post.description}
-                </p>
-              )}
-            </Link>
+            </div>
           </FadeIn>
         ))}
-
-        {posts.length === 0 && (
-          <div className="py-20 text-center text-muted-foreground">
-            No posts found.
-          </div>
-        )}
       </div>
     </>
   );
