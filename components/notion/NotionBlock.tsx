@@ -222,6 +222,37 @@ export function NotionBlock({ block }: { block: BlockObjectResponse }) {
       );
     }
 
+    case "column_list": {
+      const columns: any[] = (block as any).children ?? [];
+      return (
+        <div
+          className="my-4 grid gap-6"
+          style={{
+            gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr))`,
+          }}
+        >
+          {columns.map((col: any) => (
+            <div key={col.id}>
+              {((col.children ?? []) as any[]).map((child: any) => (
+                <NotionBlock block={child} key={child.id} />
+              ))}
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    case "column": {
+      const children: any[] = (block as any).children ?? [];
+      return (
+        <div>
+          {children.map((child: any) => (
+            <NotionBlock block={child} key={child.id} />
+          ))}
+        </div>
+      );
+    }
+
     default:
       // console.log("Unsupported block type:", block.type);
       return null; // Gracefully skip unsupported blocks

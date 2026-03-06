@@ -107,24 +107,34 @@ export function extractDescriptionFromBlocks(
 
 // --- Fetching Logic ---
 
-async function fetchPageBlocks(pageId: string): Promise<BlockObjectResponse[]> {
+async function fetchBlockChildren(blockId: string): Promise<any[]> {
   const notion = getNotionClient();
-  const response = await notion.blocks.children.list({ block_id: pageId });
-  const blocks: any[] = response.results;
+  const allBlocks: any[] = [];
+  let cursor: string | undefined;
 
-  const enriched = await Promise.all(
-    blocks.map(async (block: any) => {
+  do {
+    const response = await notion.blocks.children.list({
+      block_id: blockId,
+      start_cursor: cursor,
+      page_size: 100,
+    });
+    allBlocks.push(...response.results);
+    cursor = response.has_more ? response.next_cursor : undefined;
+  } while (cursor);
+
+  return Promise.all(
+    allBlocks.map(async (block) => {
       if (block.has_children) {
-        const children = await notion.blocks.children.list({
-          block_id: block.id,
-        });
-        return { ...block, children: children.results };
+        const children = await fetchBlockChildren(block.id);
+        return { ...block, children };
       }
       return block;
     })
   );
+}
 
-  return enriched as BlockObjectResponse[];
+async function fetchPageBlocks(pageId: string): Promise<BlockObjectResponse[]> {
+  return fetchBlockChildren(pageId) as Promise<BlockObjectResponse[]>;
 }
 
 // Transform Helper
