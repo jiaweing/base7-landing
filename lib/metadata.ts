@@ -162,6 +162,7 @@ export function generateBlogMetadata(post: BlogPost): Metadata {
 export function generatePageMetadata(page: Page): Metadata {
   return generateMetadata({
     title: page.title,
+    description: page.description,
     modifiedTime: page.lastEdited,
     url: `/${page.slug}`,
     type: "website",

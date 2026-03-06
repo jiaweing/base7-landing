@@ -6,7 +6,11 @@ import { NotionRenderer } from "@/components/markdown-renderer";
 import ProjectGallery from "@/components/project-gallery";
 import { FadeIn } from "@/components/ui/fade-in";
 import { generateMetadata as generateMeta } from "@/lib/metadata";
-import { getProject, getProjects } from "@/lib/notion";
+import {
+  extractDescriptionFromBlocks,
+  getProject,
+  getProjects,
+} from "@/lib/notion";
 
 export const revalidate = 60; // Revalidate every minute
 
@@ -27,7 +31,7 @@ export async function generateMetadata({
   params,
 }: ProjectPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const { project } = await getProject(slug);
+  const { project, blocks } = await getProject(slug);
 
   if (!project) {
     return {
@@ -35,9 +39,11 @@ export async function generateMetadata({
     };
   }
 
+  const description =
+    project.description || extractDescriptionFromBlocks(blocks);
   return generateMeta({
     title: project.title,
-    description: project.description,
+    description,
     image: project.cover,
     url: `/projects/${project.slug}`,
   });

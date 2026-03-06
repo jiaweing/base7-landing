@@ -41,6 +41,7 @@ export interface Page {
   content?: string; // Kept for types but unused in new implementation
   cover?: string;
   lastEdited: string;
+  description?: string;
 }
 
 export interface Project {
@@ -86,6 +87,24 @@ export function blockToPlainText(block: any): string {
   }
 }
 
+export function extractDescriptionFromBlocks(
+  blocks: BlockObjectResponse[],
+  maxLength = 160
+): string {
+  const texts: string[] = [];
+  for (const block of blocks) {
+    const text = blockToPlainText(block).trim();
+    if (text) {
+      texts.push(text);
+      if (texts.join(" ").length >= maxLength) break;
+    }
+  }
+  const combined = texts.join(" ");
+  return combined.length > maxLength
+    ? `${combined.slice(0, maxLength).trimEnd()}…`
+    : combined;
+}
+
 // --- Fetching Logic ---
 
 async function fetchPageBlocks(pageId: string): Promise<BlockObjectResponse[]> {
@@ -95,7 +114,7 @@ async function fetchPageBlocks(pageId: string): Promise<BlockObjectResponse[]> {
 
   const enriched = await Promise.all(
     blocks.map(async (block: any) => {
-      if (block.type === "table" && block.has_children) {
+      if (block.has_children) {
         const children = await notion.blocks.children.list({
           block_id: block.id,
         });
@@ -191,6 +210,9 @@ export const getBlogPosts = unstable_cache(
         });
       }
 
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
       return response.results
         .map((page: any) => {
           // robust title extraction
@@ -221,7 +243,11 @@ export const getBlogPosts = unstable_cache(
             cover: banner,
           } as BlogPost;
         })
-        .filter((post: BlogPost) => post.slug);
+        .filter((post: BlogPost) => {
+          if (!post.slug) return false;
+          if (!post.date) return true;
+          return new Date(post.date) <= today;
+        });
     } catch (error) {
       console.error("Failed to fetch blog posts:", error);
       return [];

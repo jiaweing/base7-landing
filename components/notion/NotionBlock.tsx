@@ -97,12 +97,24 @@ export function NotionBlock({ block }: { block: BlockObjectResponse }) {
     }
 
     case "callout": {
+      const children: any[] = (block as any).children || [];
       return (
         <div className="my-4 flex items-start rounded-md border bg-muted/50 p-4">
           {block.callout.icon?.type === "emoji" && (
             <span className="mr-3 text-xl">{block.callout.icon.emoji}</span>
           )}
-          <div>{renderRichText(block.callout.rich_text)}</div>
+          <div className="flex-1">
+            {block.callout.rich_text.length > 0 && (
+              <div>{renderRichText(block.callout.rich_text)}</div>
+            )}
+            {children.length > 0 && (
+              <div>
+                {children.map((child: any) => (
+                  <NotionBlock block={child} key={child.id} />
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       );
     }
@@ -170,7 +182,7 @@ export function NotionBlock({ block }: { block: BlockObjectResponse }) {
       const bodyRows = hasColumnHeader ? rows.slice(1) : rows;
 
       return (
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto [&>table]:mt-0 [&>table]:mb-2">
           <table className="w-full border-collapse text-sm">
             {headerRow && (
               <thead>
