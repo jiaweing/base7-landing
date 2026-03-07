@@ -303,6 +303,18 @@ export const getBlogPost = unstable_cache(
 
       const page: any = response.results[0];
 
+      // Status gate: only Published posts are accessible directly
+      const status = getProperty(page, "Status", "select");
+      if (status && status !== "Published") return { post: null, blocks: [] };
+
+      // Future date gate: match the listing filter in getBlogPosts
+      const postDate = getProperty(page, "Date", "date");
+      if (postDate) {
+        const now = new Date();
+        const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+        if (postDate.slice(0, 10) > todayStr) return { post: null, blocks: [] };
+      }
+
       const title =
         getProperty(page, "Title", "title") ||
         getProperty(page, "Name", "title") ||
@@ -421,6 +433,11 @@ export const getPage = unstable_cache(
       if (response.results.length === 0) return { page: null, blocks: [] };
 
       const pageData: any = response.results[0];
+
+      // Status gate: only Published pages are accessible directly
+      const status = getProperty(pageData, "Status", "select");
+      if (status && status !== "Published") return { page: null, blocks: [] };
+
       const page: Page = {
         id: pageData.id,
         slug: getProperty(pageData, "Slug", "rich_text") || "",
