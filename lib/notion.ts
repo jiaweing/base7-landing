@@ -182,48 +182,44 @@ export const getBlogPosts = unstable_cache(
     if (!databaseId) return [];
 
     try {
-      // Attempting dataSources.query based on user feedback
-      let response;
+      const filter = {
+        property: "Status",
+        status: { equals: "Published" },
+      };
+      const sorts = [{ property: "Date", direction: "descending" }];
 
-      if (notion.dataSources) {
-        response = await notion.dataSources.query({
-          data_source_id: databaseId,
-          filter: {
-            property: "Status",
-            status: {
-              equals: "Published",
-            },
-          },
-          sorts: [
-            {
-              property: "Date",
-              direction: "descending",
-            },
-          ],
-        });
-      } else {
-        // Fallback for standard client
-        response = await notion.databases.query({
-          database_id: databaseId,
-          filter: {
-            property: "Status",
-            status: {
-              equals: "Published",
-            },
-          },
-          sorts: [
-            {
-              property: "Date",
-              direction: "descending",
-            },
-          ],
-        });
-      }
+      const allResults: any[] = [];
+      let cursor: string | undefined;
+
+      do {
+        let response: any;
+
+        if (notion.dataSources) {
+          response = await notion.dataSources.query({
+            data_source_id: databaseId,
+            filter,
+            sorts,
+            start_cursor: cursor,
+            page_size: 100,
+          });
+        } else {
+          response = await notion.databases.query({
+            database_id: databaseId,
+            filter,
+            sorts,
+            start_cursor: cursor,
+            page_size: 100,
+          });
+        }
+
+        allResults.push(...response.results);
+        cursor = response.has_more ? response.next_cursor : undefined;
+      } while (cursor);
 
       const now = new Date();
       const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
 
-      return response.results
+      return allResults
         .map((page: any) => {
           // robust title extraction
           const title =
