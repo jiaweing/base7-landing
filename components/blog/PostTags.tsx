@@ -1,3 +1,8 @@
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { getTagColorClass } from "@/lib/tag-colors";
 
 export function PostTags({
@@ -11,11 +16,14 @@ export function PostTags({
   return (
     <div className="flex gap-1">
       {tags.map((tag, index) => (
-        <span
-          className={`h-2 w-2 rounded-full ${getTagColorClass(tag, tagColors?.[tag])}`}
-          key={`${tag}-${index}`}
-          title={tag}
-        />
+        <Tooltip key={`${tag}-${index}`}>
+          <TooltipTrigger asChild>
+            <span
+              className={`h-2 w-2 rounded-full ${getTagColorClass(tag, tagColors?.[tag])}`}
+            />
+          </TooltipTrigger>
+          <TooltipContent>{tag}</TooltipContent>
+        </Tooltip>
       ))}
     </div>
   );

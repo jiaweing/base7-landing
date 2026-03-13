@@ -1,6 +1,7 @@
 "use client";
 
 import { format } from "date-fns";
+import { Clock } from "lucide-react";
 import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
@@ -47,9 +48,12 @@ export function BlogPostHoverCard({ slug, children }: BlogPostHoverCardProps) {
     }
   }, [isVisible, preview, loading, slug]);
 
+  const handleMouseMove = (e: React.MouseEvent) => {
+    setPosition({ x: e.clientX, y: e.clientY + 16 });
+  };
+
   const handleMouseEnter = (e: React.MouseEvent) => {
-    const rect = (e.target as HTMLElement).getBoundingClientRect();
-    setPosition({ x: rect.left, y: rect.bottom + 8 });
+    setPosition({ x: e.clientX, y: e.clientY + 16 });
 
     hoverTimeoutRef.current = setTimeout(() => {
       setIsVisible(true);
@@ -68,6 +72,7 @@ export function BlogPostHoverCard({ slug, children }: BlogPostHoverCardProps) {
       className="inline-block"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onMouseMove={handleMouseMove}
       ref={triggerRef}
     >
       {children}
@@ -75,7 +80,11 @@ export function BlogPostHoverCard({ slug, children }: BlogPostHoverCardProps) {
         createPortal(
           <div
             className="fixed z-[999] w-80 rounded-lg border bg-background p-4 shadow-lg"
-            style={{ left: position.x, top: position.y }}
+            style={{
+              left: position.x,
+              top: position.y,
+              transform: "translateX(-50%)",
+            }}
           >
             {loading ? (
               <div className="space-y-2">
@@ -99,8 +108,10 @@ export function BlogPostHoverCard({ slug, children }: BlogPostHoverCardProps) {
                     <time dateTime={preview.date}>
                       {format(new Date(preview.date), "MMM d, yyyy")}
                     </time>
-                    <span>•</span>
-                    <span>{preview.readingTime} min read</span>
+                    <span className="inline-flex items-center gap-1">
+                      <Clock aria-hidden="true" className="size-3" />
+                      <span>{preview.readingTime} min read</span>
+                    </span>
                   </div>
                   <p className="text-muted-foreground text-sm leading-relaxed">
                     {preview.description}
