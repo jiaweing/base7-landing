@@ -1,15 +1,22 @@
-export function PostTags({ tags }: { tags: string[] }) {
+import { getTagColorClass } from "@/lib/tag-colors";
+
+export function PostTags({
+  tags,
+  tagColors,
+}: {
+  tags: string[];
+  tagColors?: Record<string, string>;
+}) {
   if (!tags.length) return null;
   return (
-    <>
-      {tags.map((tag) => (
+    <div className="flex gap-1">
+      {tags.map((tag, index) => (
         <span
-          className="rounded border px-1.5 py-0.5 text-xs capitalize"
-          key={tag}
-        >
-          {tag}
-        </span>
+          className={`h-2 w-2 rounded-full ${getTagColorClass(tag, tagColors?.[tag])}`}
+          key={`${tag}-${index}`}
+          title={tag}
+        />
       ))}
-    </>
+    </div>
   );
 }

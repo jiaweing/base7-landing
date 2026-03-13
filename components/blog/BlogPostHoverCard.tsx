@@ -1,0 +1,110 @@
+"use client";
+
+import type { ReactNode } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+
+interface BlogPostHoverCardProps {
+  slug: string;
+  children: ReactNode;
+}
+
+interface PreviewData {
+  description: string;
+  readingTime: number;
+  cover?: string;
+}
+
+export function BlogPostHoverCard({ slug, children }: BlogPostHoverCardProps) {
+  const [isVisible, setIsVisible] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [preview, setPreview] = useState<PreviewData | null>(null);
+  const [loading, setLoading] = useState(false);
+  const triggerRef = useRef<HTMLDivElement>(null);
+  const hoverTimeoutRef = useRef<NodeJS.Timeout>();
+
+  useEffect(() => {
+    return () => {
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isVisible && !preview && !loading) {
+      setLoading(true);
+      fetch(`/api/blog/preview/${slug}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setPreview(data);
+          setLoading(false);
+        })
+        .catch(() => setLoading(false));
+    }
+  }, [isVisible, preview, loading, slug]);
+
+  const handleMouseEnter = (e: React.MouseEvent) => {
+    const rect = (e.target as HTMLElement).getBoundingClientRect();
+    setPosition({ x: rect.left, y: rect.bottom + 8 });
+
+    hoverTimeoutRef.current = setTimeout(() => {
+      setIsVisible(true);
+    }, 250);
+  };
+
+  const handleMouseLeave = () => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+    setIsVisible(false);
+  };
+
+  return (
+    <div
+      className="inline-block"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      ref={triggerRef}
+    >
+      {children}
+      {isVisible &&
+        createPortal(
+          <div
+            className="fixed z-[999] w-80 rounded-lg border bg-background p-4 shadow-lg"
+            style={{ left: position.x, top: position.y }}
+          >
+            {loading ? (
+              <div className="space-y-2">
+                <div className="h-4 w-3/4 animate-pulse rounded bg-muted" />
+                <div className="h-4 w-1/2 animate-pulse rounded bg-muted" />
+              </div>
+            ) : preview ? (
+              <div className="space-y-3">
+                {preview.cover && (
+                  <img
+                    alt=""
+                    className="h-32 w-full rounded object-cover"
+                    src={preview.cover}
+                  />
+                )}
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2 text-muted-foreground text-xs">
+                    <span>{preview.readingTime} min read</span>
+                  </div>
+                  <p className="text-sm leading-relaxed">
+                    {preview.description}
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <p className="text-muted-foreground text-sm">
+                Unable to load preview
+              </p>
+            )}
+          </div>,
+          document.body
+        )}
+    </div>
+  );
+}

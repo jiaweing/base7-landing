@@ -1,5 +1,14 @@
 {
   "permissions": {
-    "allow": ["Bash(pnpm dlx:*)"]
+    "allow": [
+      "Bash(pnpm dlx:*)",
+      "Bash(npm install:*)",
+      "Bash(grep \"\"shiki\"\":*)",
+      "Bash(npx tsc:*)",
+      "Bash(gh api:*)",
+      "Bash(ls:*)",
+      "Bash(grep:*)",
+      "Bash(npm list:*)"
+    ]
   }
 }

@@ -1,6 +1,7 @@
 import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Toaster } from "sileo";
 import { PlausibleWrapper } from "@/components/analytics/plausible-provider";
 import FooterSection from "@/components/footer";
 import Header from "@/components/header";
@@ -85,9 +86,10 @@ export default function RootLayout({
             <Header />
             <MobileNav />
             <SeasonalEffects />
-            {children}
+            <div className="mx-auto max-w-lg">{children}</div>
             <FooterSection />
             <TailwindIndicator />
+            <Toaster position="bottom-right" />
             {analyticsConfig.googleAnalytics.enabled && (
               <GoogleAnalytics gaId={analyticsConfig.googleAnalytics.gaId} />
             )}

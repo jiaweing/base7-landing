@@ -31,7 +31,9 @@ export interface BlogPost {
   description: string;
   authors: { name: string; avatar?: string }[];
   tags: string[];
+  tagColors?: Record<string, string>;
   cover?: string;
+  readingTime: number;
 }
 
 export interface Page {
@@ -55,6 +57,68 @@ export interface Project {
   cover?: string;
   year: string;
   screenshots: string[];
+  badges?: { name: string; color: string }[];
+  logo?: string;
+  status?: string;
+  blocks?: BlockObjectResponse[];
+}
+
+// Helper: Extract tags with Notion colors
+export function getTagsWithColors(
+  page: any
+): { name: string; color: string }[] {
+  const tagsProperty = page.properties?.Tag;
+  if (!tagsProperty) return [];
+
+  // Handle multi_select
+  if (tagsProperty.type === "multi_select") {
+    return (
+      tagsProperty.multi_select?.map((tag: any) => ({
+        name: tag.name,
+        color: tag.color || "default",
+      })) || []
+    );
+  }
+
+  // Handle select (single tag)
+  if (tagsProperty.type === "select" && tagsProperty.select) {
+    return [
+      {
+        name: tagsProperty.select.name,
+        color: tagsProperty.select.color || "default",
+      },
+    ];
+  }
+
+  return [];
+}
+
+// Helper: Get tag color map for a page
+export function getTagColorMap(page: any): Record<string, string> {
+  const tags = getTagsWithColors(page);
+  const colorMap: Record<string, string> = {};
+  tags.forEach((tag) => {
+    colorMap[tag.name] = tag.color;
+  });
+  return colorMap;
+}
+
+// Helper: Extract tags as string array
+function getTagsAsArray(page: any): string[] {
+  const tagsProperty = page.properties?.Tag;
+  if (!tagsProperty) return [];
+
+  // Handle multi_select
+  if (tagsProperty.type === "multi_select") {
+    return tagsProperty.multi_select?.map((tag: any) => tag.name) || [];
+  }
+
+  // Handle select (single tag)
+  if (tagsProperty.type === "select" && tagsProperty.select) {
+    return [tagsProperty.select.name];
+  }
+
+  return [];
 }
 
 // Helper: Block to Plain Text
@@ -85,6 +149,44 @@ export function blockToPlainText(block: any): string {
     default:
       return "";
   }
+}
+
+export function extractReadingTimeFromBlocks(
+  blocks: BlockObjectResponse[]
+): number {
+  const WORDS_PER_MINUTE = 200;
+  let wordCount = 0;
+  for (const block of blocks) {
+    const text = blockToPlainText(block).trim();
+    if (text) wordCount += text.split(/\s+/).filter(Boolean).length;
+  }
+  return Math.max(1, Math.round(wordCount / WORDS_PER_MINUTE));
+}
+
+export interface TocHeading {
+  id: string;
+  text: string;
+  level: 1 | 2 | 3;
+}
+
+export function extractHeadingsFromBlocks(
+  blocks: BlockObjectResponse[]
+): TocHeading[] {
+  const headings: TocHeading[] = [];
+  for (const block of blocks) {
+    if (
+      block.type === "heading_1" ||
+      block.type === "heading_2" ||
+      block.type === "heading_3"
+    ) {
+      const level = Number(block.type.slice(-1)) as 1 | 2 | 3;
+      const text = (block as any)[block.type].rich_text
+        .map((t: any) => t.plain_text)
+        .join("");
+      if (text) headings.push({ id: block.id, text, level });
+    }
+  }
+  return headings;
 }
 
 export function extractDescriptionFromBlocks(
@@ -227,7 +329,8 @@ export const getBlogPosts = unstable_cache(
             getProperty(page, "Name", "title") ||
             "Untitled";
 
-          const tags = getProperty(page, "Tags", "multi_select") || [];
+          const tags = getTagsAsArray(page);
+          const tagColors = getTagColorMap(page);
 
           const banner =
             page.properties?.Banner?.files?.[0]?.file?.url ||
@@ -246,7 +349,9 @@ export const getBlogPosts = unstable_cache(
             description: getProperty(page, "Excerpt", "rich_text") || "",
             authors: getProperty(page, "Author", "people") || [],
             tags,
+            tagColors,
             cover: banner,
+            readingTime: 0, // Will be calculated on demand
           } as BlogPost;
         })
         .filter((post: BlogPost) => {
@@ -316,7 +421,8 @@ export const getBlogPost = unstable_cache(
         getProperty(page, "Name", "title") ||
         "Untitled";
 
-      const tags = getProperty(page, "Tags", "multi_select") || [];
+      const tags = getTagsAsArray(page);
+      const tagColors = getTagColorMap(page);
 
       const banner =
         page.properties?.Banner?.files?.[0]?.file?.url ||
@@ -335,12 +441,15 @@ export const getBlogPost = unstable_cache(
         description: getProperty(page, "Excerpt", "rich_text") || "",
         authors: getProperty(page, "Author", "people") || [],
         tags,
+        tagColors,
         cover: banner,
+        readingTime: 0, // Will be calculated below
       };
 
       const blocks = await fetchPageBlocks(page.id);
+      const readingTime = extractReadingTimeFromBlocks(blocks);
 
-      return { post, blocks };
+      return { post: { ...post, readingTime }, blocks };
     } catch (error) {
       console.error(`Failed to fetch blog post ${slug}:`, error);
       return { post: null, blocks: [] };

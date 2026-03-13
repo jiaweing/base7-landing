@@ -5,6 +5,7 @@ import { NotionBlock } from "@/components/notion/NotionBlock";
 
 interface NotionRendererProps {
   blocks: BlockObjectResponse[];
+  highlightedCodeMap?: Record<string, string>;
 }
 
 type BlockGroup =
@@ -35,33 +36,52 @@ function groupBlocks(blocks: BlockObjectResponse[]): BlockGroup[] {
   return groups;
 }
 
-export function NotionRenderer({ blocks }: NotionRendererProps) {
+export function NotionRenderer({
+  blocks,
+  highlightedCodeMap,
+}: NotionRendererProps) {
   const groups = groupBlocks(blocks);
   return (
-    <div className="prose dark:prose-invert max-w-none">
+    <div className="max-w-none">
       {groups.map((group, i) => {
         if (group.type === "numbered_list") {
           return (
-            <ol className="my-4 ml-1 list-decimal space-y-1" key={i}>
+            <ol className="my-4 list-decimal space-y-1 pl-5" key={i}>
               {group.blocks.map((block) => (
-                <NotionBlock block={block} key={block.id} />
+                <div data-block-id={block.id} key={block.id}>
+                  <NotionBlock
+                    allBlocks={blocks}
+                    block={block}
+                    highlightedCodeMap={highlightedCodeMap}
+                  />
+                </div>
               ))}
             </ol>
           );
         }
         if (group.type === "bulleted_list") {
           return (
-            <ul className="my-4 ml-1 list-disc space-y-1" key={i}>
+            <ul className="my-4 list-disc space-y-1 pl-5" key={i}>
               {group.blocks.map((block) => (
-                <NotionBlock block={block} key={block.id} />
+                <div data-block-id={block.id} key={block.id}>
+                  <NotionBlock
+                    allBlocks={blocks}
+                    block={block}
+                    highlightedCodeMap={highlightedCodeMap}
+                  />
+                </div>
               ))}
             </ul>
           );
         }
         const block = group.blocks[0];
         return (
-          <div key={block.id}>
-            <NotionBlock block={block} />
+          <div data-block-id={block.id} key={block.id}>
+            <NotionBlock
+              allBlocks={blocks}
+              block={block}
+              highlightedCodeMap={highlightedCodeMap}
+            />
           </div>
         );
       })}

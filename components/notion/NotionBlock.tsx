@@ -1,8 +1,10 @@
 "use client";
 
 import type { BlockObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+import { Check, Copy, Link2 } from "lucide-react";
 import React from "react";
-import { Frame } from "@/components/ui/frame";
+import { sileo } from "sileo";
+import { Frame, FramePanel } from "@/components/ui/frame";
 import {
   Table,
   TableBody,
@@ -11,6 +13,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { buildSpeechTextMapping, toSpeechText } from "@/lib/speech-text";
+import { cn } from "@/lib/utils";
 import { useSpeechHighlight } from "./SpeechHighlightContext";
 
 interface HighlightTracker {
@@ -20,59 +24,154 @@ interface HighlightTracker {
 function renderRichText(
   richText: any[],
   tracker: HighlightTracker,
-  highlightIndex: number
+  highlightIndex: number,
+  blockOffset?: number,
+  onWordClick?: (absCharIndex: number) => void
 ): React.ReactNode {
   return richText.map((t, i) => {
     const { bold, italic, strikethrough, underline, code } =
       t.annotations || {};
     const plainText = t.plain_text;
-    const startIndex = tracker.currentOffset;
-    const endIndex = startIndex + plainText.length;
-    tracker.currentOffset = endIndex;
+    const { spokenText, spokenToOriginal } = buildSpeechTextMapping(plainText);
+    const segmentStart = tracker.currentOffset;
+    const segmentEnd = segmentStart + spokenText.length;
+    tracker.currentOffset = segmentEnd;
 
     let content: React.ReactNode;
 
-    // Check if we need to highlight within this text segment
-    if (
-      highlightIndex >= startIndex &&
-      highlightIndex < endIndex &&
-      highlightIndex >= 0
-    ) {
-      // Find word boundaries around the highlight position
-      const localIndex = highlightIndex - startIndex;
-      const beforeHighlight = plainText.slice(0, localIndex);
-      const remaining = plainText.slice(localIndex);
+    // Word-level rendering: clickable words with per-word highlight
+    if (onWordClick !== undefined && blockOffset !== undefined && !t.href) {
+      // Build reverse mapping: original index → spoken index within this segment
+      const originalToSpoken: number[] = new Array(plainText.length).fill(-1);
+      for (let si = 0; si < spokenToOriginal.length; si++) {
+        originalToSpoken[spokenToOriginal[si]] = si;
+      }
 
-      // Find start of current word
-      const wordStartInRemaining = remaining.search(/\S/);
-      if (wordStartInRemaining === -1) {
-        content = plainText;
-      } else {
-        const wordStart = localIndex + wordStartInRemaining;
-        const wordEndMatch = plainText.slice(wordStart).match(/^(\S+)/);
-        const wordEnd = wordStart + (wordEndMatch ? wordEndMatch[1].length : 0);
+      const tokens: React.ReactNode[] = [];
+      const tokenRegex = /(\S+|\s+)/g;
+      let match: RegExpExecArray | null;
 
-        content = (
-          <>
-            {plainText.slice(0, wordStart)}
-            <mark className="animate-pulse rounded bg-primary/20 px-0.5 text-foreground">
-              {plainText.slice(wordStart, wordEnd)}
-            </mark>
-            {plainText.slice(wordEnd)}
-          </>
+      // biome-ignore lint/suspicious/noAssignInExpressions: intentional loop pattern
+      while ((match = tokenRegex.exec(plainText)) !== null) {
+        const token = match[0];
+        const tokenOrigStart = match.index;
+        const tokenIdx = tokens.length;
+
+        if (/^\s+$/.test(token)) {
+          tokens.push(<React.Fragment key={tokenIdx}>{token}</React.Fragment>);
+          continue;
+        }
+
+        // Find first and last spoken char positions for this word token
+        let spokenWordStart = -1;
+        for (let p = tokenOrigStart; p < tokenOrigStart + token.length; p++) {
+          if (originalToSpoken[p] !== -1) {
+            spokenWordStart = originalToSpoken[p];
+            break;
+          }
+        }
+        let spokenWordEnd = -1;
+        for (
+          let p = tokenOrigStart + token.length - 1;
+          p >= tokenOrigStart;
+          p--
+        ) {
+          if (originalToSpoken[p] !== -1) {
+            spokenWordEnd = originalToSpoken[p] + 1;
+            break;
+          }
+        }
+
+        // Local indices (relative to block) for highlight comparison
+        const localWordStart =
+          spokenWordStart >= 0 ? segmentStart + spokenWordStart : -1;
+        const localWordEnd =
+          spokenWordEnd >= 0 ? segmentStart + spokenWordEnd : -1;
+
+        // Absolute index for seeking
+        const absSeekIndex =
+          spokenWordStart >= 0
+            ? blockOffset + segmentStart + spokenWordStart
+            : -1;
+
+        const isHighlighted =
+          highlightIndex >= 0 &&
+          localWordStart >= 0 &&
+          highlightIndex >= localWordStart &&
+          highlightIndex < localWordEnd;
+
+        tokens.push(
+          <span
+            className={cn(
+              absSeekIndex >= 0 &&
+                "cursor-pointer rounded transition-colors hover:bg-primary/10",
+              isHighlighted &&
+                "animate-pulse bg-primary/20 px-0.5 text-foreground"
+            )}
+            key={tokenIdx}
+            onClick={
+              absSeekIndex >= 0
+                ? (e) => {
+                    e.stopPropagation();
+                    onWordClick(absSeekIndex);
+                  }
+                : undefined
+            }
+          >
+            {token}
+          </span>
         );
       }
+
+      content = <>{tokens}</>;
     } else {
-      content = plainText;
+      // Fallback: highlight the current word without click support (e.g. links)
+      if (
+        highlightIndex >= segmentStart &&
+        highlightIndex < segmentEnd &&
+        highlightIndex >= 0
+      ) {
+        const spokenLocalIndex = highlightIndex - segmentStart;
+        const mappedOriginalIndex = spokenToOriginal[spokenLocalIndex];
+        if (mappedOriginalIndex === undefined) {
+          content = plainText;
+        } else {
+          const remaining = plainText.slice(mappedOriginalIndex);
+          const wordStartInRemaining = remaining.search(/\S/);
+          if (wordStartInRemaining === -1) {
+            content = plainText;
+          } else {
+            const wordStart = mappedOriginalIndex + wordStartInRemaining;
+            const wordEndMatch = plainText.slice(wordStart).match(/^(\S+)/);
+            const wordEnd =
+              wordStart + (wordEndMatch ? wordEndMatch[1].length : 0);
+
+            content = (
+              <>
+                {plainText.slice(0, wordStart)}
+                <mark className="animate-pulse rounded bg-primary/20 px-0.5 text-foreground">
+                  {plainText.slice(wordStart, wordEnd)}
+                </mark>
+                {plainText.slice(wordEnd)}
+              </>
+            );
+          }
+        }
+      } else {
+        content = plainText;
+      }
     }
 
     if (code)
       content = (
-        <code className="rounded bg-muted px-1 py-0.5 font-mono text-sm">
+        <code className="rounded bg-muted px-1 py-0.5 font-mono text-foreground text-sm">
           {content}
         </code>
       );
-    if (bold) content = <strong>{content}</strong>;
+    if (bold)
+      content = (
+        <strong className="font-semibold text-foreground">{content}</strong>
+      );
     if (italic) content = <em>{content}</em>;
     if (strikethrough) content = <s>{content}</s>;
     if (underline && !t.href) content = <u>{content}</u>;
@@ -80,7 +179,7 @@ function renderRichText(
     if (t.href) {
       content = (
         <a
-          className="underline underline-offset-2 transition-opacity hover:opacity-70"
+          className="text-foreground underline underline-offset-2 transition-opacity hover:opacity-70"
           href={t.href}
           rel="noopener noreferrer"
           target="_blank"
@@ -113,28 +212,28 @@ function getBlockTextLength(block: BlockObjectResponse): number {
     case "paragraph":
       return (
         block.paragraph.rich_text.reduce(
-          (sum, t) => sum + t.plain_text.length,
+          (sum, t) => sum + toSpeechText(t.plain_text).length,
           0
         ) + 2
       );
     case "heading_1":
       return (
         block.heading_1.rich_text.reduce(
-          (sum, t) => sum + t.plain_text.length,
+          (sum, t) => sum + toSpeechText(t.plain_text).length,
           0
         ) + 2
       );
     case "heading_2":
       return (
         block.heading_2.rich_text.reduce(
-          (sum, t) => sum + t.plain_text.length,
+          (sum, t) => sum + toSpeechText(t.plain_text).length,
           0
         ) + 2
       );
     case "heading_3":
       return (
         block.heading_3.rich_text.reduce(
-          (sum, t) => sum + t.plain_text.length,
+          (sum, t) => sum + toSpeechText(t.plain_text).length,
           0
         ) + 2
       );
@@ -142,7 +241,7 @@ function getBlockTextLength(block: BlockObjectResponse): number {
       return (
         2 +
         block.bulleted_list_item.rich_text.reduce(
-          (sum, t) => sum + t.plain_text.length,
+          (sum, t) => sum + toSpeechText(t.plain_text).length,
           0
         ) +
         1
@@ -150,27 +249,33 @@ function getBlockTextLength(block: BlockObjectResponse): number {
     case "numbered_list_item":
       return (
         block.numbered_list_item.rich_text.reduce(
-          (sum, t) => sum + t.plain_text.length,
+          (sum, t) => sum + toSpeechText(t.plain_text).length,
           0
         ) + 1
       ); // +1 for "\n"
     case "quote":
       return (
         2 +
-        block.quote.rich_text.reduce((sum, t) => sum + t.plain_text.length, 0) +
+        block.quote.rich_text.reduce(
+          (sum, t) => sum + toSpeechText(t.plain_text).length,
+          0
+        ) +
         2
       ); // +2 for quotes
     case "callout":
       return (
         block.callout.rich_text.reduce(
-          (sum, t) => sum + t.plain_text.length,
+          (sum, t) => sum + toSpeechText(t.plain_text).length,
           0
         ) + 2
       );
     case "to_do":
       return (
         4 +
-        block.to_do.rich_text.reduce((sum, t) => sum + t.plain_text.length, 0) +
+        block.to_do.rich_text.reduce(
+          (sum, t) => sum + toSpeechText(t.plain_text).length,
+          0
+        ) +
         1
       ); // +4 for "[ ] ", +1 for "\n"
     case "code":
@@ -185,7 +290,10 @@ function getBlockTextLength(block: BlockObjectResponse): number {
           const cellsTextLength = cells.reduce(
             (sum, cell) =>
               sum +
-              cell.reduce((s: number, t: any) => s + t.plain_text.length, 0),
+              cell.reduce(
+                (s: number, t: any) => s + toSpeechText(t.plain_text).length,
+                0
+              ),
             0
           );
           const separatorLength = Math.max(0, cells.length - 1) * 3; // " | " between cells only
@@ -249,14 +357,121 @@ const CALLOUT_COLORS: Record<string, { frame: string; panel: string }> = {
   },
 };
 
+function HeadingAnchor({ id }: { id: string }) {
+  return (
+    <Link2 className="h-4 w-4 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover/heading:opacity-100" />
+  );
+}
+
+function handleCopyHeadingLink(id: string) {
+  const url = `${window.location.origin}${window.location.pathname}#${id}`;
+  navigator.clipboard.writeText(url);
+  sileo.success({
+    title: "Copied to clipboard",
+    description: "Share this link to skip to this point on the page",
+  });
+}
+
+function CodeBlock({
+  code,
+  language,
+  highlightedHtml,
+}: {
+  code: string;
+  language: string;
+  highlightedHtml?: string;
+}) {
+  const [didCopy, setDidCopy] = React.useState(false);
+
+  const handleCopyCode = React.useCallback(async () => {
+    await navigator.clipboard.writeText(code);
+    setDidCopy(true);
+    sileo.success({
+      title: "Copied to clipboard",
+      description: "Code block copied successfully",
+    });
+    window.setTimeout(() => setDidCopy(false), 1500);
+  }, [code]);
+
+  const isMermaid = language.toLowerCase() === "mermaid";
+
+  return (
+    <Frame className="my-4">
+      <div className="flex items-center justify-between gap-2 px-4 py-2">
+        <div className="font-mono text-muted-foreground text-xs">
+          {language && language !== "plain text" ? language : "plain text"}
+        </div>
+        <button
+          className="inline-flex h-6 w-6 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          onClick={handleCopyCode}
+          type="button"
+        >
+          {didCopy ? (
+            <Check className="h-3.5 w-3.5" />
+          ) : (
+            <Copy className="h-3.5 w-3.5" />
+          )}
+        </button>
+      </div>
+      <FramePanel className="overflow-hidden p-0">
+        {isMermaid ? (
+          <MermaidDiagram code={code} />
+        ) : highlightedHtml ? (
+          <div
+            className="[&_pre]:!m-0 [&_pre]:!bg-transparent [&_pre]:!p-0 overflow-x-auto p-4 text-sm [&_code]:font-mono"
+            // biome-ignore lint/security/noDangerouslySetInnerHtml: Shiki output is safe server-generated HTML
+            dangerouslySetInnerHTML={{ __html: highlightedHtml }}
+          />
+        ) : (
+          <pre className="!my-0 overflow-x-auto bg-transparent p-4 text-foreground text-sm">
+            <code className="font-mono">{code}</code>
+          </pre>
+        )}
+      </FramePanel>
+    </Frame>
+  );
+}
+
+function MermaidDiagram({ code }: { code: string }) {
+  const [failed, setFailed] = React.useState(false);
+  const encoded = React.useMemo(() => {
+    const utf8 = encodeURIComponent(code).replace(/%([0-9A-F]{2})/g, (_, p1) =>
+      String.fromCharCode(Number.parseInt(p1, 16))
+    );
+    return btoa(utf8);
+  }, [code]);
+
+  if (failed) {
+    return (
+      <div className="p-4 text-destructive text-sm">
+        Failed to render Mermaid diagram.
+      </div>
+    );
+  }
+
+  return (
+    <div className="overflow-x-auto p-4">
+      <img
+        alt="Mermaid diagram"
+        className="h-auto w-full rounded-md"
+        onError={() => setFailed(true)}
+        src={`https://mermaid.ink/svg/${encoded}`}
+      />
+    </div>
+  );
+}
+
 export function NotionBlock({
   block,
   allBlocks,
+  highlightedCodeMap,
 }: {
   block: BlockObjectResponse;
   allBlocks?: BlockObjectResponse[];
+  highlightedCodeMap?: Record<string, string>;
 }) {
-  const { currentCharIndex, isSpeaking, autoScroll } = useSpeechHighlight();
+  const { currentCharIndex, isSpeaking, isSeeking, autoScroll, onWordClick } =
+    useSpeechHighlight();
   const blockOffset = allBlocks ? useBlockCharOffset(allBlocks, block.id) : 0;
 
   // Calculate the highlight position relative to this block
@@ -268,12 +483,19 @@ export function NotionBlock({
     isSpeaking && localHighlightIndex >= 0 && localHighlightIndex < blockLength;
 
   React.useEffect(() => {
-    if (!(isActive && autoScroll)) return;
+    if (!(isActive && autoScroll) || isSeeking) return;
     const el = document.querySelector(`[data-block-id="${block.id}"]`);
     if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "center" });
+      const rect = el.getBoundingClientRect();
+      // Only scroll if the block is substantially out of view
+      const isVisible =
+        rect.top < window.innerHeight * 0.85 &&
+        rect.bottom > window.innerHeight * 0.15;
+      if (!isVisible) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
     }
-  }, [isActive, autoScroll, block.id]);
+  }, [isActive, isSeeking, autoScroll, block.id]);
 
   // Create a tracker for this block's rendering
   const tracker: HighlightTracker = { currentOffset: 0 };
@@ -283,7 +505,13 @@ export function NotionBlock({
       const rt = block.paragraph.rich_text;
       return (
         <p className="mb-4 text-muted-foreground leading-7">
-          {renderRichText(rt, tracker, localHighlightIndex)}
+          {renderRichText(
+            rt,
+            tracker,
+            localHighlightIndex,
+            blockOffset,
+            onWordClick
+          )}
         </p>
       );
     }
@@ -291,8 +519,19 @@ export function NotionBlock({
     case "heading_1": {
       const rt = block.heading_1.rich_text;
       return (
-        <h1 className="mt-8 mb-4 font-medium text-2xl">
-          {renderRichText(rt, tracker, localHighlightIndex)}
+        <h1
+          className="group/heading mt-8 mb-4 flex cursor-pointer scroll-mt-44 items-center gap-2 font-medium text-2xl"
+          id={block.id}
+          onClick={() => handleCopyHeadingLink(block.id)}
+        >
+          {renderRichText(
+            rt,
+            tracker,
+            localHighlightIndex,
+            blockOffset,
+            onWordClick
+          )}
+          <HeadingAnchor id={block.id} />
         </h1>
       );
     }
@@ -300,8 +539,19 @@ export function NotionBlock({
     case "heading_2": {
       const rt = block.heading_2.rich_text;
       return (
-        <h2 className="mt-6 mb-3 font-medium text-xl">
-          {renderRichText(rt, tracker, localHighlightIndex)}
+        <h2
+          className="group/heading mt-6 mb-3 flex cursor-pointer scroll-mt-44 items-center gap-2 font-medium text-xl"
+          id={block.id}
+          onClick={() => handleCopyHeadingLink(block.id)}
+        >
+          {renderRichText(
+            rt,
+            tracker,
+            localHighlightIndex,
+            blockOffset,
+            onWordClick
+          )}
+          <HeadingAnchor id={block.id} />
         </h2>
       );
     }
@@ -309,8 +559,19 @@ export function NotionBlock({
     case "heading_3": {
       const rt = block.heading_3.rich_text;
       return (
-        <h3 className="mt-4 mb-2 font-medium text-lg">
-          {renderRichText(rt, tracker, localHighlightIndex)}
+        <h3
+          className="group/heading mt-4 mb-2 flex cursor-pointer scroll-mt-44 items-center gap-2 font-medium text-lg"
+          id={block.id}
+          onClick={() => handleCopyHeadingLink(block.id)}
+        >
+          {renderRichText(
+            rt,
+            tracker,
+            localHighlightIndex,
+            blockOffset,
+            onWordClick
+          )}
+          <HeadingAnchor id={block.id} />
         </h3>
       );
     }
@@ -320,7 +581,13 @@ export function NotionBlock({
       tracker.currentOffset = 2; // skip "- " prefix in extracted text
       return (
         <li className="mt-2 text-muted-foreground">
-          {renderRichText(rt, tracker, localHighlightIndex)}
+          {renderRichText(
+            rt,
+            tracker,
+            localHighlightIndex,
+            blockOffset,
+            onWordClick
+          )}
         </li>
       );
     }
@@ -329,7 +596,13 @@ export function NotionBlock({
       const rt = block.numbered_list_item.rich_text;
       return (
         <li className="mt-2 list-decimal text-muted-foreground">
-          {renderRichText(rt, tracker, localHighlightIndex)}
+          {renderRichText(
+            rt,
+            tracker,
+            localHighlightIndex,
+            blockOffset,
+            onWordClick
+          )}
         </li>
       );
     }
@@ -339,7 +612,13 @@ export function NotionBlock({
       tracker.currentOffset = 1; // skip opening `"` in extracted text
       return (
         <blockquote className="my-4 border-primary border-l-4 pl-4 italic">
-          {renderRichText(rt, tracker, localHighlightIndex)}
+          {renderRichText(
+            rt,
+            tracker,
+            localHighlightIndex,
+            blockOffset,
+            onWordClick
+          )}
         </blockquote>
       );
     }
@@ -360,12 +639,24 @@ export function NotionBlock({
           )}
           <div className="flex-1 text-muted-foreground">
             {rt.length > 0 && (
-              <div>{renderRichText(rt, tracker, localHighlightIndex)}</div>
+              <div>
+                {renderRichText(
+                  rt,
+                  tracker,
+                  localHighlightIndex,
+                  blockOffset,
+                  onWordClick
+                )}
+              </div>
             )}
             {children.length > 0 && (
               <div className="[counter-reset:list-item] [&_li]:ml-5">
                 {children.map((child: any) => (
-                  <NotionBlock block={child} key={child.id} />
+                  <NotionBlock
+                    block={child}
+                    highlightedCodeMap={highlightedCodeMap}
+                    key={child.id}
+                  />
                 ))}
               </div>
             )}
@@ -376,10 +667,14 @@ export function NotionBlock({
 
     case "code": {
       const code = block.code.rich_text.map((t: any) => t.plain_text).join("");
+      const language = block.code.language;
+      const highlightedHtml = highlightedCodeMap?.[block.id];
       return (
-        <pre className="my-4 overflow-x-auto rounded-md bg-muted p-4">
-          <code>{code}</code>
-        </pre>
+        <CodeBlock
+          code={code}
+          highlightedHtml={highlightedHtml}
+          language={language}
+        />
       );
     }
 
@@ -423,7 +718,13 @@ export function NotionBlock({
             type="checkbox"
           />
           <span className={checked ? "text-muted-foreground line-through" : ""}>
-            {renderRichText(rt, tracker, localHighlightIndex)}
+            {renderRichText(
+              rt,
+              tracker,
+              localHighlightIndex,
+              blockOffset,
+              onWordClick
+            )}
           </span>
         </div>
       );
@@ -446,7 +747,9 @@ export function NotionBlock({
           const content = renderRichText(
             cell,
             tableTracker,
-            localHighlightIndex
+            localHighlightIndex,
+            blockOffset,
+            onWordClick
           );
           if (cellIndex < cells.length - 1) {
             tableTracker.currentOffset += 3; // advance past " | "
@@ -463,7 +766,7 @@ export function NotionBlock({
         : preRendered;
 
       return (
-        <Frame className="w-full overflow-hidden py-0">
+        <Frame className="my-4 w-full overflow-hidden py-0">
           <Table className="!mt-1.5 mb-1">
             {preRenderedHeader && (
               <TableHeader>
@@ -514,7 +817,11 @@ export function NotionBlock({
           {columns.map((col: any) => (
             <div key={col.id}>
               {(col.children || []).map((child: any) => (
-                <NotionBlock block={child} key={child.id} />
+                <NotionBlock
+                  block={child}
+                  highlightedCodeMap={highlightedCodeMap}
+                  key={child.id}
+                />
               ))}
             </div>
           ))}
@@ -527,7 +834,11 @@ export function NotionBlock({
       return (
         <div>
           {children.map((child: any) => (
-            <NotionBlock block={child} key={child.id} />
+            <NotionBlock
+              block={child}
+              highlightedCodeMap={highlightedCodeMap}
+              key={child.id}
+            />
           ))}
         </div>
       );

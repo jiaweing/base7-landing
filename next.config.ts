@@ -29,6 +29,12 @@ const nextConfig: NextConfig = {
         hostname: "images.unsplash.com",
         pathname: "/**",
       },
+      // Favicon/avatar service for project logos
+      {
+        protocol: "https",
+        hostname: "unavatar.io",
+        pathname: "/**",
+      },
     ],
     localPatterns: [
       {

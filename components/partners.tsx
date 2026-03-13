@@ -8,7 +8,7 @@ export default function PartnersSection() {
       <div className="m-auto max-w-5xl px-6">
         <FadeIn duration={0.5}>
           <h2 className="text-center">
-            we partner with your favourite world leading tech companies.
+            we partner with your favourite world leading tech companies
           </h2>
         </FadeIn>
 
