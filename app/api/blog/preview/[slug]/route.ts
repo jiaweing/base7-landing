@@ -20,6 +20,8 @@ export async function GET(
   const readingTime = extractReadingTimeFromBlocks(blocks);
 
   return NextResponse.json({
+    title: post.title,
+    date: post.date,
     description,
     readingTime,
     cover: post.cover,

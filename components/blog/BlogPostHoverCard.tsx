@@ -1,5 +1,6 @@
 "use client";
 
+import { format } from "date-fns";
 import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
@@ -10,6 +11,8 @@ interface BlogPostHoverCardProps {
 }
 
 interface PreviewData {
+  title: string;
+  date: string;
   description: string;
   readingTime: number;
   cover?: string;
@@ -88,11 +91,18 @@ export function BlogPostHoverCard({ slug, children }: BlogPostHoverCardProps) {
                     src={preview.cover}
                   />
                 )}
-                <div className="space-y-1">
+                <div className="space-y-2">
+                  <h4 className="font-medium text-sm leading-tight">
+                    {preview.title}
+                  </h4>
                   <div className="flex items-center gap-2 text-muted-foreground text-xs">
+                    <time dateTime={preview.date}>
+                      {format(new Date(preview.date), "MMM d, yyyy")}
+                    </time>
+                    <span>•</span>
                     <span>{preview.readingTime} min read</span>
                   </div>
-                  <p className="text-sm leading-relaxed">
+                  <p className="text-muted-foreground text-sm leading-relaxed">
                     {preview.description}
                   </p>
                 </div>
