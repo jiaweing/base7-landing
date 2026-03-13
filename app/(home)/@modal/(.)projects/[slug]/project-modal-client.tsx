@@ -69,7 +69,7 @@ export default function ProjectModalClient({
                   </div>
                 ) : null}
                 <div className="flex-1">
-                  <h2 className="font-bold text-3xl tracking-tight">
+                  <h2 className="font-medium text-3xl tracking-tight">
                     {project.title}
                   </h2>
                   {project.year && (
