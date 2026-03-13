@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { BlogPostList } from "@/components/blog/BlogPostList";
 import { FadeIn } from "@/components/ui/fade-in";
 import { generateMetadata } from "@/lib/metadata";
@@ -19,7 +20,13 @@ export default async function BlogPage() {
       <FadeIn>
         <h3 className="mb-4 font-semibold">blog</h3>
       </FadeIn>
-      <BlogPostList posts={posts} />
+      <Suspense
+        fallback={
+          <div className="text-muted-foreground text-sm">Loading...</div>
+        }
+      >
+        <BlogPostList posts={posts} />
+      </Suspense>
     </>
   );
 }
