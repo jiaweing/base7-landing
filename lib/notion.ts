@@ -332,14 +332,12 @@ export const getBlogPosts = unstable_cache(
           const tags = getTagsAsArray(page);
           const tagColors = getTagColorMap(page);
 
-          const banner =
-            page.properties?.Banner?.files?.[0]?.file?.url ||
-            page.properties?.Banner?.files?.[0]?.external?.url ||
-            page.properties?.Cover?.files?.[0]?.file?.url ||
-            page.properties?.Cover?.files?.[0]?.external?.url ||
+          const hasBanner = !!(
+            page.properties?.Banner?.files?.[0] ||
+            page.properties?.Cover?.files?.[0] ||
             page.cover?.external?.url ||
-            page.cover?.file?.url ||
-            undefined;
+            page.cover?.file?.url
+          );
 
           return {
             id: page.id,
@@ -350,7 +348,9 @@ export const getBlogPosts = unstable_cache(
             authors: getProperty(page, "Author", "people") || [],
             tags,
             tagColors,
-            cover: banner,
+            cover: hasBanner
+              ? `/api/notion-image?pageId=${page.id}&prop=cover`
+              : undefined,
             readingTime: 0, // Will be calculated on demand
           } as BlogPost;
         })
@@ -424,14 +424,12 @@ export const getBlogPost = unstable_cache(
       const tags = getTagsAsArray(page);
       const tagColors = getTagColorMap(page);
 
-      const banner =
-        page.properties?.Banner?.files?.[0]?.file?.url ||
-        page.properties?.Banner?.files?.[0]?.external?.url ||
-        page.properties?.Cover?.files?.[0]?.file?.url ||
-        page.properties?.Cover?.files?.[0]?.external?.url ||
+      const hasBanner = !!(
+        page.properties?.Banner?.files?.[0] ||
+        page.properties?.Cover?.files?.[0] ||
         page.cover?.external?.url ||
-        page.cover?.file?.url ||
-        undefined;
+        page.cover?.file?.url
+      );
 
       const post: BlogPost = {
         id: page.id,
@@ -442,7 +440,9 @@ export const getBlogPost = unstable_cache(
         authors: getProperty(page, "Author", "people") || [],
         tags,
         tagColors,
-        cover: banner,
+        cover: hasBanner
+          ? `/api/notion-image?pageId=${page.id}&prop=cover`
+          : undefined,
         readingTime: 0, // Will be calculated below
       };
 
@@ -487,14 +487,20 @@ export const getPages = unstable_cache(
       }
 
       return response.results
-        .map((page: any) => ({
-          id: page.id,
-          slug: getProperty(page, "Slug", "rich_text") || "",
-          title: getProperty(page, "Title", "title") || "Untitled",
-          lastEdited: page.last_edited_time,
-          cover:
-            page.cover?.external?.url || page.cover?.file?.url || undefined,
-        }))
+        .map((page: any) => {
+          const hasCover = !!(
+            page.cover?.external?.url || page.cover?.file?.url
+          );
+          return {
+            id: page.id,
+            slug: getProperty(page, "Slug", "rich_text") || "",
+            title: getProperty(page, "Title", "title") || "Untitled",
+            lastEdited: page.last_edited_time,
+            cover: hasCover
+              ? `/api/notion-image?pageId=${page.id}&prop=cover`
+              : undefined,
+          };
+        })
         .filter((p: Page) => p.slug);
     } catch (e) {
       console.error("Failed to fetch pages", e);
@@ -543,15 +549,17 @@ export const getPage = unstable_cache(
       const status = getProperty(pageData, "Status", "select");
       if (status && status !== "Published") return { page: null, blocks: [] };
 
+      const hasCover = !!(
+        pageData.cover?.external?.url || pageData.cover?.file?.url
+      );
       const page: Page = {
         id: pageData.id,
         slug: getProperty(pageData, "Slug", "rich_text") || "",
         title: getProperty(pageData, "Title", "title") || "Untitled",
         lastEdited: pageData.last_edited_time,
-        cover:
-          pageData.cover?.external?.url ||
-          pageData.cover?.file?.url ||
-          undefined,
+        cover: hasCover
+          ? `/api/notion-image?pageId=${pageData.id}&prop=cover`
+          : undefined,
       };
 
       const blocks = await fetchPageBlocks(pageData.id);
@@ -594,25 +602,32 @@ export const getProjects = unstable_cache(
       }
 
       return response.results
-        .map((page: any) => ({
-          id: page.id,
-          slug: getProperty(page, "Slug", "rich_text") || "",
-          title: getProperty(page, "Title", "title") || "Untitled",
-          description: getProperty(page, "Description", "rich_text") || "",
-          url: getProperty(page, "Link", "url") || "",
-          github: getProperty(page, "GitHub", "url") || "",
-          techStack: getProperty(page, "Tech Stack", "multi_select") || [],
-          year: getProperty(page, "Year", "rich_text") || "",
-          cover:
-            page.properties?.Banner?.files?.[0]?.file?.url ||
-            page.properties?.Banner?.files?.[0]?.external?.url ||
-            page.properties?.Image?.files?.[0]?.file?.url ||
-            page.properties?.Image?.files?.[0]?.external?.url ||
+        .map((page: any) => {
+          const hasCover = !!(
+            page.properties?.Banner?.files?.[0] ||
+            page.properties?.Image?.files?.[0] ||
             page.cover?.external?.url ||
-            page.cover?.file?.url ||
-            undefined,
-          screenshots: [], // List view doesn't need screenshots
-        }))
+            page.cover?.file?.url
+          );
+          const hasLogo = !!(page.properties?.Logo?.files?.[0]);
+          return {
+            id: page.id,
+            slug: getProperty(page, "Slug", "rich_text") || "",
+            title: getProperty(page, "Title", "title") || "Untitled",
+            description: getProperty(page, "Description", "rich_text") || "",
+            url: getProperty(page, "Link", "url") || "",
+            github: getProperty(page, "GitHub", "url") || "",
+            techStack: getProperty(page, "Tech Stack", "multi_select") || [],
+            year: getProperty(page, "Year", "rich_text") || "",
+            cover: hasCover
+              ? `/api/notion-image?pageId=${page.id}&prop=cover`
+              : undefined,
+            logo: hasLogo
+              ? `/api/notion-image?pageId=${page.id}&prop=logo`
+              : undefined,
+            screenshots: [], // List view doesn't need screenshots
+          };
+        })
         .filter((p: Project) => p.title);
     } catch (e) {
       console.error("Failed to fetch projects", e);
@@ -657,6 +672,17 @@ export const getProject = unstable_cache(
 
       const page: any = response.results[0];
 
+      const hasCover = !!(
+        page.properties?.Banner?.files?.[0] ||
+        page.properties?.Image?.files?.[0] ||
+        page.cover?.external?.url ||
+        page.cover?.file?.url
+      );
+      const hasLogo = !!(page.properties?.Logo?.files?.[0]);
+      const screenshotCount = (
+        page.properties?.Screenshots?.files || []
+      ).length;
+
       const project: Project = {
         id: page.id,
         slug: getProperty(page, "Slug", "rich_text") || "",
@@ -666,18 +692,15 @@ export const getProject = unstable_cache(
         github: getProperty(page, "GitHub", "url") || "",
         techStack: getProperty(page, "Tech Stack", "multi_select") || [],
         year: getProperty(page, "Year", "rich_text") || "",
-        cover:
-          page.properties?.Banner?.files?.[0]?.file?.url ||
-          page.properties?.Banner?.files?.[0]?.external?.url ||
-          page.properties?.Image?.files?.[0]?.file?.url ||
-          page.properties?.Image?.files?.[0]?.external?.url ||
-          page.cover?.external?.url ||
-          page.cover?.file?.url ||
-          undefined,
-        screenshots:
-          page.properties?.Screenshots?.files?.map(
-            (file: any) => file.file?.url || file.external?.url
-          ) || [],
+        cover: hasCover
+          ? `/api/notion-image?pageId=${page.id}&prop=cover`
+          : undefined,
+        logo: hasLogo
+          ? `/api/notion-image?pageId=${page.id}&prop=logo`
+          : undefined,
+        screenshots: Array.from({ length: screenshotCount }, (_, i) =>
+          `/api/notion-image?pageId=${page.id}&prop=screenshot&index=${i}`
+        ),
       };
 
       const blocks = await fetchPageBlocks(page.id);

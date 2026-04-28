@@ -41,6 +41,10 @@ const nextConfig: NextConfig = {
         pathname: "/api/og",
         search: "?**",
       },
+      {
+        pathname: "/api/notion-image",
+        search: "?**",
+      },
     ],
   },
 };
