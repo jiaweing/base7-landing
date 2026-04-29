@@ -37,14 +37,10 @@ const nextConfig: NextConfig = {
       },
     ],
     localPatterns: [
-      {
-        pathname: "/api/og",
-        search: "?**",
-      },
-      {
-        pathname: "/api/notion-image",
-        search: "?**",
-      },
+      { pathname: "/api/notion-image" },
+      { pathname: "/api/og" },
+      { pathname: "/images/**" },
+      { pathname: "/logos/**" },
     ],
   },
 };

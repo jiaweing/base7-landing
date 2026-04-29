@@ -65,6 +65,7 @@ export default function ProjectModalClient({
                       fill
                       sizes="64px"
                       src={project.logo}
+                      unoptimized
                     />
                   </div>
                 ) : null}
