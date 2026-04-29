@@ -72,6 +72,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                   src={project.cover}
+                  unoptimized
                 />
               ) : (
                 <GenerativeGradient title={project.title} />
@@ -91,6 +92,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
                       fill
                       sizes="40px"
                       src={project.logo}
+                      unoptimized
                     />
                   </div>
                 ) : project.github ? (
