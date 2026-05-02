@@ -55,7 +55,7 @@ export default function FooterSection() {
             <a
               aria-label="X/Twitter"
               className="flex h-6 w-6 items-center justify-center text-center text-muted-foreground hover:text-primary"
-              href="https://x.com/intent/follow?screen_name=jiaweihq"
+              href="https://amajor.link/jx"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -130,7 +130,7 @@ export default function FooterSection() {
             <a
               aria-label="YouTube"
               className="flex h-6 w-6 items-center justify-center text-center text-muted-foreground hover:text-primary"
-              href="https://www.youtube.com/@jiaweihq?sub_confirmation=1"
+              href="https://amajor.link/jy"
               rel="noopener noreferrer"
               target="_blank"
             >
