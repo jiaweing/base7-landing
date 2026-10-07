@@ -609,7 +609,7 @@ export const getProjects = unstable_cache(
             page.cover?.external?.url ||
             page.cover?.file?.url
           );
-          const hasLogo = !!(page.properties?.Logo?.files?.[0]);
+          const hasLogo = !!page.properties?.Logo?.files?.[0];
           return {
             id: page.id,
             slug: getProperty(page, "Slug", "rich_text") || "",
@@ -678,10 +678,9 @@ export const getProject = unstable_cache(
         page.cover?.external?.url ||
         page.cover?.file?.url
       );
-      const hasLogo = !!(page.properties?.Logo?.files?.[0]);
-      const screenshotCount = (
-        page.properties?.Screenshots?.files || []
-      ).length;
+      const hasLogo = !!page.properties?.Logo?.files?.[0];
+      const screenshotCount = (page.properties?.Screenshots?.files || [])
+        .length;
 
       const project: Project = {
         id: page.id,
@@ -698,8 +697,10 @@ export const getProject = unstable_cache(
         logo: hasLogo
           ? `/api/notion-image?pageId=${page.id}&prop=logo`
           : undefined,
-        screenshots: Array.from({ length: screenshotCount }, (_, i) =>
-          `/api/notion-image?pageId=${page.id}&prop=screenshot&index=${i}`
+        screenshots: Array.from(
+          { length: screenshotCount },
+          (_, i) =>
+            `/api/notion-image?pageId=${page.id}&prop=screenshot&index=${i}`
         ),
       };
 

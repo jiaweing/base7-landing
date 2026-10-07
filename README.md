@@ -14,6 +14,10 @@
 
 ### Local Development
 
+The landing page's "our work" section is temporarily hidden. To restore it,
+uncomment the `ProjectsShowcase` and `getProjects` imports, the projects fetch,
+and the section in `app/(home)/page.tsx`.
+
 1. Clone the repository
 
    ```bash
